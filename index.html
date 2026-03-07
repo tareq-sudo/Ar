@@ -4,134 +4,150 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>أذكار</title>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #1a2235;--bg2: #232e42;--bg3: #2a3650;
-  --gold: #d4a843;--gold2: #e8b94f;--teal: #4ec9b0;
-  --rose: #e07b8a;--blue: #5b9bd5;--green: #6dbf7e;
-  --purple: #a78bfa;--orange: #fb923c;--cyan: #22d3ee;
-  --text: #e8eaf0;--muted: #8a97b0;--dim: #5a6580;
-  --border: rgba(255,255,255,0.07);
+:root{
+  --bg:#1a2235;--bg2:#232e42;--bg3:#2a3650;
+  --gold:#d4a843;--teal:#4ec9b0;--rose:#e07b8a;
+  --blue:#5b9bd5;--green:#6dbf7e;--purple:#a78bfa;
+  --orange:#fb923c;--cyan:#22d3ee;
+  --text:#e8eaf0;--muted:#8a97b0;--dim:#5a6580;
+  --border:rgba(255,255,255,0.07);
 }
-.light {
-  --bg: #f0f4ff;--bg2: #ffffff;--bg3: #e8edf8;
-  --text: #1a2235;--muted: #5a6580;--dim: #8a97b0;
-  --border: rgba(0,0,0,0.08);
-}
+.light{--bg:#f0f4ff;--bg2:#ffffff;--bg3:#e8edf8;--text:#1a2235;--muted:#5a6580;--dim:#8a97b0;--border:rgba(0,0,0,0.08);}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;overflow:hidden;}
-body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;transition:background 0.3s,color 0.3s;}
-.screen{position:fixed;inset:0;display:flex;flex-direction:column;background:var(--bg);transition:transform 0.35s cubic-bezier(.4,0,.2,1),opacity 0.35s;z-index:10;overflow:hidden;}
+body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;transition:background .3s,color .3s;}
+.screen{position:fixed;inset:0;display:flex;flex-direction:column;background:var(--bg);transition:transform .35s cubic-bezier(.4,0,.2,1),opacity .35s;z-index:10;overflow:hidden;}
 .screen.hidden{transform:translateX(100%);opacity:0;pointer-events:none;}
-.screen.slide-left{transform:translateX(-40%);opacity:0;pointer-events:none;}
-.scroll-content{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:80px;}
-.scroll-content::-webkit-scrollbar{display:none;}
-.header{padding:14px 18px 10px;background:var(--bg);z-index:50;flex-shrink:0;}
+.screen.behind{transform:translateX(-40%);opacity:0;pointer-events:none;}
+.scroll{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:20px;}
+.scroll::-webkit-scrollbar{display:none;}
+.header{padding:14px 18px 10px;background:var(--bg);flex-shrink:0;}
 .header-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
 .hbtns{display:flex;gap:10px;}
-.hbtn{width:40px;height:40px;background:var(--bg2);border:1px solid var(--border);border-radius:50%;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:17px;transition:all 0.2s;}
-.hbtn:hover,.hbtn:active{background:var(--bg3);color:var(--text);}
+.hbtn{width:40px;height:40px;background:var(--bg2);border:1px solid var(--border);border-radius:50%;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:17px;transition:all .2s;}
+.hbtn:active{background:var(--bg3);}
 .hbtn.gold{background:var(--gold);color:#1a2235;border-color:transparent;}
 .prayer-bar{background:var(--bg2);border-radius:14px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;border:1px solid var(--border);}
 .pt-side{text-align:center;}
 .pt-name{font-size:11px;color:var(--muted);}
 .pt-val{font-size:15px;font-weight:700;color:var(--text);direction:ltr;}
-.date-pill{background:linear-gradient(135deg,#2d4a6e,#1e3557);border:1px solid rgba(212,168,67,0.4);border-radius:50px;padding:6px 16px;text-align:center;box-shadow:0 0 24px rgba(212,168,67,0.18);}
+.date-pill{background:linear-gradient(135deg,#2d4a6e,#1e3557);border:1px solid rgba(212,168,67,.4);border-radius:50px;padding:6px 16px;text-align:center;}
 .date-num{font-size:22px;font-weight:900;color:var(--gold);line-height:1;}
 .date-lbl{font-size:10px;color:var(--gold);opacity:.8;}
 .countdown{margin:8px 0 0;background:var(--bg2);border-radius:10px;padding:9px 14px;display:flex;justify-content:space-between;align-items:center;border:1px solid var(--border);border-right:3px solid var(--gold);}
 .cd-text{font-size:13px;color:var(--muted);}
 .cd-time{font-size:16px;font-weight:700;color:var(--gold);direction:ltr;}
-.nav-tabs{display:flex;justify-content:space-around;padding:0 6px;border-bottom:1px solid var(--border);background:var(--bg);flex-shrink:0;}
-.ntab{font-size:12px;color:var(--muted);cursor:pointer;padding:10px 6px 8px;border-bottom:2px solid transparent;transition:all 0.2s;font-weight:500;white-space:nowrap;}
+.nav-tabs{display:flex;justify-content:space-around;padding:0 4px;border-bottom:1px solid var(--border);background:var(--bg);flex-shrink:0;}
+.ntab{font-size:12px;color:var(--muted);cursor:pointer;padding:10px 4px 8px;border-bottom:2px solid transparent;transition:all .2s;font-weight:500;white-space:nowrap;}
 .ntab.on{color:var(--gold);border-bottom-color:var(--gold);}
-.card{background:var(--bg2);border-radius:15px;border:1px solid var(--border);padding:14px 16px;margin-bottom:9px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:space-between;}
-.card:active{transform:scale(0.98);}
-.card.hl{background:linear-gradient(135deg,#1e3050,#2a3d60);border-color:rgba(212,168,67,0.25);}
+.pg-header{display:flex;align-items:center;justify-content:space-between;padding:16px 18px 12px;border-bottom:1px solid var(--border);background:var(--bg);flex-shrink:0;}
+.pg-title{font-size:17px;font-weight:700;}
+.back-btn{width:38px;height:38px;background:var(--bg2);border:1px solid var(--border);border-radius:50%;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;}
+.pad{padding:0 14px;}
+.card{background:var(--bg2);border-radius:14px;border:1px solid var(--border);padding:13px 15px;margin-bottom:8px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:space-between;}
+.card:active{transform:scale(.98);}
+.card.hl{background:linear-gradient(135deg,#1e3050,#2a3d60);border-color:rgba(212,168,67,.25);}
 .card-title{font-size:14px;font-weight:600;display:flex;gap:8px;align-items:center;}
 .card-arrow{color:var(--dim);font-size:13px;}
-.quran-card{background:linear-gradient(135deg,#1e3050,#283d5e);border:1px solid rgba(212,168,67,0.3);border-radius:15px;padding:14px 16px;margin-bottom:9px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:all 0.2s;}
-.quran-card:active{transform:scale(0.98);}
+.quran-card{background:linear-gradient(135deg,#1e3050,#283d5e);border:1px solid rgba(212,168,67,.3);border-radius:14px;padding:13px 15px;margin-bottom:8px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:all .2s;}
+.quran-card:active{transform:scale(.98);}
 .q-title{font-size:14px;font-weight:600;color:var(--gold);display:flex;gap:8px;align-items:center;}
-.q-num{background:var(--gold);color:#1a2235;border-radius:8px;padding:2px 9px;font-size:13px;font-weight:700;}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:9px;}
-.gbtn{background:var(--bg2);border:1px solid var(--border);border-radius:13px;padding:14px 10px;text-align:center;cursor:pointer;font-size:13px;font-weight:600;color:var(--text);font-family:'Tajawal',sans-serif;transition:all 0.2s;}
-.gbtn:active{transform:scale(0.97);}
+.q-num{background:var(--gold);color:#1a2235;border-radius:7px;padding:2px 8px;font-size:13px;font-weight:700;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;}
+.gbtn{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:13px 8px;text-align:center;cursor:pointer;font-size:13px;font-weight:600;color:var(--text);font-family:'Tajawal',sans-serif;transition:all .2s;}
+.gbtn:active{transform:scale(.97);}
 .gc{color:var(--gold)!important;}.gteal{color:var(--teal)!important;}.grose{color:var(--rose)!important;}
 .gblue{color:var(--blue)!important;}.ggreen{color:var(--green)!important;}.gpurple{color:var(--purple)!important;}
 .gorange{color:var(--orange)!important;}.gcyan{color:var(--cyan)!important;}
-.hcard{background:var(--bg2);border-radius:13px;padding:13px 15px;margin-bottom:9px;border:1px solid var(--border);border-right:3px solid var(--teal);}
-.hcard-lbl{font-size:11px;color:var(--teal);margin-bottom:5px;}
+.hcard{background:var(--bg2);border-radius:12px;padding:12px 14px;margin-bottom:8px;border:1px solid var(--border);border-right:3px solid var(--teal);}
+.hcard-lbl{font-size:11px;color:var(--teal);margin-bottom:4px;}
 .hcard-txt{font-family:'Amiri',serif;font-size:15px;line-height:1.9;color:var(--text);}
-.verse-card{background:linear-gradient(135deg,#1a3040,#1e2d45);border:1px solid rgba(78,201,176,0.2);border-radius:13px;padding:15px;margin-bottom:9px;cursor:pointer;transition:all 0.2s;}
-.verse-card:active{transform:scale(0.98);}
-.verse-lbl{font-size:11px;color:var(--teal);margin-bottom:5px;}
-.verse-txt{font-family:'Amiri',serif;font-size:16px;line-height:2;color:var(--text);}
-.moon-txt{text-align:center;padding:12px 0 6px;font-family:'Amiri',serif;font-size:18px;color:var(--gold);opacity:.9;}
-.pg-header{display:flex;align-items:center;justify-content:space-between;padding:16px 18px 12px;border-bottom:1px solid var(--border);background:var(--bg);flex-shrink:0;}
-.pg-title{font-size:17px;font-weight:700;color:var(--text);}
-.back-btn{width:38px;height:38px;background:var(--bg2);border:1px solid var(--border);border-radius:50%;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;transition:all 0.2s;}
-.ramadan-box{margin:12px 16px;background:linear-gradient(135deg,#2d1f0e,#3d2a10);border:1px solid rgba(212,168,67,0.4);border-radius:14px;padding:14px;text-align:center;}
-.rb-lbl{font-size:12px;color:var(--muted);margin-bottom:8px;}
+.verse-card{background:linear-gradient(135deg,#1a3040,#1e2d45);border:1px solid rgba(78,201,176,.2);border-radius:12px;padding:14px;margin-bottom:8px;cursor:pointer;}
+.verse-card:active{transform:scale(.98);}
+.verse-lbl{font-size:11px;color:var(--teal);margin-bottom:4px;}
+.verse-txt{font-family:'Amiri',serif;font-size:15px;line-height:2;color:var(--text);}
+.moon-txt{text-align:center;padding:10px 0 6px;font-family:'Amiri',serif;font-size:18px;color:var(--gold);opacity:.9;}
+.dhikr-item{background:var(--bg2);border-radius:13px;padding:15px;margin-bottom:8px;border:1px solid var(--border);}
+.dhikr-txt{font-family:'Amiri',serif;font-size:19px;line-height:2;color:var(--text);margin-bottom:10px;}
+.dhikr-foot{display:flex;justify-content:space-between;align-items:center;}
+.dhikr-cnt{background:rgba(212,168,67,.12);color:var(--gold);border-radius:20px;padding:4px 12px;font-size:12px;font-weight:600;}
+.dhikr-btns{display:flex;gap:8px;}
+.dhikr-go{background:var(--bg3);border:none;border-radius:50%;width:34px;height:34px;color:var(--gold);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;}
+.dhikr-go:active{transform:scale(.9);}
+.ramadan-box{margin:12px 14px;background:linear-gradient(135deg,#2d1f0e,#3d2a10);border:1px solid rgba(212,168,67,.4);border-radius:13px;padding:13px;text-align:center;}
+.rb-lbl{font-size:12px;color:var(--muted);margin-bottom:7px;}
 .rb-row{display:flex;justify-content:space-around;align-items:center;}
 .rb-item{text-align:center;}
 .rb-name{font-size:11px;color:var(--muted);}
-.rb-time{font-size:22px;font-weight:700;color:var(--gold);direction:ltr;}
-.pt-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px;}
-.ptc{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:16px;text-align:center;}
-.ptc.now{background:linear-gradient(135deg,#1e3a5f,#2a4d7a);border-color:rgba(212,168,67,0.4);}
-.ptc-name{font-size:13px;color:var(--muted);margin-bottom:5px;}
-.ptc-time{font-size:24px;font-weight:700;color:var(--text);direction:ltr;}
+.rb-time{font-size:21px;font-weight:700;color:var(--gold);direction:ltr;}
+.pt-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:0 14px;}
+.ptc{background:var(--bg2);border:1px solid var(--border);border-radius:13px;padding:14px;text-align:center;}
+.ptc.now{background:linear-gradient(135deg,#1e3a5f,#2a4d7a);border-color:rgba(212,168,67,.4);}
+.ptc-name{font-size:13px;color:var(--muted);margin-bottom:4px;}
+.ptc-time{font-size:23px;font-weight:700;color:var(--text);direction:ltr;}
 .ptc.now .ptc-time{color:var(--gold);}
 .ptc-iq{font-size:11px;color:var(--dim);margin-top:3px;direction:ltr;}
-.qibla-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 20px;}
-.compass-ring{width:260px;height:260px;border-radius:50%;border:2px solid var(--border);position:relative;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,var(--bg3) 0%,var(--bg2) 100%);box-shadow:0 0 40px rgba(212,168,67,0.1),inset 0 0 30px rgba(0,0,0,0.2);}
-.compass-dir{position:absolute;font-size:11px;color:var(--muted);font-weight:600;}
-.compass-dir.n{top:8px;left:50%;transform:translateX(-50%);}
-.compass-dir.s{bottom:8px;left:50%;transform:translateX(-50%);}
-.compass-dir.e{right:10px;top:50%;transform:translateY(-50%);}
-.compass-dir.w{left:10px;top:50%;transform:translateY(-50%);}
-.compass-center{width:130px;height:130px;border-radius:50%;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;z-index:2;}
-.qibla-arrow{font-size:50px;animation:arrowPulse 2s ease-in-out infinite;filter:drop-shadow(0 0 12px rgba(212,168,67,0.5));}
-@keyframes arrowPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
-.qibla-info{text-align:center;margin-top:30px;}
-.qibla-title{font-size:18px;font-weight:700;color:var(--text);margin-bottom:6px;}
-.qibla-deg{font-size:36px;font-weight:900;color:var(--gold);margin:10px 0;}
+.qibla-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;}
+.compass-outer{width:270px;height:270px;border-radius:50%;border:1.5px solid var(--border);position:relative;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,var(--bg3),var(--bg2));}
+.compass-dir{position:absolute;font-size:12px;color:var(--muted);font-weight:600;}
+.compass-dir.n{top:10px;left:50%;transform:translateX(-50%);color:#e07b8a;}
+.compass-dir.s{bottom:10px;left:50%;transform:translateX(-50%);}
+.compass-dir.e{right:12px;top:50%;transform:translateY(-50%);}
+.compass-dir.w{left:12px;top:50%;transform:translateY(-50%);}
+.compass-inner{width:150px;height:150px;border-radius:50%;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;position:relative;}
+.needle-wrap{width:100%;height:100%;position:absolute;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.needle-n{width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:50px solid var(--rose);margin-bottom:2px;filter:drop-shadow(0 0 5px rgba(224,123,138,.5));}
+.needle-s{width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:50px solid var(--dim);}
+.needle-dot{position:absolute;width:10px;height:10px;border-radius:50%;background:var(--gold);z-index:2;}
+.qibla-arrow-line{position:absolute;width:2px;height:100px;background:linear-gradient(to bottom,var(--gold),rgba(212,168,67,0));top:35px;left:50%;transform:translateX(-50%) rotate(222deg);transform-origin:50% calc(135px - 35px);border-radius:2px;pointer-events:none;}
+.qibla-arrow-tip{position:absolute;top:32px;left:50%;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:16px solid var(--gold);transform:translateX(-50%) rotate(222deg);transform-origin:50% calc(135px - 32px);filter:drop-shadow(0 0 5px rgba(212,168,67,.7));pointer-events:none;}
+.qibla-info{text-align:center;margin-top:22px;}
+.qibla-title{font-size:17px;font-weight:700;margin-bottom:4px;}
+.qibla-deg{font-size:38px;font-weight:900;color:var(--gold);margin:6px 0;}
 .qibla-sub{font-size:13px;color:var(--muted);}
-.counter-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 20px;gap:20px;}
-.counter-dhikr-select{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;}
-.dhikr-chip{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:6px 14px;font-size:12px;cursor:pointer;font-family:'Tajawal',sans-serif;color:var(--muted);transition:all 0.2s;}
-.dhikr-chip.on{background:var(--gold);color:#1a2235;border-color:transparent;font-weight:700;}
-.counter-text{font-family:'Amiri',serif;font-size:22px;text-align:center;line-height:1.8;color:var(--text);max-width:85%;}
-.counter-num{font-size:96px;font-weight:900;color:var(--text);line-height:1;transition:transform 0.08s;}
-.counter-num.bump{transform:scale(1.1);}
-.counter-circle{width:200px;height:200px;border-radius:50%;background:var(--bg2);border:3px solid rgba(212,168,67,0.3);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.12s;box-shadow:0 0 40px rgba(212,168,67,0.1);user-select:none;}
-.counter-circle:active{transform:scale(0.93);background:var(--bg3);box-shadow:0 0 60px rgba(212,168,67,0.3);}
-.counter-goal{display:flex;align-items:center;gap:10px;}
-.goal-bar-wrap{width:180px;height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;}
-.goal-bar{height:100%;background:var(--gold);border-radius:3px;transition:width 0.3s;}
-.goal-txt{font-size:12px;color:var(--muted);}
-.counter-btns{display:flex;gap:12px;}
-.cbtn{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:8px 16px;color:var(--muted);font-size:13px;cursor:pointer;font-family:'Tajawal',sans-serif;transition:all 0.2s;}
+.counter-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;gap:16px;}
+.dhikr-chips{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;}
+.chip{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:7px 14px;font-size:12px;cursor:pointer;font-family:'Tajawal',sans-serif;color:var(--muted);transition:all .2s;}
+.chip.on{background:var(--gold);color:#1a2235;border-color:transparent;font-weight:700;}
+.c-dhikr-txt{font-family:'Amiri',serif;font-size:22px;text-align:center;line-height:1.8;color:var(--text);max-width:85%;}
+.c-num{font-size:96px;font-weight:900;color:var(--text);line-height:1;transition:transform .08s;}
+.c-num.bump{transform:scale(1.1);}
+.c-circle{width:210px;height:210px;border-radius:50%;background:var(--bg2);border:3px solid rgba(212,168,67,.3);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .12s;box-shadow:0 0 40px rgba(212,168,67,.1);user-select:none;}
+.c-circle:active{transform:scale(.93);box-shadow:0 0 60px rgba(212,168,67,.35);}
+.c-goal-row{display:flex;align-items:center;gap:10px;}
+.c-goal-bar-bg{width:170px;height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;}
+.c-goal-bar{height:100%;background:var(--gold);border-radius:3px;transition:width .3s;}
+.c-goal-txt{font-size:12px;color:var(--muted);}
+.c-btns{display:flex;gap:10px;}
+.cbtn{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:8px 18px;color:var(--muted);font-size:13px;cursor:pointer;font-family:'Tajawal',sans-serif;}
 .cbtn:active{background:var(--bg3);}
-.dhikr-item{background:var(--bg2);border-radius:14px;padding:16px;margin-bottom:9px;border:1px solid var(--border);}
-.dhikr-txt{font-family:'Amiri',serif;font-size:20px;line-height:2;color:var(--text);margin-bottom:12px;}
-.dhikr-foot{display:flex;justify-content:space-between;align-items:center;}
-.dhikr-cnt{background:rgba(212,168,67,0.12);color:var(--gold);border-radius:20px;padding:4px 12px;font-size:12px;font-weight:600;}
-.dhikr-go{background:var(--bg3);border:none;border-radius:50%;width:34px;height:34px;color:var(--gold);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all 0.15s;}
-.dhikr-go:active{transform:scale(0.9);}
+.quran-top-btns{display:flex;gap:8px;padding:12px 14px 8px;flex-shrink:0;}
+.qtab{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:8px 0;font-size:13px;font-weight:600;cursor:pointer;font-family:'Tajawal',sans-serif;color:var(--muted);flex:1;text-align:center;}
+.qtab.on{background:var(--gold);color:#1a2235;border-color:transparent;}
+.surah-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:0 14px;}
+.surah-card{background:var(--bg2);border:1px solid var(--border);border-radius:13px;padding:12px 10px 10px;cursor:pointer;transition:all .2s;position:relative;}
+.surah-card:active{transform:scale(.97);}
+.surah-num{position:absolute;top:9px;left:9px;width:24px;height:24px;background:var(--bg3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--muted);}
+.surah-name{font-family:'Amiri',serif;font-size:17px;font-weight:700;text-align:right;color:var(--text);margin-bottom:3px;}
+.surah-meta{font-size:11px;color:var(--muted);text-align:right;}
+.surah-page{font-size:10px;color:var(--dim);text-align:right;}
+.juz-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:13px 15px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
+.juz-num{font-size:24px;font-weight:900;color:var(--gold);}
+.juz-info{text-align:right;}
+.juz-name{font-size:14px;font-weight:600;}
+.juz-page{font-size:11px;color:var(--muted);}
 .fav-empty{text-align:center;padding:60px 30px;color:var(--muted);}
-.fav-empty-icon{font-size:48px;margin-bottom:12px;}
+.fav-empty-icon{font-size:46px;margin-bottom:12px;}
 .fav-empty-txt{font-size:15px;line-height:1.7;}
-.fav-item{background:var(--bg2);border-radius:14px;padding:14px 16px;margin-bottom:9px;border:1px solid var(--border);display:flex;align-items:center;gap:12px;}
+.fav-item{background:var(--bg2);border-radius:13px;padding:13px 15px;margin-bottom:8px;border:1px solid var(--border);display:flex;align-items:center;gap:12px;}
 .fav-name{font-size:14px;font-weight:600;flex:1;}
-.fav-del{background:rgba(224,123,138,0.15);border:none;border-radius:50%;width:30px;height:30px;color:var(--rose);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
-.fu{animation:fadeUp 0.35s ease both;}
-body::after{content:'';position:fixed;inset:0;background-image:radial-gradient(1px 1px at 8% 12%,rgba(255,255,255,.35) 0%,transparent 100%),radial-gradient(1px 1px at 22% 38%,rgba(255,255,255,.25) 0%,transparent 100%),radial-gradient(1.5px 1.5px at 58% 8%,rgba(255,255,255,.4) 0%,transparent 100%),radial-gradient(1px 1px at 78% 28%,rgba(255,255,255,.3) 0%,transparent 100%),radial-gradient(1px 1px at 88% 62%,rgba(255,255,255,.35) 0%,transparent 100%),radial-gradient(1.5px 1.5px at 68% 82%,rgba(255,255,255,.35) 0%,transparent 100%);pointer-events:none;z-index:0;transition:opacity 0.3s;}
+.fav-del{background:rgba(224,123,138,.15);border:none;border-radius:50%;width:30px;height:30px;color:var(--rose);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+.fu{animation:fadeUp .3s ease both;}
+body::after{content:'';position:fixed;inset:0;background-image:radial-gradient(1px 1px at 8% 12%,rgba(255,255,255,.3) 0%,transparent 100%),radial-gradient(1px 1px at 22% 38%,rgba(255,255,255,.2) 0%,transparent 100%),radial-gradient(1.5px 1.5px at 58% 8%,rgba(255,255,255,.35) 0%,transparent 100%),radial-gradient(1px 1px at 78% 28%,rgba(255,255,255,.25) 0%,transparent 100%),radial-gradient(1px 1px at 88% 62%,rgba(255,255,255,.3) 0%,transparent 100%),radial-gradient(1.5px 1.5px at 68% 82%,rgba(255,255,255,.3) 0%,transparent 100%);pointer-events:none;z-index:0;transition:opacity .3s;}
 .light body::after{opacity:0;}
-.pad{padding:0 16px;}
 </style>
 </head>
 <body>
@@ -145,7 +161,7 @@ body::after{content:'';position:fixed;inset:0;background-image:radial-gradient(1
         <button class="hbtn">🔍</button>
         <button class="hbtn">🔖</button>
       </div>
-      <button class="hbtn gold" onclick="showScreen('sCounter')">▶</button>
+      <button class="hbtn gold" onclick="goTo('sCounter')">▶</button>
     </div>
     <div class="prayer-bar">
       <div class="pt-side"><div class="pt-name">العشاء</div><div class="pt-val">07:23</div></div>
@@ -159,42 +175,36 @@ body::after{content:'';position:fixed;inset:0;background-image:radial-gradient(1
   </div>
   <div class="nav-tabs">
     <div class="ntab on">المنوعة</div>
-    <div class="ntab" onclick="showScreen('sSalah')">الصلاة</div>
-    <div class="ntab" onclick="showScreen('sQibla')">القبلة</div>
-    <div class="ntab" onclick="showScreen('sFavorites')">المفضلة</div>
-    <div class="ntab" onclick="showScreen('sCounter')">العداد</div>
+    <div class="ntab" onclick="goTo('sSalah')">الصلاة</div>
+    <div class="ntab" onclick="goTo('sQibla')">القبلة</div>
+    <div class="ntab" onclick="goTo('sFavs')">المفضلة</div>
+    <div class="ntab" onclick="goTo('sCounter')">العداد</div>
   </div>
-  <div class="scroll-content">
+  <div class="scroll">
     <div class="pad">
       <div class="moon-txt fu">إِنَّ الْمُتَّقِينَ فِي جَنَّاتٍ وَعُيُونٍ</div>
-      <div class="card hl fu" onclick="openAdhkar('رمضان','ramadan')">
-        <div class="card-title">🌙 رمضان</div><span class="card-arrow">‹</span>
-      </div>
-      <div class="card fu" onclick="openAdhkar('دعاء من تَهاجَّ من الليل','night')">
-        <div class="card-title">دعاء (من تَهاجَّ من الليل)</div><span class="card-arrow">‹</span>
-      </div>
-      <div class="quran-card fu" onclick="openAdhkar('المصحف','quran')">
-        <div class="q-title">📖 المصحف</div><span class="q-num">1</span>
-      </div>
+      <div class="card hl fu" onclick="openDhikr('رمضان','ramadan')"><div class="card-title">🌙 رمضان</div><span class="card-arrow">‹</span></div>
+      <div class="card fu" onclick="openDhikr('دعاء من تَهاجَّ من الليل','night')"><div class="card-title">دعاء (من تَهاجَّ من الليل)</div><span class="card-arrow">‹</span></div>
+      <div class="quran-card fu" onclick="goTo('sQuran')"><div class="q-title">📖 المصحف</div><span class="q-num">114 سورة</span></div>
       <div class="g2">
-        <div class="gbtn gteal" onclick="openAdhkar('أذكاري','morning')">أذكاري</div>
-        <div class="gbtn grose" onclick="openAdhkar('أسماء الله الحسنى','asma')">أسماء الله الحسنى</div>
-        <div class="gbtn" onclick="openAdhkar('أذكار الصباح','morning')">أذكار الصباح</div>
-        <div class="gbtn gc" onclick="openAdhkar('أذكار المساء','evening')">أذكار المساء</div>
-        <div class="gbtn gc" onclick="openAdhkar('أذكار الصلاة','prayer')">أذكار الصلاة</div>
-        <div class="gbtn grose" onclick="openAdhkar('أذكار بعد الصلاة','afterprayer')">أذكار بعد الصلاة</div>
-        <div class="gbtn ggreen" onclick="openAdhkar('أذكار النوم','sleep')">أذكار النوم</div>
-        <div class="gbtn" onclick="openAdhkar('أذكار الاستيقاظ','wake')">أذكار الاستيقاظ</div>
-        <div class="gbtn gblue" onclick="openAdhkar('أدعية من القرآن','quran_dua')">أدعية من القرآن</div>
-        <div class="gbtn gc" onclick="openAdhkar('من دعاء الرسول ﷺ','prophet')">من دعاء الرسول ﷺ</div>
-        <div class="gbtn gorange" onclick="openAdhkar('الرقية بالسنة','ruqya')">الرقية بالسنة</div>
-        <div class="gbtn grose" onclick="openAdhkar('الرقية بالقرآن','ruqya')">الرقية بالقرآن</div>
-        <div class="gbtn gcyan" onclick="openAdhkar('تسابيح','tasbih')">تسابيح</div>
-        <div class="gbtn" onclick="openAdhkar('الحمد والثناء','hamd')">الحمد والثناء</div>
-        <div class="gbtn ggreen" onclick="openAdhkar('الإستغفار','istighfar')">الإستغفار</div>
-        <div class="gbtn gpurple" onclick="openAdhkar('المزيد','more')">المزيد</div>
+        <div class="gbtn gteal" onclick="openDhikr('أذكاري','morning')">أذكاري</div>
+        <div class="gbtn grose" onclick="openDhikr('أسماء الله الحسنى','asma')">أسماء الله الحسنى</div>
+        <div class="gbtn" onclick="openDhikr('أذكار الصباح','morning')">أذكار الصباح</div>
+        <div class="gbtn gc" onclick="openDhikr('أذكار المساء','evening')">أذكار المساء</div>
+        <div class="gbtn gc" onclick="openDhikr('أذكار الصلاة','prayer')">أذكار الصلاة</div>
+        <div class="gbtn grose" onclick="openDhikr('أذكار بعد الصلاة','afterprayer')">أذكار بعد الصلاة</div>
+        <div class="gbtn ggreen" onclick="openDhikr('أذكار النوم','sleep')">أذكار النوم</div>
+        <div class="gbtn" onclick="openDhikr('أذكار الاستيقاظ','wake')">أذكار الاستيقاظ</div>
+        <div class="gbtn gblue" onclick="openDhikr('أدعية من القرآن','quran_dua')">أدعية من القرآن</div>
+        <div class="gbtn gc" onclick="openDhikr('من دعاء الرسول ﷺ','prophet')">من دعاء الرسول ﷺ</div>
+        <div class="gbtn gorange" onclick="openDhikr('الرقية بالسنة','ruqya')">الرقية بالسنة</div>
+        <div class="gbtn grose" onclick="openDhikr('الرقية بالقرآن','ruqya')">الرقية بالقرآن</div>
+        <div class="gbtn gcyan" onclick="openDhikr('تسابيح','tasbih')">تسابيح</div>
+        <div class="gbtn" onclick="openDhikr('الحمد والثناء','hamd')">الحمد والثناء</div>
+        <div class="gbtn ggreen" onclick="openDhikr('الإستغفار','istighfar')">الإستغفار</div>
+        <div class="gbtn gpurple" onclick="openDhikr('المزيد','more')">المزيد</div>
       </div>
-      <div class="verse-card" onclick="openAdhkar('آخر سورة البقرة','baqara')">
+      <div class="verse-card" onclick="openDhikr('آخر سورة البقرة','baqara')">
         <div class="verse-lbl">💡 هل تعلم</div>
         <div class="verse-txt">من قرأ الآيتين من آخر سورة البقرة في ليلة كفتاه.</div>
       </div>
@@ -212,17 +222,14 @@ body::after{content:'';position:fixed;inset:0;background-image:radial-gradient(1
 
 <!-- SALAH -->
 <div class="screen hidden" id="sSalah">
-  <div class="pg-header">
-    <span class="pg-title">مواقيت الصلاة</span>
-    <button class="back-btn" onclick="goBack()">✕</button>
-  </div>
-  <div class="scroll-content">
-    <div style="padding:10px 16px 4px;text-align:center;font-size:12px;color:var(--muted)">محافظة صلاح الدين · السبت 7 آذار 2026</div>
+  <div class="pg-header"><span class="pg-title">مواقيت الصلاة</span><button class="back-btn" onclick="goBack()">✕</button></div>
+  <div class="scroll">
+    <div style="padding:10px 14px 4px;text-align:center;font-size:12px;color:var(--muted)">محافظة صلاح الدين · السبت 7 آذار 2026</div>
     <div class="ramadan-box">
       <div class="rb-lbl">🌙 رمضان المبارك</div>
       <div class="rb-row">
         <div class="rb-item"><div class="rb-name">الإمساك</div><div class="rb-time">5:04</div></div>
-        <div style="font-size:26px">🌙</div>
+        <div style="font-size:24px">🌙</div>
         <div class="rb-item"><div class="rb-name">الإفطار</div><div class="rb-time">6:08</div></div>
       </div>
     </div>
@@ -236,103 +243,201 @@ body::after{content:'';position:fixed;inset:0;background-image:radial-gradient(1
       <div class="ptc"><div class="ptc-name">منتصف الليل</div><div class="ptc-time">11:36</div></div>
       <div class="ptc"><div class="ptc-name">الثلث الأخير</div><div class="ptc-time">1:25</div></div>
     </div>
-    <div style="height:20px"></div>
+    <div style="height:16px"></div>
   </div>
 </div>
 
 <!-- QIBLA -->
 <div class="screen hidden" id="sQibla">
-  <div class="pg-header">
-    <span class="pg-title">اتجاه القبلة</span>
-    <button class="back-btn" onclick="goBack()">✕</button>
-  </div>
+  <div class="pg-header"><span class="pg-title">اتجاه القبلة</span><button class="back-btn" onclick="goBack()">✕</button></div>
   <div class="qibla-wrap">
-    <div class="compass-ring">
+    <div class="compass-outer">
       <div class="compass-dir n">شمال</div>
       <div class="compass-dir s">جنوب</div>
       <div class="compass-dir e">شرق</div>
       <div class="compass-dir w">غرب</div>
-      <div class="compass-center"><div class="qibla-arrow">🕋</div></div>
+      <div class="qibla-arrow-line"></div>
+      <div class="qibla-arrow-tip"></div>
+      <div class="compass-inner">
+        <div class="needle-wrap">
+          <div class="needle-n"></div>
+          <div class="needle-dot"></div>
+          <div class="needle-s"></div>
+        </div>
+      </div>
     </div>
     <div class="qibla-info">
-      <div class="qibla-title">اتجاه القبلة في صلاح الدين</div>
+      <div class="qibla-title">اتجاه القبلة — صلاح الدين</div>
       <div class="qibla-deg">222°</div>
       <div class="qibla-sub">جنوب غرب ← اتجه نحو مكة المكرمة</div>
-      <div style="font-size:12px;color:var(--dim);margin-top:16px">📍 المسافة إلى الكعبة: ~2,100 كم</div>
+      <div style="font-size:12px;color:var(--dim);margin-top:10px">📍 المسافة إلى الكعبة: ~2,100 كم</div>
+      <div style="font-size:11px;color:var(--dim);margin-top:5px">🔴 الإبرة الحمراء للشمال · 🟡 السهم الذهبي للقبلة</div>
     </div>
   </div>
 </div>
 
+<!-- QURAN -->
+<div class="screen hidden" id="sQuran">
+  <div class="pg-header"><span class="pg-title">المصحف الكريم</span><button class="back-btn" onclick="goBack()">✕</button></div>
+  <div class="quran-top-btns">
+    <div class="qtab on" onclick="switchQTab(this,'qSuwar')">السور</div>
+    <div class="qtab" onclick="switchQTab(this,'qAjza')">الأجزاء</div>
+    <div class="qtab" onclick="switchQTab(this,'qSafhat')">الصفحات</div>
+  </div>
+  <div class="scroll" id="qSuwar"><div style="height:8px"></div><div class="surah-grid" id="surahGrid"></div><div style="height:16px"></div></div>
+  <div class="scroll hidden" id="qAjza"><div class="pad" style="padding-top:12px" id="ajzaList"></div></div>
+  <div class="scroll hidden" id="qSafhat"><div class="pad" style="padding-top:12px" id="safhatGrid"></div></div>
+</div>
+
 <!-- FAVORITES -->
-<div class="screen hidden" id="sFavorites">
-  <div class="pg-header">
-    <span class="pg-title">المفضلة</span>
-    <button class="back-btn" onclick="goBack()">✕</button>
-  </div>
-  <div class="scroll-content">
-    <div class="pad" id="favList" style="padding-top:12px"></div>
-  </div>
+<div class="screen hidden" id="sFavs">
+  <div class="pg-header"><span class="pg-title">المفضلة ⭐</span><button class="back-btn" onclick="goBack()">✕</button></div>
+  <div class="scroll"><div class="pad" id="favList" style="padding-top:12px"></div></div>
 </div>
 
 <!-- COUNTER -->
 <div class="screen hidden" id="sCounter">
-  <div class="pg-header">
-    <span class="pg-title">العداد</span>
-    <button class="back-btn" onclick="goBack()">✕</button>
-  </div>
+  <div class="pg-header"><span class="pg-title">العداد</span><button class="back-btn" onclick="goBack()">✕</button></div>
   <div class="counter-wrap">
-    <div class="counter-dhikr-select">
-      <div class="dhikr-chip on" onclick="selectDhikr(this,'سُبْحَانَ اللهِ',33)">سبحان الله</div>
-      <div class="dhikr-chip" onclick="selectDhikr(this,'الْحَمْدُ لِلَّهِ',33)">الحمد لله</div>
-      <div class="dhikr-chip" onclick="selectDhikr(this,'اللهُ أَكْبَرُ',34)">الله أكبر</div>
-      <div class="dhikr-chip" onclick="selectDhikr(this,'لَا إِلَهَ إِلَّا اللهُ',100)">لا إله إلا الله</div>
-      <div class="dhikr-chip" onclick="selectDhikr(this,'اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ',100)">الصلاة على النبي</div>
+    <div class="dhikr-chips">
+      <div class="chip on" onclick="pickChip(this,'سُبْحَانَ اللهِ',33)">سبحان الله</div>
+      <div class="chip" onclick="pickChip(this,'الْحَمْدُ لِلَّهِ',33)">الحمد لله</div>
+      <div class="chip" onclick="pickChip(this,'اللهُ أَكْبَرُ',34)">الله أكبر</div>
+      <div class="chip" onclick="pickChip(this,'لَا إِلَهَ إِلَّا اللهُ',100)">لا إله إلا الله</div>
+      <div class="chip" onclick="pickChip(this,'اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ',100)">الصلاة على النبي</div>
     </div>
-    <div class="counter-text" id="cText">سُبْحَانَ اللهِ</div>
-    <div class="counter-num" id="cNum">0</div>
-    <div class="counter-circle" onclick="tapCount()" id="cCircle">
-      <span style="font-size:40px">🤲</span>
+    <div class="c-dhikr-txt" id="cTxt">سُبْحَانَ اللهِ</div>
+    <div class="c-num" id="cNum">0</div>
+    <div class="c-circle" id="cCircle" onclick="tap()"><span style="font-size:42px">🤲</span></div>
+    <div class="c-goal-row">
+      <span class="c-goal-txt" id="cGoalTxt">0 / 33</span>
+      <div class="c-goal-bar-bg"><div class="c-goal-bar" id="cGoalBar" style="width:0%"></div></div>
     </div>
-    <div class="counter-goal">
-      <span class="goal-txt" id="goalTxt">0 / 33</span>
-      <div class="goal-bar-wrap"><div class="goal-bar" id="goalBar" style="width:0%"></div></div>
-    </div>
-    <div class="counter-btns">
-      <button class="cbtn" onclick="resetCount()">↺ إعادة</button>
-      <button class="cbtn" onclick="undoCount()">↩ تراجع</button>
+    <div class="c-btns">
+      <button class="cbtn" onclick="resetC()">↺ إعادة</button>
+      <button class="cbtn" onclick="undoC()">↩ تراجع</button>
     </div>
   </div>
 </div>
 
-<!-- DETAIL -->
+<!-- DHIKR DETAIL -->
 <div class="screen hidden" id="sDetail">
-  <div class="pg-header">
-    <span class="pg-title" id="detailTitle">أذكار</span>
-    <button class="back-btn" onclick="goBack()">✕</button>
-  </div>
-  <div class="scroll-content">
-    <div class="pad" id="detailBody" style="padding-top:12px"></div>
-  </div>
+  <div class="pg-header"><span class="pg-title" id="dTitle">أذكار</span><button class="back-btn" onclick="goBack()">✕</button></div>
+  <div class="scroll"><div class="pad" id="dBody" style="padding-top:12px"></div></div>
 </div>
 
 <script>
-const DB = {
+const SURAHS=[
+  {n:'الفاتحة',v:7,t:'مكية',p:1},{n:'البقرة',v:286,t:'مدنية',p:2},
+  {n:'آل عمران',v:200,t:'مدنية',p:50},{n:'النساء',v:176,t:'مدنية',p:77},
+  {n:'المائدة',v:120,t:'مدنية',p:106},{n:'الأنعام',v:165,t:'مكية',p:128},
+  {n:'الأعراف',v:206,t:'مكية',p:151},{n:'الأنفال',v:75,t:'مدنية',p:177},
+  {n:'التوبة',v:129,t:'مدنية',p:187},{n:'يونس',v:109,t:'مكية',p:208},
+  {n:'هود',v:123,t:'مكية',p:221},{n:'يوسف',v:111,t:'مكية',p:235},
+  {n:'الرعد',v:43,t:'مدنية',p:249},{n:'إبراهيم',v:52,t:'مكية',p:255},
+  {n:'الحجر',v:99,t:'مكية',p:262},{n:'النحل',v:128,t:'مكية',p:267},
+  {n:'الإسراء',v:111,t:'مكية',p:282},{n:'الكهف',v:110,t:'مكية',p:293},
+  {n:'مريم',v:98,t:'مكية',p:305},{n:'طه',v:135,t:'مكية',p:312},
+  {n:'الأنبياء',v:112,t:'مكية',p:322},{n:'الحج',v:78,t:'مدنية',p:332},
+  {n:'المؤمنون',v:118,t:'مكية',p:342},{n:'النور',v:64,t:'مدنية',p:350},
+  {n:'الفرقان',v:77,t:'مكية',p:359},{n:'الشعراء',v:227,t:'مكية',p:367},
+  {n:'النمل',v:93,t:'مكية',p:377},{n:'القصص',v:88,t:'مكية',p:385},
+  {n:'العنكبوت',v:69,t:'مكية',p:396},{n:'الروم',v:60,t:'مكية',p:404},
+  {n:'لقمان',v:34,t:'مكية',p:411},{n:'السجدة',v:30,t:'مكية',p:415},
+  {n:'الأحزاب',v:73,t:'مدنية',p:418},{n:'سبأ',v:54,t:'مكية',p:428},
+  {n:'فاطر',v:45,t:'مكية',p:434},{n:'يس',v:83,t:'مكية',p:440},
+  {n:'الصافات',v:182,t:'مكية',p:446},{n:'ص',v:88,t:'مكية',p:453},
+  {n:'الزمر',v:75,t:'مكية',p:458},{n:'غافر',v:85,t:'مكية',p:467},
+  {n:'فصلت',v:54,t:'مكية',p:477},{n:'الشورى',v:53,t:'مكية',p:483},
+  {n:'الزخرف',v:89,t:'مكية',p:489},{n:'الدخان',v:59,t:'مكية',p:496},
+  {n:'الجاثية',v:37,t:'مكية',p:499},{n:'الأحقاف',v:35,t:'مكية',p:502},
+  {n:'محمد',v:38,t:'مدنية',p:507},{n:'الفتح',v:29,t:'مدنية',p:511},
+  {n:'الحجرات',v:18,t:'مدنية',p:515},{n:'ق',v:45,t:'مكية',p:518},
+  {n:'الذاريات',v:60,t:'مكية',p:520},{n:'الطور',v:49,t:'مكية',p:523},
+  {n:'النجم',v:62,t:'مكية',p:526},{n:'القمر',v:55,t:'مكية',p:528},
+  {n:'الرحمن',v:78,t:'مدنية',p:531},{n:'الواقعة',v:96,t:'مكية',p:534},
+  {n:'الحديد',v:29,t:'مدنية',p:537},{n:'المجادلة',v:22,t:'مدنية',p:542},
+  {n:'الحشر',v:24,t:'مدنية',p:545},{n:'الممتحنة',v:13,t:'مدنية',p:549},
+  {n:'الصف',v:14,t:'مدنية',p:551},{n:'الجمعة',v:11,t:'مدنية',p:553},
+  {n:'المنافقون',v:11,t:'مدنية',p:554},{n:'التغابن',v:18,t:'مدنية',p:556},
+  {n:'الطلاق',v:12,t:'مدنية',p:558},{n:'التحريم',v:12,t:'مدنية',p:560},
+  {n:'الملك',v:30,t:'مكية',p:562},{n:'القلم',v:52,t:'مكية',p:564},
+  {n:'الحاقة',v:52,t:'مكية',p:566},{n:'المعارج',v:44,t:'مكية',p:568},
+  {n:'نوح',v:28,t:'مكية',p:570},{n:'الجن',v:28,t:'مكية',p:572},
+  {n:'المزمل',v:20,t:'مكية',p:574},{n:'المدثر',v:56,t:'مكية',p:575},
+  {n:'القيامة',v:40,t:'مكية',p:577},{n:'الإنسان',v:31,t:'مدنية',p:578},
+  {n:'المرسلات',v:50,t:'مكية',p:580},{n:'النبأ',v:40,t:'مكية',p:582},
+  {n:'النازعات',v:46,t:'مكية',p:583},{n:'عبس',v:42,t:'مكية',p:585},
+  {n:'التكوير',v:29,t:'مكية',p:586},{n:'الانفطار',v:19,t:'مكية',p:587},
+  {n:'المطففين',v:36,t:'مكية',p:587},{n:'الانشقاق',v:25,t:'مكية',p:589},
+  {n:'البروج',v:22,t:'مكية',p:590},{n:'الطارق',v:17,t:'مكية',p:591},
+  {n:'الأعلى',v:19,t:'مكية',p:591},{n:'الغاشية',v:26,t:'مكية',p:592},
+  {n:'الفجر',v:30,t:'مكية',p:593},{n:'البلد',v:20,t:'مكية',p:594},
+  {n:'الشمس',v:15,t:'مكية',p:595},{n:'الليل',v:21,t:'مكية',p:595},
+  {n:'الضحى',v:11,t:'مكية',p:596},{n:'الشرح',v:8,t:'مكية',p:596},
+  {n:'التين',v:8,t:'مكية',p:597},{n:'العلق',v:19,t:'مكية',p:597},
+  {n:'القدر',v:5,t:'مكية',p:598},{n:'البينة',v:8,t:'مدنية',p:598},
+  {n:'الزلزلة',v:8,t:'مدنية',p:599},{n:'العاديات',v:11,t:'مكية',p:599},
+  {n:'القارعة',v:11,t:'مكية',p:600},{n:'التكاثر',v:8,t:'مكية',p:600},
+  {n:'العصر',v:3,t:'مكية',p:601},{n:'الهمزة',v:9,t:'مكية',p:601},
+  {n:'الفيل',v:5,t:'مكية',p:601},{n:'قريش',v:4,t:'مكية',p:602},
+  {n:'الماعون',v:7,t:'مكية',p:602},{n:'الكوثر',v:3,t:'مكية',p:602},
+  {n:'الكافرون',v:6,t:'مكية',p:603},{n:'النصر',v:3,t:'مدنية',p:603},
+  {n:'المسد',v:5,t:'مكية',p:603},{n:'الإخلاص',v:4,t:'مكية',p:604},
+  {n:'الفلق',v:5,t:'مكية',p:604},{n:'الناس',v:6,t:'مكية',p:604}
+];
+const AJZA=[
+  {num:1,name:'الجزء الأول',start:'الفاتحة 1',page:1},
+  {num:2,name:'الجزء الثاني',start:'البقرة 142',page:22},
+  {num:3,name:'الجزء الثالث',start:'البقرة 253',page:42},
+  {num:4,name:'الجزء الرابع',start:'آل عمران 92',page:62},
+  {num:5,name:'الجزء الخامس',start:'النساء 24',page:82},
+  {num:6,name:'الجزء السادس',start:'النساء 148',page:102},
+  {num:7,name:'الجزء السابع',start:'المائدة 82',page:121},
+  {num:8,name:'الجزء الثامن',start:'الأنعام 111',page:141},
+  {num:9,name:'الجزء التاسع',start:'الأعراف 88',page:162},
+  {num:10,name:'الجزء العاشر',start:'الأنفال 41',page:182},
+  {num:11,name:'الجزء الحادي عشر',start:'التوبة 93',page:201},
+  {num:12,name:'الجزء الثاني عشر',start:'هود 6',page:221},
+  {num:13,name:'الجزء الثالث عشر',start:'يوسف 53',page:241},
+  {num:14,name:'الجزء الرابع عشر',start:'الحجر 1',page:261},
+  {num:15,name:'الجزء الخامس عشر',start:'الإسراء 1',page:282},
+  {num:16,name:'الجزء السادس عشر',start:'الكهف 75',page:302},
+  {num:17,name:'الجزء السابع عشر',start:'الأنبياء 1',page:322},
+  {num:18,name:'الجزء الثامن عشر',start:'المؤمنون 1',page:342},
+  {num:19,name:'الجزء التاسع عشر',start:'الفرقان 21',page:362},
+  {num:20,name:'الجزء العشرون',start:'النمل 56',page:381},
+  {num:21,name:'الجزء الحادي والعشرون',start:'العنكبوت 46',page:401},
+  {num:22,name:'الجزء الثاني والعشرون',start:'الأحزاب 31',page:421},
+  {num:23,name:'الجزء الثالث والعشرون',start:'يس 28',page:442},
+  {num:24,name:'الجزء الرابع والعشرون',start:'الزمر 32',page:462},
+  {num:25,name:'الجزء الخامس والعشرون',start:'فصلت 47',page:482},
+  {num:26,name:'الجزء السادس والعشرون',start:'الأحقاف 1',page:502},
+  {num:27,name:'الجزء السابع والعشرون',start:'الذاريات 31',page:522},
+  {num:28,name:'الجزء الثامن والعشرون',start:'المجادلة 1',page:542},
+  {num:29,name:'الجزء التاسع والعشرون',start:'الملك 1',page:562},
+  {num:30,name:'الجزء الثلاثون',start:'النبأ 1',page:582}
+];
+const DB={
   morning:[
     {t:'أذكار الصباح',txt:'اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ.',c:'١ مرة'},
     {t:'التسبيح',txt:'سُبْحَانَ اللهِ وَبِحَمْدِهِ.',c:'١٠٠ مرة'},
     {t:'الاستغفار',txt:'أَسْتَغْفِرُ اللهَ وَأَتُوبُ إِلَيْهِ.',c:'١٠٠ مرة'},
     {t:'آية الكرسي',txt:'اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ.',c:'١ مرة'},
     {t:'رضيت بالله',txt:'رَضِيتُ بِاللَّهِ رَبَّاً، وَبِالْإِسْلَامِ دِيناً، وَبِمُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ نَبِيَّاً.',c:'٣ مرات'},
+    {t:'الهيللة',txt:'لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.',c:'١٠ مرات'},
   ],
   evening:[
     {t:'أذكار المساء',txt:'اللَّهُمَّ بِكَ أَمْسَيْنَا، وَبِكَ أَصْبَحْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ الْمَصِيرُ.',c:'١ مرة'},
     {t:'الصلاة على النبي',txt:'اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ.',c:'١٠ مرات'},
     {t:'حسبي الله',txt:'حَسْبِيَ اللَّهُ لَا إِلَهَ إِلَّا هُوَ، عَلَيْهِ تَوَكَّلْتُ، وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ.',c:'٧ مرات'},
+    {t:'يا حي يا قيوم',txt:'يَا حَيُّ يَا قَيُّومُ، بِرَحْمَتِكَ أَسْتَغِيثُ، أَصْلِحْ لِي شَأْنِي كُلَّهُ.',c:'١ مرة'},
   ],
   sleep:[
     {t:'قبل النوم',txt:'بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا.',c:'١ مرة'},
     {t:'التسبيح',txt:'سُبْحَانَ اللَّهِ (٣٣) · الْحَمْدُ لِلَّهِ (٣٣) · اللَّهُ أَكْبَرُ (٣٤)',c:''},
-    {t:'دعاء النوم',txt:'اللَّهُمَّ قِنِي عَذَابَكَ يَوْمَ تَبْعَثُ عِبَادَكَ.',c:'٣ مرات'},
+    {t:'الإخلاص والمعوذتان',txt:'قُلْ هُوَ اللَّهُ أَحَدٌ، ثم المعوذتان.',c:'٣ مرات'},
+    {t:'آية الكرسي',txt:'اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ...',c:'١ مرة'},
   ],
   wake:[
     {t:'عند الاستيقاظ',txt:'الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا، وَإِلَيْهِ النُّشُورُ.',c:'١ مرة'},
@@ -353,7 +458,8 @@ const DB = {
   afterprayer:[
     {t:'بعد الصلاة',txt:'أَسْتَغْفِرُ اللهَ، أَسْتَغْفِرُ اللهَ، أَسْتَغْفِرُ اللهَ.',c:'٣ مرات'},
     {t:'التسبيح',txt:'سُبْحَانَ اللهِ (٣٣) · الْحَمْدُ لِلَّهِ (٣٣) · اللَّهُ أَكْبَرُ (٣٣)',c:''},
-    {t:'ختام',txt:'لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.',c:'١ مرة'},
+    {t:'ختام التسبيح',txt:'لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ.',c:'١ مرة'},
+    {t:'آية الكرسي',txt:'اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ...',c:'١ مرة'},
   ],
   istighfar:[
     {t:'سيد الاستغفار',txt:'اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ لَكَ بِذَنْبِي، فَاغْفِرْ لِي.',c:'١ مرة'},
@@ -371,123 +477,132 @@ const DB = {
   ],
   quran_dua:[
     {t:'دعاء الكرب',txt:'لَّا إِلَٰهَ إِلَّا أَنتَ سُبْحَانَكَ إِنِّي كُنتُ مِنَ الظَّالِمِينَ.',c:'٣ مرات'},
+    {t:'ربنا لا تزغ',txt:'رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا وَهَبْ لَنَا مِن لَّدُنكَ رَحْمَةً.',c:'١ مرة'},
     {t:'ربنا آتنا',txt:'رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ.',c:'كثيراً'},
   ],
   prophet:[
     {t:'دعاء الكرب',txt:'لَا إِلَهَ إِلَّا اللَّهُ الْعَظِيمُ الْحَلِيمُ، لَا إِلَهَ إِلَّا اللَّهُ رَبُّ الْعَرْشِ الْعَظِيمِ.',c:'١ مرة'},
     {t:'اللهم أصلح',txt:'اللَّهُمَّ أَصْلِحْ لِي دِينِيَ الَّذِي هُوَ عِصْمَةُ أَمْرِي، وَأَصْلِحْ لِي دُنْيَايَ الَّتِي فِيهَا مَعَاشِي.',c:'١ مرة'},
+    {t:'اللهم عافني',txt:'اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي الدُّنْيَا وَالْآخِرَةِ.',c:'١ مرة'},
   ],
   asma:[
-    {t:'من أسمائه الحسنى',txt:'الرَّحْمَنُ · الرَّحِيمُ · الْمَلِكُ · الْقُدُّوسُ · السَّلَامُ · الْمُؤْمِنُ · الْمُهَيْمِنُ · الْعَزِيزُ · الْجَبَّارُ · الْمُتَكَبِّرُ',c:'تأمل وذكر'},
+    {t:'من أسمائه الحسنى',txt:'الرَّحْمَنُ · الرَّحِيمُ · الْمَلِكُ · الْقُدُّوسُ · السَّلَامُ · الْمُؤْمِنُ · الْمُهَيْمِنُ · الْعَزِيزُ · الْجَبَّارُ · الْمُتَكَبِّرُ · الْخَالِقُ · الْبَارِئُ · الْمُصَوِّرُ',c:'تأمل وذكر'},
   ],
   ruqya:[
     {t:'الفاتحة',txt:'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ﴿١﴾ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ﴿٢﴾ الرَّحْمَٰنِ الرَّحِيمِ ﴿٣﴾ مَالِكِ يَوْمِ الدِّينِ ﴿٤﴾',c:'٧ مرات'},
-    {t:'المعوذتان',txt:'أَعُوذُ بِرَبِّ الْفَلَقِ مِن شَرِّ مَا خَلَقَ...',c:'٣ مرات'},
+    {t:'آية الكرسي',txt:'اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ...',c:'١ مرة'},
+    {t:'المعوذتان',txt:'قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ... · قُلْ أَعُوذُ بِرَبِّ النَّاسِ...',c:'٣ مرات'},
   ],
   hamd:[
     {t:'الحمد',txt:'الْحَمْدُ لِلَّهِ حَمْدَاً كَثِيرَاً طَيِّبَاً مُبَارَكَاً فِيهِ.',c:'كثيراً'},
+    {t:'الشكر',txt:'الْحَمْدُ لِلَّهِ الَّذِي بِنِعْمَتِهِ تَتِمُّ الصَّالِحَاتُ.',c:'كثيراً'},
   ],
   more:[
     {t:'الحوقلة',txt:'لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ.',c:'كثيراً'},
     {t:'البسملة',txt:'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ.',c:'عند كل عمل'},
+    {t:'الصلاة على النبي',txt:'اللَّهُمَّ صَلِّ وَسَلِّمْ وَبَارِكْ عَلَى نَبِيِّنَا مُحَمَّدٍ.',c:'كثيراً'},
   ],
   baqara:[
     {t:'آخر البقرة',txt:'آمَنَ الرَّسُولُ بِمَا أُنزِلَ إِلَيْهِ مِن رَّبِّهِ وَالْمُؤْمِنُونَ ۚ كُلٌّ آمَنَ بِاللَّهِ وَمَلَائِكَتِهِ وَكُتُبِهِ وَرُسُلِهِ...',c:'كل ليلة'},
   ],
-  quran:[{t:'المصحف',txt:'ابدأ قراءة القرآن الكريم يومياً وخصص ورداً ثابتاً.',c:''}],
 };
 
-let navHistory=['sHome'];
-let favs=JSON.parse(localStorage.getItem('favs')||'[]');
-let cCount=0,cGoal=33;
-
-function showScreen(id){
-  document.querySelectorAll('.screen').forEach(s=>{s.classList.add('hidden');s.classList.remove('slide-left');});
-  const prev=navHistory[navHistory.length-1];
-  if(prev&&prev!==id) document.getElementById(prev)?.classList.add('slide-left');
+let hist=['sHome'];
+function goTo(id){
+  const cur=hist[hist.length-1];
+  document.getElementById(cur).classList.add('behind');
   document.getElementById(id).classList.remove('hidden');
-  navHistory.push(id);
-  const sc=document.getElementById(id).querySelector('.scroll-content');
+  hist.push(id);
+  const sc=document.getElementById(id).querySelector('.scroll');
   if(sc)sc.scrollTop=0;
-  if(id==='sFavorites')renderFavs();
+  if(id==='sFavs')renderFavs();
 }
-
 function goBack(){
-  navHistory.pop();
-  const cur=navHistory[navHistory.length-1]||'sHome';
-  document.querySelectorAll('.screen').forEach(s=>{s.classList.add('hidden');s.classList.remove('slide-left');});
-  document.getElementById(cur).classList.remove('hidden');
+  const cur=hist.pop();
+  document.getElementById(cur).classList.add('hidden');
+  document.getElementById(cur).classList.remove('behind');
+  document.getElementById(hist[hist.length-1]).classList.remove('behind');
 }
 
-function openAdhkar(title,key){
-  document.getElementById('detailTitle').textContent=title;
+let favs=JSON.parse(localStorage.getItem('favs')||'[]');
+function openDhikr(title,key){
+  document.getElementById('dTitle').textContent=title;
   const data=DB[key]||DB.morning;
-  document.getElementById('detailBody').innerHTML=data.map((item,i)=>{
+  document.getElementById('dBody').innerHTML=data.map((item,i)=>{
     const saved=favs.some(f=>f.k===key&&f.i===i);
-    return `<div class="dhikr-item fu" style="animation-delay:${i*0.05}s">
+    return `<div class="dhikr-item fu" style="animation-delay:${i*.06}s">
       <div class="dhikr-txt">${item.txt}</div>
       <div class="dhikr-foot">
         <span class="dhikr-cnt">${item.c}</span>
-        <div style="display:flex;gap:8px">
+        <div class="dhikr-btns">
           <button class="dhikr-go" onclick="toggleFav('${key}',${i},'${item.t}',this)">${saved?'⭐':'☆'}</button>
-          <button class="dhikr-go" onclick="goCounter('${item.txt.substring(0,50)}',33)">🔢</button>
+          <button class="dhikr-go" onclick="quickCount('${item.txt.substring(0,40)}')">🔢</button>
         </div>
       </div>
     </div>`;
   }).join('');
-  showScreen('sDetail');
+  goTo('sDetail');
 }
-
 function toggleFav(key,idx,title,btn){
   const pos=favs.findIndex(f=>f.k===key&&f.i===idx);
   if(pos===-1){favs.push({k:key,i:idx,title});btn.textContent='⭐';}
   else{favs.splice(pos,1);btn.textContent='☆';}
   localStorage.setItem('favs',JSON.stringify(favs));
 }
-
 function renderFavs(){
   const el=document.getElementById('favList');
-  if(!favs.length){
-    el.innerHTML=`<div class="fav-empty"><div class="fav-empty-icon">⭐</div><div class="fav-empty-txt">لا توجد مفضلة بعد<br>اضغط ☆ في أي ذكر لحفظه هنا</div></div>`;
-    return;
-  }
-  el.innerHTML=favs.map((f,i)=>`<div class="fav-item"><span style="font-size:22px">📌</span><span class="fav-name">${f.title}</span><button class="fav-del" onclick="delFav(${i})">✕</button></div>`).join('');
+  if(!favs.length){el.innerHTML='<div class="fav-empty"><div class="fav-empty-icon">⭐</div><div class="fav-empty-txt">لا توجد مفضلة بعد<br>اضغط ☆ في أي ذكر لحفظه هنا</div></div>';return;}
+  el.innerHTML=favs.map((f,i)=>`<div class="fav-item"><span style="font-size:20px">📌</span><span class="fav-name">${f.title}</span><button class="fav-del" onclick="delFav(${i})">✕</button></div>`).join('');
 }
-
 function delFav(i){favs.splice(i,1);localStorage.setItem('favs',JSON.stringify(favs));renderFavs();}
 
-function goCounter(text,goal){
-  document.getElementById('cText').textContent=text;
-  cCount=0;cGoal=goal||33;
-  document.getElementById('cNum').textContent='0';
-  updateGoal();
-  showScreen('sCounter');
+let cCount=0,cGoal=33;
+function pickChip(el,txt,goal){
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');cGoal=goal;cCount=0;
+  document.getElementById('cTxt').textContent=txt;
+  document.getElementById('cNum').textContent='0';updateGoal();
 }
-
-function selectDhikr(el,text,goal){
-  document.querySelectorAll('.dhikr-chip').forEach(c=>c.classList.remove('on'));
-  el.classList.add('on');
-  cGoal=goal;cCount=0;
-  document.getElementById('cText').textContent=text;
-  document.getElementById('cNum').textContent='0';
-  updateGoal();
+function quickCount(txt){
+  document.getElementById('cTxt').textContent=txt;
+  cCount=0;document.getElementById('cNum').textContent='0';updateGoal();
+  goTo('sCounter');
 }
-
-function tapCount(){
+function tap(){
   cCount++;
   const el=document.getElementById('cNum');
-  el.textContent=cCount;
-  el.classList.add('bump');
-  setTimeout(()=>el.classList.remove('bump'),80);
-  updateGoal();
-  if(cCount===cGoal){document.getElementById('cCircle').style.boxShadow='0 0 60px rgba(212,168,67,0.7)';setTimeout(()=>document.getElementById('cCircle').style.boxShadow='',900);}
+  el.textContent=cCount;el.classList.add('bump');
+  setTimeout(()=>el.classList.remove('bump'),80);updateGoal();
+  if(cCount===cGoal){document.getElementById('cCircle').style.boxShadow='0 0 60px rgba(212,168,67,.7)';setTimeout(()=>document.getElementById('cCircle').style.boxShadow='',900);}
+}
+function resetC(){cCount=0;document.getElementById('cNum').textContent='0';updateGoal();}
+function undoC(){if(cCount>0){cCount--;document.getElementById('cNum').textContent=cCount;updateGoal();}}
+function updateGoal(){
+  document.getElementById('cGoalBar').style.width=Math.min((cCount/cGoal)*100,100)+'%';
+  document.getElementById('cGoalTxt').textContent=cCount+' / '+cGoal;
 }
 
-function resetCount(){cCount=0;document.getElementById('cNum').textContent='0';updateGoal();}
-function undoCount(){if(cCount>0){cCount--;document.getElementById('cNum').textContent=cCount;updateGoal();}}
-function updateGoal(){
-  document.getElementById('goalBar').style.width=Math.min((cCount/cGoal)*100,100)+'%';
-  document.getElementById('goalTxt').textContent=cCount+' / '+cGoal;
+function buildQuran(){
+  document.getElementById('surahGrid').innerHTML=SURAHS.map((s,i)=>`
+    <div class="surah-card">
+      <div class="surah-num">${i+1}</div>
+      <div class="surah-name">سُورَةُ ${s.n}</div>
+      <div class="surah-meta">${s.t}، آياتها: ${s.v}</div>
+      <div class="surah-page">الصفحة ${s.p}</div>
+    </div>`).join('');
+  document.getElementById('ajzaList').innerHTML=AJZA.map(j=>`
+    <div class="juz-card">
+      <div class="juz-num">${j.num}</div>
+      <div class="juz-info"><div class="juz-name">${j.name}</div><div class="juz-page">يبدأ من: ${j.start} · ص${j.page}</div></div>
+    </div>`).join('');
+  let h='<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px">';
+  for(let i=1;i<=604;i++)h+=`<div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px 4px;text-align:center;cursor:pointer;font-size:13px;font-weight:600;color:var(--muted)">${i}</div>`;
+  document.getElementById('safhatGrid').innerHTML=h+'</div>';
+}
+function switchQTab(el,id){
+  document.querySelectorAll('.qtab').forEach(t=>t.classList.remove('on'));
+  el.classList.add('on');
+  ['qSuwar','qAjza','qSafhat'].forEach(t=>document.getElementById(t).classList.toggle('hidden',t!==id));
 }
 
 let dark=true;
@@ -497,12 +612,9 @@ function toggleTheme(){
   document.getElementById('themeBtn').textContent=dark?'🌙':'☀️';
 }
 
-function updateClock(){
-  const n=new Date();
-  document.getElementById('clockNow').textContent=n.getHours().toString().padStart(2,'0')+':'+n.getMinutes().toString().padStart(2,'0');
-}
-setInterval(updateClock,1000);
-updateClock();
+function tick(){const n=new Date();document.getElementById('clockNow').textContent=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');}
+setInterval(tick,1000);tick();
+buildQuran();
 renderFavs();
 </script>
 </body>
