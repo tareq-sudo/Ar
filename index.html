@@ -236,3 +236,250 @@ body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;tra
 </style>
 </head>
 <body>
+<div id="cfWrap"></div>
+
+<!-- SEARCH -->
+<div class="srch-ov hidden" id="srchOv">
+  <div class="srch-hd">
+    <button class="back-btn" onclick="closeSrch()">✕</button>
+    <input class="srch-inp" id="srchInp" placeholder="ابحث في الأذكار والأدعية..." oninput="doSrch(this.value)" autocomplete="off">
+  </div>
+  <div class="srch-res" id="srchRes"><div class="srch-empty">🔍 ابحث في جميع الأذكار والأدعية</div></div>
+</div>
+
+<!-- SETTINGS -->
+<div class="sett-ov hidden" id="settOv" onclick="if(event.target===this)closeSett()">
+  <div class="sett-pnl">
+    <div class="sett-drag"></div>
+    <div class="sett-title">⚙️ الإعدادات</div>
+    <div class="sett-sect">🔊 الصوت</div>
+    <div class="sett-row">
+      <div class="sett-info"><div class="sett-lbl">صوت النقر</div><div class="sett-sub">نقرة ناعمة عند التسبيح</div></div>
+      <div class="tog" id="togSound" onclick="toggleSett('sound',this)"></div>
+    </div>
+    <div class="sett-row">
+      <div class="sett-info"><div class="sett-lbl">صوت إكمال الهدف</div><div class="sett-sub">موسيقى عند الوصول للعدد</div></div>
+      <div class="tog on" id="togGoalSound" onclick="toggleSett('goalSound',this)"></div>
+    </div>
+    <div class="sett-sect">🔔 الإشعارات</div>
+    <div class="sett-row">
+      <div class="sett-info"><div class="sett-lbl">تنبيهات الأذان</div><div class="sett-sub">إشعار عند دخول وقت الصلاة</div></div>
+      <div class="tog" id="togNotif" onclick="toggleNotif(this)"></div>
+    </div>
+    <div class="sett-row">
+      <div class="sett-info"><div class="sett-lbl">وضع عدم الإزعاج</div><div class="sett-sub">إيقاف التنبيهات ١٠م – ٥ص</div></div>
+      <div class="tog" id="togDND" onclick="toggleSett('dnd',this)"></div>
+    </div>
+    <div class="sett-sect">🌙 عام</div>
+    <div class="sett-row">
+      <div class="sett-info"><div class="sett-lbl">الوضع الليلي</div></div>
+      <div class="tog on" id="togThemeSett" onclick="toggleThemeFromSett(this)"></div>
+    </div>
+    <div class="sett-row" style="border:none">
+      <div class="sett-info"><div class="sett-lbl">تثبيت التطبيق</div><div class="sett-sub">أضفه للشاشة الرئيسية</div></div>
+      <button class="install-banner-btn" id="pwaBtn" onclick="installPWA()" style="display:none">تثبيت</button>
+      <span id="pwaDone" style="font-size:12px;color:var(--teal)">✓ مثبّت</span>
+    </div>
+  </div>
+</div>
+
+<!-- HOME -->
+<div class="screen" id="sHome">
+  <div class="header">
+    <div class="header-row">
+      <div class="hbtns">
+        <button class="hbtn" onclick="toggleTheme()" id="themeBtn">🌙</button>
+        <button class="hbtn" onclick="refreshPrayer()">📍</button>
+        <button class="hbtn" onclick="openSrch()">🔍</button>
+        <button class="hbtn" onclick="openSett()">⚙️</button>
+      </div>
+      <button class="hbtn gold" onclick="goTo('sCounter')">▶</button>
+    </div>
+    <div class="prayer-bar">
+      <div class="pt-side"><div class="pt-name" id="prevPrayerName">العشاء</div><div class="pt-val" id="prevPrayerTime">--:--</div></div>
+      <div class="date-pill" onclick="goTo('sSalah')">
+        <div class="date-num" id="hijriDay">--</div>
+        <div class="date-lbl" id="hijriMonth">رَمَضَان</div>
+      </div>
+      <div class="pt-side"><div class="pt-name" id="nextPrayerName">الفجر</div><div class="pt-val" id="nextPrayerTime">--:--</div></div>
+    </div>
+    <div class="countdown">
+      <span class="cd-text" id="countdownLabel">⏳ جاري تحميل المواقيت...</span>
+      <span class="cd-time" id="clockNow">--:--</span>
+    </div>
+  </div>
+  <div class="nav-tabs">
+    <div class="ntab on">المنوعة</div>
+    <div class="ntab" onclick="goTo('sSalah')">الصلاة</div>
+    <div class="ntab" onclick="goTo('sQibla')">القبلة</div>
+    <div class="ntab" onclick="goTo('sFavs')">المفضلة</div>
+    <div class="ntab" onclick="goTo('sCounter')">العداد</div>
+  </div>
+  <div class="scroll">
+    <div class="pad">
+      <div id="notifBannerWrap"></div>
+      <div class="moon-txt fu">إِنَّ الْمُتَّقِينَ فِي جَنَّاتٍ وَعُيُونٍ</div>
+      <div class="card hl fu" onclick="openDhikr('رمضان','ramadan')"><div class="card-title">🌙 رمضان</div><span class="card-arrow">‹</span></div>
+      <div class="card fu" onclick="openDhikr('دعاء من تَهاجَّ من الليل','night')"><div class="card-title">دعاء (من تَهاجَّ من الليل)</div><span class="card-arrow">‹</span></div>
+      <div class="quran-card fu" onclick="goTo('sQuran')"><div class="q-title">📖 المصحف</div><span class="q-num">114 سورة</span></div>
+      <div class="g2">
+        <div class="gbtn gteal" onclick="openDhikr('أذكاري','morning')">أذكاري</div>
+        <div class="gbtn grose" onclick="openDhikr('أسماء الله الحسنى','asma')">أسماء الله الحسنى</div>
+        <div class="gbtn" onclick="openDhikr('أذكار الصباح','morning')">أذكار الصباح</div>
+        <div class="gbtn gc" onclick="openDhikr('أذكار المساء','evening')">أذكار المساء</div>
+        <div class="gbtn gc" onclick="openDhikr('أذكار الصلاة','prayer')">أذكار الصلاة</div>
+        <div class="gbtn grose" onclick="openDhikr('أذكار بعد الصلاة','afterprayer')">أذكار بعد الصلاة</div>
+        <div class="gbtn ggreen" onclick="openDhikr('أذكار النوم','sleep')">أذكار النوم</div>
+        <div class="gbtn" onclick="openDhikr('أذكار الاستيقاظ','wake')">أذكار الاستيقاظ</div>
+        <div class="gbtn gblue" onclick="openDhikr('أدعية من القرآن','quran_dua')">أدعية من القرآن</div>
+        <div class="gbtn gc" onclick="openDhikr('من دعاء الرسول ﷺ','prophet')">من دعاء الرسول ﷺ</div>
+        <div class="gbtn gorange" onclick="openDhikr('الرقية بالسنة','ruqya_sunnah')">الرقية بالسنة</div>
+        <div class="gbtn grose" onclick="openDhikr('الرقية بالقرآن','ruqya')">الرقية بالقرآن</div>
+        <div class="gbtn gcyan" onclick="openDhikr('تسابيح','tasbih')">تسابيح</div>
+        <div class="gbtn" onclick="openDhikr('الحمد والثناء','hamd')">الحمد والثناء</div>
+        <div class="gbtn ggreen" onclick="openDhikr('الإستغفار','istighfar')">الإستغفار</div>
+        <div class="gbtn gpurple" onclick="openDhikr('المزيد','more')">المزيد</div>
+      </div>
+      <div class="verse-card" onclick="openDhikr('آخر سورة البقرة','baqara')">
+        <div class="verse-lbl">💡 هل تعلم</div>
+        <div class="verse-txt">من قرأ الآيتين من آخر سورة البقرة في ليلة كفتاه.</div>
+      </div>
+      <div class="hcard"><div class="hcard-lbl">من أذكار الصباح</div><div class="hcard-txt">رَضِيتُ بِاللَّهِ رَبَّاً، وَبِالْإِسْلَامِ دِيناً، وَبِمُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ نَبِيَّاً.</div></div>
+      <div class="hcard" style="border-right-color:var(--gold)"><div class="hcard-lbl" style="color:var(--gold)">ما يقول عند الإفطار</div><div class="hcard-txt">ذهب الظمأ، وابتلَّت العروق، وثبت الأجر إن شاء الله.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SALAH -->
+<div class="screen hidden" id="sSalah">
+  <div class="pg-header"><span class="pg-title">مواقيت الصلاة</span><button class="back-btn" onclick="goBack()">✕</button></div>
+  <div class="scroll">
+    <div style="padding:10px 14px 4px;text-align:center;font-size:12px;color:var(--muted)" id="salahLocation">📍 جاري تحديد الموقع...</div>
+    <div class="ramadan-box"><div class="rb-lbl">🌙 رمضان المبارك</div><div class="rb-row"><div class="rb-item"><div class="rb-name">الإمساك</div><div class="rb-time" id="suhoorTime">--:--</div></div><div style="font-size:24px">🌙</div><div class="rb-item"><div class="rb-name">الإفطار</div><div class="rb-time" id="iftarTime">--:--</div></div></div></div>
+    <div class="pt-grid" id="ptGrid"><div class="ptc"><div class="ptc-name">⏳</div><div class="ptc-time" style="font-size:14px">جاري التحميل</div></div></div>
+    <div style="height:16px"></div>
+  </div>
+</div>
+
+<!-- QIBLA -->
+<div class="screen hidden" id="sQibla">
+  <div class="pg-header"><span class="pg-title">اتجاه القبلة</span><button class="back-btn" onclick="goBack()">✕</button></div>
+  <div class="qibla-wrap">
+    <div class="compass-outer" id="compassOuter">
+      <div class="compass-dir n">شمال</div><div class="compass-dir s">جنوب</div><div class="compass-dir e">شرق</div><div class="compass-dir w">غرب</div>
+      <div class="qibla-arrow-wrap">
+        <div class="qibla-arrow-line" id="qiblaLine" style="transform:translateX(-50%) rotate(222deg)"></div>
+        <div class="qibla-arrow-tip" id="qiblaTip" style="transform:translateX(-50%) rotate(222deg)"></div>
+      </div>
+      <div class="compass-inner"><div class="needle-wrap"><div class="needle-n"></div><div class="needle-dot"></div><div class="needle-s"></div></div></div>
+    </div>
+    <div class="qibla-info">
+      <div class="qibla-title" id="qiblaTitle">اتجاه القبلة</div>
+      <div class="qibla-deg" id="qiblaDeg">---°</div>
+      <div class="qibla-sub" id="qiblaSub">جاري تحديد الموقع...</div>
+      <div style="font-size:12px;color:var(--dim);margin-top:10px" id="qiblaDist"></div>
+      <div style="font-size:11px;color:var(--dim);margin-top:5px">🔴 الإبرة الحمراء للشمال · 🟡 السهم الذهبي للقبلة</div>
+    </div>
+  </div>
+</div>
+
+<!-- QURAN -->
+<div class="screen hidden" id="sQuran">
+  <div class="pg-header"><span class="pg-title">المصحف الكريم</span><button class="back-btn" onclick="goBack()">✕</button></div>
+  <div class="khatm-prog">
+    <span class="khatm-txt" id="khatmTxt">ختم القرآن: 0 / 114</span>
+    <div class="khatm-bar-bg"><div class="khatm-bar" id="khatmBar" style="width:0%"></div></div>
+    <button class="khatm-rst" onclick="resetKhatm()">↺ إعادة</button>
+  </div>
+  <div class="quran-top-btns">
+    <div class="qtab on" onclick="switchQTab(this,'qSuwar')">السور</div>
+    <div class="qtab" onclick="switchQTab(this,'qAjza')">الأجزاء</div>
+    <div class="qtab" onclick="switchQTab(this,'qSafhat')">الصفحات</div>
+  </div>
+  <div class="qtab-content" id="qSuwar"><div style="height:8px"></div><div class="surah-grid" id="surahGrid"></div><div style="height:16px"></div></div>
+  <div class="qtab-content hidden-tab" id="qAjza"><div class="pad" style="padding-top:12px" id="ajzaList"></div></div>
+  <div class="qtab-content hidden-tab" id="qSafhat"><div class="pad" style="padding-top:12px" id="safhatGrid"></div></div>
+</div>
+
+<!-- SURAH DETAIL -->
+<div class="screen hidden" id="sSurahDetail">
+  <div class="pg-header">
+    <span class="pg-title" id="surahDetailTitle">السورة</span>
+    <div class="font-ctrl">
+      <button class="font-btn" onclick="changeFontSize(-2)">A-</button>
+      <button class="font-btn" onclick="changeFontSize(2)">A+</button>
+      <button class="mark-btn" id="markReadBtn" onclick="markCurrentRead()">☑ قرأت</button>
+      <button class="back-btn" onclick="goBack()">✕</button>
+    </div>
+  </div>
+  <div class="scroll"><div id="surahDetailBody" class="surah-detail-wrap"><div class="loading-txt">جاري التحميل...</div></div></div>
+</div>
+
+<!-- FAVORITES -->
+<div class="screen hidden" id="sFavs">
+  <div class="pg-header"><span class="pg-title">المفضلة ⭐</span><button class="back-btn" onclick="goBack()">✕</button></div>
+  <div class="scroll"><div class="pad" id="favList" style="padding-top:12px"></div></div>
+</div>
+
+<!-- COUNTER -->
+<div class="screen hidden" id="sCounter">
+  <div class="pg-header">
+    <span class="pg-title">العداد</span>
+    <div style="display:flex;gap:8px">
+      <button class="back-btn" style="font-size:15px" onclick="goTo('sStats')">📊</button>
+      <button class="back-btn" onclick="goBack()">✕</button>
+    </div>
+  </div>
+  <div class="counter-screen-inner">
+    <div class="dhikr-chips">
+      <div class="chip on" onclick="pickChip(this,'سُبْحَانَ اللهِ',33,'c_sub')">سبحان الله</div>
+      <div class="chip" onclick="pickChip(this,'الْحَمْدُ لِلَّهِ',33,'c_ham')">الحمد لله</div>
+      <div class="chip" onclick="pickChip(this,'اللهُ أَكْبَرُ',34,'c_akb')">الله أكبر</div>
+      <div class="chip" onclick="pickChip(this,'لَا إِلَهَ إِلَّا اللهُ',100,'c_laa')">لا إله إلا الله</div>
+      <div class="chip" onclick="pickChip(this,'اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ',100,'c_sal')">الصلاة على النبي</div>
+    </div>
+    <div class="c-dhikr-txt" id="cTxt">سُبْحَانَ اللهِ</div>
+    <div class="c-num" id="cNum">0</div>
+    <div class="c-circle" id="cCircle" onclick="tap()"><span>🤲</span></div>
+    <div class="c-goal-row">
+      <span class="c-goal-txt" id="cGoalTxt">0 / 33</span>
+      <div class="c-goal-bar-bg"><div class="c-goal-bar" id="cGoalBar" style="width:0%"></div></div>
+    </div>
+    <div class="c-btns">
+      <button class="cbtn" onclick="resetC()">↺ إعادة</button>
+      <button class="cbtn" onclick="undoC()">↩ تراجع</button>
+    </div>
+  </div>
+</div>
+
+<!-- DHIKR DETAIL -->
+<div class="screen hidden" id="sDetail">
+  <div class="pg-header"><span class="pg-title" id="dTitle">أذكار</span><button class="back-btn" onclick="goBack()">✕</button></div>
+  <div class="scroll"><div class="pad" id="dBody" style="padding-top:12px"></div></div>
+</div>
+
+<!-- DHIKR COUNTER -->
+<div class="screen hidden" id="sDhikrCounter">
+  <div class="pg-header"><span class="pg-title" id="dcTitle">عداد الذكر</span><button class="back-btn" onclick="goBack()">✕</button></div>
+  <div class="dc-wrap">
+    <div class="dc-title-lbl" id="dcSubtitle">اضغط الدائرة للتسبيح</div>
+    <div class="dc-txt" id="dcTxt"></div>
+    <div class="dc-cnt-lbl" id="dcCntLbl"></div>
+    <div class="dc-num" id="dcNum">0</div>
+    <div class="dc-circle" id="dcCircle" onclick="dcTap()"><span>🤲</span></div>
+    <div class="dc-goal-row">
+      <span class="dc-goal-txt" id="dcGoalTxt">0 / —</span>
+      <div class="dc-goal-bar-bg"><div class="dc-goal-bar" id="dcGoalBar" style="width:0%"></div></div>
+    </div>
+    <div class="dc-btns">
+      <button class="cbtn" onclick="dcReset()">↺ إعادة</button>
+      <button class="cbtn" onclick="dcUndo()">↩ تراجع</button>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="screen hidden" id="sStats">
+  <div class="pg-header"><span class="pg-title">📊 إحصائياتي</span><button class="back-btn" onclick="goBack()">✕</button></div>
+  <div class="scroll"><div class="pad" id="statsBody" style="padding-top:12px"></div></div>
+</div>
