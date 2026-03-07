@@ -624,7 +624,8 @@ function spawnConfetti(){const w=document.getElementById('cfWrap');const cl=['#d
 let _audio=null;
 function loadSurahAudio(surahNum){
   stopAudio();
-  _audio=new Audio(`https://cdn.islamic.network/quran/audio-surah/128/ar.mahermuaiqly/${surahNum}.mp3`);
+  _audio=new Audio(`https://server8.mp3quran.net/maher/${String(surahNum).padStart(3,'0')}.mp3`);
+
   _audio.ontimeupdate=()=>{
     if(!_audio.duration)return;
     const pct=(_audio.currentTime/_audio.duration*100);
