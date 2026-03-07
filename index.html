@@ -32,13 +32,44 @@
 --shadow:0 4px 24px rgba(0,0,0,0.5);
 --shadowGold:0 4px 24px rgba(212,168,67,0.15);
 --radius:18px;
---radiusSm:12px;
 }
+
+/* ══ LIGHT MODE ══ */
+body.light{
+--bg:#f5f0e8;
+--bg2:#ffffff;
+--bg3:#f0ebe0;
+--bg4:#e8e0d0;
+--gold:#b8860b;
+--gold2:#d4a843;
+--goldDim:rgba(184,134,11,.12);
+--green:#1a7a40;
+--greenDim:rgba(26,122,64,.1);
+--rose:#c0392b;
+--blue:#1565c0;
+--text:#1a2e1a;
+--text2:#3d5c3d;
+--text3:#7a9a7a;
+--border:rgba(0,0,0,0.08);
+--borderGold:rgba(184,134,11,0.3);
+--shadow:0 4px 24px rgba(0,0,0,0.1);
+--shadowGold:0 4px 24px rgba(184,134,11,0.12);
+}
+body.light .hero{background:linear-gradient(145deg,#e8f5e0,#f0ebe0);}
+body.light .bnav{background:rgba(245,240,232,.96);}
+body.light .ramadan-card{background:linear-gradient(135deg,#3d2200,#5a3300);}
+body.light .verse-banner{background:linear-gradient(135deg,#e8f5e0,#f0ebe0);}
+body.light .srch-ov{background:var(--bg);}
+body.light .sett-pnl{background:var(--bg);}
+body.light .audio-bar{background:linear-gradient(135deg,var(--bg2),var(--bg3));}
+body.light .quran-hero{background:linear-gradient(145deg,#e8f5e0,#f5f0e8);}
+body.light .stats-hero{background:linear-gradient(145deg,#e8f5e0,#f0ebe0);}
+
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;overflow:hidden;background:var(--bg);}
-body{color:var(--text);font-family:'Tajawal',sans-serif;}
+body{color:var(--text);font-family:'Tajawal',sans-serif;transition:background .3s,color .3s;}
 
-/* ── SCREENS ── */
+/* ══ SCREENS ══ */
 .screen{position:fixed;inset:0;display:flex;flex-direction:column;background:var(--bg);z-index:10;overflow:hidden;transition:transform .38s cubic-bezier(.4,0,.2,1),opacity .38s;}
 .screen.hidden{transform:translateX(100%);opacity:0;pointer-events:none;}
 .screen.behind{transform:translateX(-30%);opacity:0;pointer-events:none;}
@@ -48,16 +79,16 @@ body{color:var(--text);font-family:'Tajawal',sans-serif;}
 .qtab-content::-webkit-scrollbar{display:none;}
 .qtab-content.hidden-tab{display:none;}
 
-/* ── BOTTOM NAV ── */
-.bnav{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(13,31,20,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--border);padding:8px 0 calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:space-around;align-items:center;}
+/* ══ BOTTOM NAV ══ */
+.bnav{position:fixed;bottom:0;left:0;right:0;z-index:50;background:rgba(13,31,20,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--border);padding:8px 0 calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:space-around;align-items:center;transition:background .3s;}
 .bnav-item{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:4px 16px;border-radius:12px;transition:all .2s;min-width:56px;}
 .bnav-item.on .bnav-icon{background:var(--goldDim);border-color:var(--borderGold);}
 .bnav-icon{width:44px;height:28px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:18px;transition:all .2s;border:1px solid transparent;}
 .bnav-lbl{font-size:10px;color:var(--text3);transition:all .2s;font-weight:500;}
 .bnav-item.on .bnav-lbl{color:var(--gold);}
 
-/* ── PAGE HEADER ── */
-.pg-hd{display:flex;align-items:center;gap:10px;padding:14px 18px 12px;background:var(--bg);flex-shrink:0;}
+/* ══ PAGE HEADER ══ */
+.pg-hd{display:flex;align-items:center;gap:10px;padding:14px 18px 12px;background:var(--bg);flex-shrink:0;transition:background .3s;}
 .pg-back{width:40px;height:40px;background:var(--bg2);border:1px solid var(--border);border-radius:14px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:20px;color:var(--text2);flex-shrink:0;transition:all .15s;}
 .pg-back:active{transform:scale(.88);background:var(--bg3);}
 .pg-title-wrap{flex:1;}
@@ -65,10 +96,9 @@ body{color:var(--text);font-family:'Tajawal',sans-serif;}
 .pg-sub{font-size:12px;color:var(--text3);margin-top:1px;}
 .pg-btn{width:40px;height:40px;background:var(--bg2);border:1px solid var(--border);border-radius:14px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:var(--text2);flex-shrink:0;transition:all .15s;}
 .pg-btn:active{transform:scale(.88);}
-.pg-btn.active{background:var(--goldDim);border-color:var(--borderGold);color:var(--gold);}
 
-/* ── HOME HERO ── */
-.hero{margin:16px 18px 0;background:linear-gradient(145deg,#1c3828,#152b1e);border:1px solid var(--borderGold);border-radius:24px;padding:20px;position:relative;overflow:hidden;box-shadow:var(--shadowGold);}
+/* ══ HOME HERO ══ */
+.hero{margin:16px 18px 0;background:linear-gradient(145deg,#1c3828,#152b1e);border:1px solid var(--borderGold);border-radius:24px;padding:20px;position:relative;overflow:hidden;box-shadow:var(--shadowGold);transition:background .3s;}
 .hero::before{content:'';position:absolute;top:-40px;left:-40px;width:180px;height:180px;background:radial-gradient(circle,rgba(212,168,67,.12),transparent 70%);pointer-events:none;}
 .hero::after{content:'';position:absolute;bottom:-30px;right:-20px;width:120px;height:120px;background:radial-gradient(circle,rgba(61,220,132,.08),transparent 70%);pointer-events:none;}
 .hero-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;}
@@ -76,24 +106,26 @@ body{color:var(--text);font-family:'Tajawal',sans-serif;}
 .hero-date{font-size:22px;font-weight:900;color:var(--gold);}
 .hero-date-sub{font-size:12px;color:var(--text3);margin-top:2px;}
 .hero-moon{font-size:36px;opacity:.85;}
-.hero-next{background:rgba(0,0,0,.25);border-radius:14px;padding:12px 14px;margin-bottom:12px;cursor:pointer;}
+.hero-next{background:rgba(0,0,0,.2);border-radius:14px;padding:12px 14px;margin-bottom:12px;cursor:pointer;}
+body.light .hero-next{background:rgba(0,0,0,.06);}
 .hero-next-lbl{font-size:11px;color:var(--text3);margin-bottom:4px;}
 .hero-next-row{display:flex;justify-content:space-between;align-items:center;}
 .hero-next-prayer{font-size:16px;font-weight:700;color:var(--text);}
 .hero-next-time{font-size:26px;font-weight:900;color:var(--gold);direction:ltr;}
 .hero-countdown{font-size:11px;color:var(--green);margin-top:2px;font-weight:600;}
 .hero-prayers{display:flex;justify-content:space-between;gap:6px;}
-.hp-item{flex:1;background:rgba(0,0,0,.2);border-radius:10px;padding:7px 4px;text-align:center;border:1px solid transparent;transition:all .2s;}
+.hp-item{flex:1;background:rgba(0,0,0,.15);border-radius:10px;padding:7px 4px;text-align:center;border:1px solid transparent;transition:all .2s;}
+body.light .hp-item{background:rgba(0,0,0,.05);}
 .hp-item.now{border-color:var(--borderGold);background:rgba(212,168,67,.1);}
 .hp-name{font-size:10px;color:var(--text3);}
 .hp-time{font-size:12px;font-weight:700;color:var(--text);direction:ltr;margin-top:2px;}
 .hp-item.now .hp-time{color:var(--gold);}
 
-/* ── SECTION HEADER ── */
+/* ══ SECTION HEADER ══ */
 .sec-hd{display:flex;justify-content:space-between;align-items:center;padding:18px 18px 10px;}
 .sec-title{font-size:16px;font-weight:700;color:var(--text);}
 
-/* ── DHIKR LIST ── */
+/* ══ DHIKR LIST ══ */
 .dlist{padding:0 18px;}
 .ditem{display:flex;align-items:center;gap:14px;padding:14px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:10px;cursor:pointer;transition:all .22s;box-shadow:var(--shadow);}
 .ditem:active{transform:scale(.97);background:var(--bg3);}
@@ -104,24 +136,25 @@ body{color:var(--text);font-family:'Tajawal',sans-serif;}
 .ditem-badge{background:var(--goldDim);border:1px solid var(--borderGold);border-radius:20px;padding:4px 10px;font-size:11px;color:var(--gold);font-weight:700;white-space:nowrap;flex-shrink:0;}
 .ditem-arrow{color:var(--text3);font-size:18px;flex-shrink:0;}
 
-/* ── QUICK ACCESS ── */
+/* ══ QUICK ACCESS ══ */
 .quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:0 18px;}
 .qitem{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:14px 8px;text-align:center;cursor:pointer;transition:all .22s;box-shadow:var(--shadow);}
 .qitem:active{transform:scale(.92);background:var(--bg3);}
 .qitem-icon{font-size:24px;margin-bottom:6px;}
 .qitem-lbl{font-size:11px;font-weight:600;color:var(--text2);}
 
-/* ── VERSE BANNER ── */
-.verse-banner{margin:0 18px;background:linear-gradient(135deg,#1c3828,#152b1e);border:1px solid rgba(61,220,132,.2);border-radius:20px;padding:18px;text-align:center;position:relative;overflow:hidden;}
+/* ══ VERSE BANNER ══ */
+.verse-banner{margin:0 18px;background:linear-gradient(135deg,#1c3828,#152b1e);border:1px solid rgba(61,220,132,.2);border-radius:20px;padding:18px;text-align:center;position:relative;overflow:hidden;transition:background .3s;}
 .verse-banner::before{content:'❝';position:absolute;top:8px;right:16px;font-size:40px;color:rgba(61,220,132,.15);font-family:serif;}
 .verse-banner-lbl{font-size:11px;color:var(--green);margin-bottom:8px;font-weight:600;}
 .verse-banner-txt{font-family:'Amiri',serif;font-size:18px;line-height:2.1;color:var(--text);}
 .verse-banner-src{font-size:11px;color:var(--text3);margin-top:8px;}
 
-/* ── SALAH ── */
+/* ══ SALAH ══ */
 .salah-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 18px;}
 .ptc{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center;box-shadow:var(--shadow);transition:all .2s;}
 .ptc.now{background:linear-gradient(145deg,#1c3828,#152b1e);border-color:var(--borderGold);box-shadow:var(--shadowGold);}
+body.light .ptc.now{background:linear-gradient(145deg,#e8f5e0,#f0ebe0);}
 .ptc-icon{font-size:20px;margin-bottom:6px;}
 .ptc-name{font-size:12px;color:var(--text3);margin-bottom:4px;}
 .ptc-time{font-size:22px;font-weight:800;color:var(--text);direction:ltr;}
@@ -134,7 +167,7 @@ body{color:var(--text);font-family:'Tajawal',sans-serif;}
 .rc-lbl{font-size:11px;color:var(--text3);margin-bottom:4px;}
 .rc-time{font-size:24px;font-weight:900;color:var(--gold);direction:ltr;}
 
-/* ── QIBLA ── */
+/* ══ QIBLA ══ */
 .qibla-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;gap:24px;}
 .compass-outer{width:280px;height:280px;border-radius:50%;position:relative;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 40%,var(--bg3),var(--bg2));border:1px solid var(--borderGold);box-shadow:0 0 60px rgba(212,168,67,.1),inset 0 0 40px rgba(0,0,0,.4);transition:transform .1s ease;}
 .compass-ring{position:absolute;inset:12px;border-radius:50%;border:1px dashed rgba(212,168,67,.2);}
@@ -145,19 +178,19 @@ body{color:var(--text);font-family:'Tajawal',sans-serif;}
 .compass-dir.w{left:16px;top:50%;transform:translateY(-50%);color:var(--text3);}
 .compass-inner{width:140px;height:140px;border-radius:50%;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;position:relative;box-shadow:0 4px 20px rgba(0,0,0,.5);}
 .needle-wrap{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-.needle-n{width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:44px solid var(--rose);margin-bottom:2px;filter:drop-shadow(0 0 8px rgba(255,107,107,.6));}
+.needle-n{width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:44px solid var(--rose);margin-bottom:2px;}
 .needle-s{width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:44px solid var(--text3);}
 .needle-dot{position:absolute;width:12px;height:12px;border-radius:50%;background:var(--gold);z-index:2;box-shadow:0 0 10px rgba(212,168,67,.7);}
 .qibla-arrow-wrap{position:absolute;inset:0;pointer-events:none;}
 .qibla-arrow-line{position:absolute;width:3px;height:96px;background:linear-gradient(to bottom,var(--gold),transparent);top:38px;left:50%;transform-origin:50% calc(140px - 38px);border-radius:2px;}
-.qibla-arrow-tip{position:absolute;top:34px;left:50%;width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:20px solid var(--gold);transform-origin:50% calc(140px - 34px);filter:drop-shadow(0 0 8px rgba(212,168,67,.8));}
+.qibla-arrow-tip{position:absolute;top:34px;left:50%;width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:20px solid var(--gold);transform-origin:50% calc(140px - 34px);}
 .qibla-card{background:var(--bg2);border:1px solid var(--borderGold);border-radius:20px;padding:16px 24px;text-align:center;width:100%;box-shadow:var(--shadowGold);}
 .qibla-deg{font-size:48px;font-weight:900;color:var(--gold);line-height:1;}
 .qibla-dir{font-size:14px;color:var(--text2);margin-top:4px;}
 .qibla-dist{font-size:12px;color:var(--text3);margin-top:4px;}
 
-/* ── QURAN ── */
-.quran-hero{margin:12px 18px;background:linear-gradient(145deg,#1c3828,#0d1f14);border:1px solid var(--borderGold);border-radius:22px;padding:18px;display:flex;align-items:center;gap:16px;box-shadow:var(--shadowGold);}
+/* ══ QURAN ══ */
+.quran-hero{margin:12px 18px;background:linear-gradient(145deg,#1c3828,#0d1f14);border:1px solid var(--borderGold);border-radius:22px;padding:18px;display:flex;align-items:center;gap:16px;box-shadow:var(--shadowGold);transition:background .3s;}
 .quran-hero-icon{font-size:48px;}
 .quran-hero-body{flex:1;}
 .quran-hero-title{font-size:18px;font-weight:900;color:var(--gold);}
@@ -186,7 +219,7 @@ body{color:var(--text);font-family:'Tajawal',sans-serif;}
 .juz-name{font-size:14px;font-weight:700;}
 .juz-meta{font-size:11px;color:var(--text3);margin-top:2px;}
 
-/* ── SURAH DETAIL ── */
+/* ══ SURAH DETAIL ══ */
 .surah-detail-hd{text-align:center;padding:24px 18px 18px;border-bottom:1px solid var(--border);}
 .surah-detail-name{font-family:'Amiri',serif;font-size:34px;font-weight:700;color:var(--gold);}
 .surah-detail-meta{font-size:12px;color:var(--text3);margin-top:6px;}
@@ -194,7 +227,7 @@ body{color:var(--text);font-family:'Tajawal',sans-serif;}
 .ayah-item{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;gap:12px;align-items:flex-start;}
 .ayah-num{min-width:34px;height:34px;background:var(--goldDim);border:1px solid var(--borderGold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--gold);flex-shrink:0;margin-top:6px;}
 .ayah-txt{font-family:'Amiri',serif;font-size:21px;line-height:2.3;color:var(--text);flex:1;text-align:right;transition:font-size .2s;}
-.audio-bar{display:flex;align-items:center;gap:12px;padding:11px 18px;background:linear-gradient(135deg,var(--bg2),var(--bg3));border-bottom:1px solid var(--border);flex-shrink:0;}
+.audio-bar{display:flex;align-items:center;gap:12px;padding:11px 18px;background:linear-gradient(135deg,var(--bg2),var(--bg3));border-bottom:1px solid var(--border);flex-shrink:0;transition:background .3s;}
 .audio-play-btn{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;color:#0d1f14;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:900;flex-shrink:0;box-shadow:0 4px 14px rgba(212,168,67,.4);}
 .audio-play-btn:active{transform:scale(.9);}
 .audio-prog{flex:1;height:4px;background:var(--bg4);border-radius:2px;cursor:pointer;overflow:hidden;}
@@ -202,7 +235,7 @@ body{color:var(--text);font-family:'Tajawal',sans-serif;}
 .audio-time{font-size:11px;color:var(--text3);direction:ltr;white-space:nowrap;}
 .audio-reader{font-size:11px;color:var(--green);font-weight:700;white-space:nowrap;}
 
-/* ── COUNTER ── */
+/* ══ COUNTER ══ */
 .counter-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:space-evenly;padding:8px 20px calc(80px + env(safe-area-inset-bottom));overflow:hidden;}
 .chips{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;width:100%;}
 .chip{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:7px 14px;font-size:12px;cursor:pointer;font-family:'Tajawal',sans-serif;color:var(--text3);transition:all .2s;}
@@ -222,7 +255,7 @@ body{color:var(--text);font-family:'Tajawal',sans-serif;}
 .cbtn{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:11px 24px;color:var(--text3);font-size:13px;cursor:pointer;font-family:'Tajawal',sans-serif;transition:all .2s;}
 .cbtn:active{background:var(--bg3);}
 
-/* ── DC COUNTER ── */
+/* ══ DC COUNTER ══ */
 .dc-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:space-evenly;padding:8px 20px 20px;overflow:hidden;}
 .dc-badge{background:var(--goldDim);border:1px solid var(--borderGold);border-radius:20px;padding:5px 16px;font-size:12px;color:var(--gold);font-weight:700;}
 .dc-txt{font-family:'Amiri',serif;font-size:22px;text-align:center;line-height:2;color:var(--text);max-width:88%;}
@@ -237,7 +270,7 @@ body{color:var(--text);font-family:'Tajawal',sans-serif;}
 .dc-goal-bar{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:3px;transition:width .3s;}
 .dc-goal-txt{font-size:12px;color:var(--text3);white-space:nowrap;font-weight:600;}
 
-/* ── DHIKR DETAIL ── */
+/* ══ DHIKR DETAIL ══ */
 .dhikr-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:10px;cursor:pointer;transition:all .2s;box-shadow:var(--shadow);}
 .dhikr-card:active{transform:scale(.99);}
 .dhikr-card-txt{font-family:'Amiri',serif;font-size:20px;line-height:2.2;color:var(--text);margin-bottom:12px;}
@@ -251,7 +284,7 @@ body{color:var(--text);font-family:'Tajawal',sans-serif;}
 .dhikr-prog{height:3px;background:var(--bg3);border-radius:2px;overflow:hidden;margin-bottom:10px;}
 .dhikr-prog-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--green));border-radius:2px;transition:width .3s;}
 
-/* ── FAVS ── */
+/* ══ FAVS ══ */
 .fav-empty{text-align:center;padding:80px 30px;color:var(--text3);}
 .fav-empty-icon{font-size:52px;margin-bottom:14px;}
 .fav-empty-txt{font-size:15px;line-height:1.8;}
@@ -260,8 +293,8 @@ body{color:var(--text);font-family:'Tajawal',sans-serif;}
 .fav-name{font-size:14px;font-weight:700;flex:1;}
 .fav-del{width:32px;height:32px;background:rgba(255,107,107,.1);border:none;border-radius:50%;color:var(--rose);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 
-/* ── STATS ── */
-.stats-hero{margin:12px 18px;background:linear-gradient(145deg,#1c3828,#152b1e);border:1px solid var(--borderGold);border-radius:22px;padding:20px;text-align:center;box-shadow:var(--shadowGold);}
+/* ══ STATS ══ */
+.stats-hero{margin:12px 18px;background:linear-gradient(145deg,#1c3828,#152b1e);border:1px solid var(--borderGold);border-radius:22px;padding:20px;text-align:center;box-shadow:var(--shadowGold);transition:background .3s;}
 .stats-num{font-size:56px;font-weight:900;color:var(--gold);line-height:1;}
 .stats-lbl{font-size:13px;color:var(--text3);margin-top:6px;}
 .stats-g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 18px;margin-bottom:10px;}
@@ -277,7 +310,7 @@ body{color:var(--text);font-family:'Tajawal',sans-serif;}
 .stats-bar-bg{height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;margin-top:8px;}
 .stats-bar{height:100%;background:linear-gradient(90deg,var(--gold),var(--green));border-radius:3px;transition:width .7s;}
 
-/* ── SEARCH ── */
+/* ══ SEARCH ══ */
 .srch-ov{position:fixed;inset:0;background:var(--bg);z-index:60;display:flex;flex-direction:column;transition:transform .3s cubic-bezier(.4,0,.2,1);}
 .srch-ov.hidden{transform:translateY(100%);pointer-events:none;}
 .srch-hd{display:flex;gap:10px;align-items:center;padding:14px 18px;border-bottom:1px solid var(--border);flex-shrink:0;}
@@ -293,16 +326,16 @@ body{color:var(--text);font-family:'Tajawal',sans-serif;}
 .sres-txt{font-family:'Amiri',serif;font-size:16px;line-height:1.9;color:var(--text);}
 .srch-empty{text-align:center;padding:80px 20px;color:var(--text3);font-size:15px;}
 
-/* ── SETTINGS ── */
+/* ══ SETTINGS ══ */
 .sett-ov{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:100;display:flex;flex-direction:column;justify-content:flex-end;transition:opacity .28s;}
 .sett-ov.hidden{opacity:0;pointer-events:none;}
-.sett-pnl{background:var(--bg);border-radius:28px 28px 0 0;padding:12px 18px calc(40px + env(safe-area-inset-bottom));max-height:85vh;overflow-y:auto;border-top:1px solid var(--border);}
+.sett-pnl{background:var(--bg);border-radius:28px 28px 0 0;padding:12px 18px calc(40px + env(safe-area-inset-bottom));max-height:85vh;overflow-y:auto;border-top:1px solid var(--border);transition:background .3s;}
 .sett-pnl::-webkit-scrollbar{display:none;}
 .sett-drag{width:36px;height:4px;background:var(--bg4);border-radius:2px;margin:0 auto 16px;}
 .sett-title{font-size:17px;font-weight:800;text-align:center;color:var(--gold);margin-bottom:4px;}
 .sett-sect{font-size:10px;color:var(--green);font-weight:700;margin:16px 0 6px;letter-spacing:.8px;}
 .sett-row{display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--border);}
-.sett-lbl{font-size:14px;font-weight:600;}
+.sett-lbl{font-size:14px;font-weight:600;color:var(--text);}
 .sett-sub{font-size:11px;color:var(--text3);margin-top:2px;}
 .tog{width:52px;height:30px;background:var(--bg3);border-radius:15px;position:relative;cursor:pointer;transition:background .25s;flex-shrink:0;}
 .tog.on{background:linear-gradient(90deg,var(--gold),var(--gold2));}
@@ -310,18 +343,19 @@ body{color:var(--text);font-family:'Tajawal',sans-serif;}
 .tog.on::after{transform:translateX(-22px);}
 .install-btn{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#0d1f14;border:none;border-radius:12px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Tajawal',sans-serif;}
 
-/* ── NOTIF BANNER ── */
+/* ══ NOTIF BANNER ══ */
 .notif-banner{background:linear-gradient(135deg,#152b1e,#1c3828);border:1px solid rgba(61,220,132,.2);border-radius:16px;padding:13px 15px;margin-bottom:12px;display:flex;align-items:center;gap:12px;}
+body.light .notif-banner{background:linear-gradient(135deg,#e8f5e0,#f0ebe0);}
 .notif-banner-txt{font-size:13px;flex:1;line-height:1.5;color:var(--text2);}
-.notif-banner-btn{background:linear-gradient(135deg,var(--green),#2db870);color:#0d1f14;border:none;border-radius:10px;padding:9px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Tajawal',sans-serif;white-space:nowrap;flex-shrink:0;}
+.notif-banner-btn{background:linear-gradient(135deg,var(--green),#2db870);color:#fff;border:none;border-radius:10px;padding:9px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Tajawal',sans-serif;white-space:nowrap;flex-shrink:0;}
 
-/* ── FONT CTRL ── */
+/* ══ FONT CTRL ══ */
 .font-ctrl{display:flex;gap:6px;align-items:center;}
 .font-btn{width:34px;height:34px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;color:var(--text);cursor:pointer;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;}
 .mark-btn{background:var(--greenDim);border:1px solid rgba(61,220,132,.3);border-radius:10px;height:34px;padding:0 11px;color:var(--green);cursor:pointer;font-size:12px;font-weight:700;font-family:'Tajawal',sans-serif;white-space:nowrap;}
 .mark-btn.done{background:rgba(61,220,132,.25);}
 
-/* ── MISC ── */
+/* ══ MISC ══ */
 .loading-txt{text-align:center;padding:60px 20px;color:var(--text3);font-size:15px;}
 .error-txt{text-align:center;padding:40px 20px;color:var(--rose);font-size:14px;line-height:1.9;}
 #cfWrap{position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden;}
@@ -370,7 +404,7 @@ body{color:var(--text);font-family:'Tajawal',sans-serif;}
     </div>
     <div class="sett-sect">🎨 المظهر</div>
     <div class="sett-row">
-      <div><div class="sett-lbl">الوضع الليلي</div></div>
+      <div><div class="sett-lbl">الوضع الليلي</div><div class="sett-sub">تبديل بين الليلي والنهاري</div></div>
       <div class="tog on" id="togThemeSett" onclick="toggleThemeFromSett(this)"></div>
     </div>
     <div class="sett-sect">📱 التطبيق</div>
@@ -396,6 +430,7 @@ body{color:var(--text);font-family:'Tajawal',sans-serif;}
         <button class="pg-btn" onclick="openSett()">⚙️</button>
       </div>
     </div>
+
     <div class="hero fu">
       <div class="hero-top">
         <div>
@@ -423,7 +458,9 @@ body{color:var(--text);font-family:'Tajawal',sans-serif;}
         <div class="hp-item"><div class="hp-name">العشاء</div><div class="hp-time" id="hp_isha">--:--</div></div>
       </div>
     </div>
+
     <div style="padding:12px 18px 0" id="notifBannerWrap"></div>
+
     <div class="sec-hd"><span class="sec-title">وصول سريع</span></div>
     <div class="quick-grid">
       <div class="qitem fu" onclick="goTo('sCounter')" style="animation-delay:.05s"><div class="qitem-icon">📿</div><div class="qitem-lbl">العداد</div></div>
@@ -431,6 +468,7 @@ body{color:var(--text);font-family:'Tajawal',sans-serif;}
       <div class="qitem fu" onclick="goTo('sQibla')" style="animation-delay:.15s"><div class="qitem-icon">🧭</div><div class="qitem-lbl">القبلة</div></div>
       <div class="qitem fu" onclick="goTo('sFavs')" style="animation-delay:.2s"><div class="qitem-icon">⭐</div><div class="qitem-lbl">المفضلة</div></div>
     </div>
+
     <div class="sec-hd"><span class="sec-title">الأذكار والأدعية</span></div>
     <div class="dlist">
       <div class="ditem fu" onclick="openDhikr('رمضان','ramadan')" style="animation-delay:.05s"><div class="ditem-icon" style="background:rgba(212,168,67,.15)">🌙</div><div class="ditem-body"><div class="ditem-title">رمضان</div><div class="ditem-sub">أدعية وأذكار شهر رمضان المبارك</div></div><div class="ditem-arrow">›</div></div>
@@ -461,11 +499,11 @@ body{color:var(--text);font-family:'Tajawal',sans-serif;}
     <div style="height:24px"></div>
   </div>
   <nav class="bnav">
-    <div class="bnav-item on" onclick="bnavSelect(this,'sHome')"><div class="bnav-icon">🏠</div><div class="bnav-lbl">الرئيسية</div></div>
-    <div class="bnav-item" onclick="bnavSelect(this,'sSalah')"><div class="bnav-icon">🕌</div><div class="bnav-lbl">الصلاة</div></div>
-    <div class="bnav-item" onclick="bnavSelect(this,'sQibla')"><div class="bnav-icon">🧭</div><div class="bnav-lbl">القبلة</div></div>
-    <div class="bnav-item" onclick="bnavSelect(this,'sQuran')"><div class="bnav-icon">📖</div><div class="bnav-lbl">القرآن</div></div>
-    <div class="bnav-item" onclick="bnavSelect(this,'sCounter')"><div class="bnav-icon">📿</div><div class="bnav-lbl">العداد</div></div>
+    <div class="bnav-item on" id="bnav_sHome" onclick="bnavSelect(this,'sHome')"><div class="bnav-icon">🏠</div><div class="bnav-lbl">الرئيسية</div></div>
+    <div class="bnav-item" id="bnav_sSalah" onclick="bnavSelect(this,'sSalah')"><div class="bnav-icon">🕌</div><div class="bnav-lbl">الصلاة</div></div>
+    <div class="bnav-item" id="bnav_sQibla" onclick="bnavSelect(this,'sQibla')"><div class="bnav-icon">🧭</div><div class="bnav-lbl">القبلة</div></div>
+    <div class="bnav-item" id="bnav_sQuran" onclick="bnavSelect(this,'sQuran')"><div class="bnav-icon">📖</div><div class="bnav-lbl">القرآن</div></div>
+    <div class="bnav-item" id="bnav_sCounter" onclick="bnavSelect(this,'sCounter')"><div class="bnav-icon">📿</div><div class="bnav-lbl">العداد</div></div>
   </nav>
 </div>
 
@@ -691,24 +729,20 @@ function toggleAudio(){if(!_audio)return;if(_audio.paused){_audio.play().catch((
 function stopAudio(){if(_audio){_audio.pause();_audio=null;}const b=document.getElementById('audioPlayBtn');if(b)b.textContent='▶';}
 function seekAudio(e){if(!_audio||!_audio.duration)return;const r=e.currentTarget.getBoundingClientRect();_audio.currentTime=((e.clientX-r.left)/r.width)*_audio.duration;}
 
-/* ══ NAV — المُصلَح ══ */
+/* ══ NAV ══ */
 let hist=['sHome'];
 
 function goTo(id){
   const cur=hist[hist.length-1];
-  // أخفي الشاشة الحالية خلف الجديدة
   const curEl=document.getElementById(cur);
   curEl.classList.add('behind');
   curEl.classList.remove('hidden');
-  // أظهر الشاشة الجديدة
   const newEl=document.getElementById(id);
   newEl.classList.remove('hidden');
   newEl.classList.remove('behind');
   hist.push(id);
-  // ارجع للأعلى
   const sc=newEl.querySelector('.scroll');
   if(sc)sc.scrollTop=0;
-  // تهيئة الشاشات
   if(id==='sFavs')renderFavs();
   if(id==='sQibla')initQibla();
   if(id==='sSalah')renderSalahScreen();
@@ -718,11 +752,9 @@ function goTo(id){
 function goBack(){
   if(hist.length<=1)return;
   const cur=hist.pop();
-  // أخفِ الشاشة الحالية
   const curEl=document.getElementById(cur);
   curEl.classList.add('hidden');
   curEl.classList.remove('behind');
-  // أظهر الشاشة السابقة — هذا هو الإصلاح الجوهري
   const prevEl=document.getElementById(hist[hist.length-1]);
   prevEl.classList.remove('hidden');
   prevEl.classList.remove('behind');
@@ -733,17 +765,23 @@ function bnavSelect(el,id){
   el.classList.add('on');
   const cur=hist[hist.length-1];
   if(cur===id)return;
-  // أخفِ جميع الشاشات المفتوحة في التاريخ
+  // أخفِ كل الشاشات المفتوحة
   hist.forEach(h=>{
     const s=document.getElementById(h);
     s.classList.add('hidden');
     s.classList.remove('behind');
   });
-  // صفّر التاريخ واعرض الشاشة المطلوبة
-  hist=[id];
+  // ══ الإصلاح: sHome دائماً نقطة الرجوع ══
+  hist=['sHome',id];
   const target=document.getElementById(id);
   target.classList.remove('hidden');
   target.classList.remove('behind');
+  // أبقِ sHome مخفياً (خلف الشاشة الجديدة)
+  if(id!=='sHome'){
+    const home=document.getElementById('sHome');
+    home.classList.add('hidden');
+    home.classList.remove('behind');
+  }
   if(id==='sSalah')renderSalahScreen();
   if(id==='sQibla')initQibla();
 }
@@ -849,23 +887,46 @@ function doSrch(q){q=q.trim();if(!q){document.getElementById('srchRes').innerHTM
 function openSett(){document.getElementById('settOv').classList.remove('hidden');}
 function closeSett(){document.getElementById('settOv').classList.add('hidden');}
 function toggleSett(key,el){localStorage.setItem('s_'+key,el.classList.toggle('on')?'1':'0');}
-function toggleThemeFromSett(el){el.classList.toggle('on');toggleTheme();}
-function initSettings(){if(localStorage.getItem('s_sound')==='1')document.getElementById('togSound').classList.add('on');if(localStorage.getItem('s_goalSound')==='0')document.getElementById('togGoalSound').classList.remove('on');if(localStorage.getItem('s_notif')==='1')document.getElementById('togNotif').classList.add('on');if(localStorage.getItem('s_dnd')==='1')document.getElementById('togDND').classList.add('on');}
 
-/* ══ THEME ══ */
+/* ══ THEME — الإصلاح الكامل ══ */
 let dark=true;
-function toggleTheme(){dark=!dark;document.body.classList.toggle('light',!dark);document.getElementById('themeBtn').textContent=dark?'🌙':'☀️';localStorage.setItem('theme',dark?'dark':'light');}
+function applyTheme(){
+  if(dark){
+    document.body.classList.remove('light');
+    document.getElementById('themeBtn').textContent='🌙';
+    document.getElementById('togThemeSett').classList.add('on');
+  }else{
+    document.body.classList.add('light');
+    document.getElementById('themeBtn').textContent='☀️';
+    document.getElementById('togThemeSett').classList.remove('on');
+  }
+  localStorage.setItem('theme',dark?'dark':'light');
+}
+function toggleTheme(){dark=!dark;applyTheme();}
+function toggleThemeFromSett(el){dark=!dark;applyTheme();}
 
 /* ══ PWA ══ */
 let _dPmt=null;
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();_dPmt=e;document.getElementById('pwaBtn').style.display='inline-block';document.getElementById('pwaDone').style.display='none';});
 async function installPWA(){if(!_dPmt)return;_dPmt.prompt();const{outcome}=await _dPmt.userChoice;if(outcome==='accepted'){document.getElementById('pwaBtn').style.display='none';document.getElementById('pwaDone').style.display='inline';}_dPmt=null;}
 
+/* ══ SETTINGS INIT ══ */
+function initSettings(){
+  if(localStorage.getItem('s_sound')==='1')document.getElementById('togSound').classList.add('on');
+  if(localStorage.getItem('s_goalSound')==='0')document.getElementById('togGoalSound').classList.remove('on');
+  if(localStorage.getItem('s_notif')==='1')document.getElementById('togNotif').classList.add('on');
+  if(localStorage.getItem('s_dnd')==='1')document.getElementById('togDND').classList.add('on');
+}
+
 /* ══ CLOCK ══ */
 setInterval(()=>{if(prayerTimes.fajr)updatePrayerBar();},1000);
 
 /* ══ INIT ══ */
-if(localStorage.getItem('theme')==='light'){dark=false;document.body.classList.add('light');document.getElementById('themeBtn').textContent='☀️';}
+// ← تطبيق الثيم المحفوظ عند التحميل
+const savedTheme=localStorage.getItem('theme');
+if(savedTheme==='light'){dark=false;}else{dark=true;}
+applyTheme();
+
 buildQuran();
 updateKhatmUI();
 loadCounter();
