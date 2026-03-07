@@ -23,6 +23,9 @@ body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;tra
 .screen.behind{transform:translateX(-40%);opacity:0;pointer-events:none;}
 .scroll{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:20px;}
 .scroll::-webkit-scrollbar{display:none;}
+.qtab-content{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:20px;}
+.qtab-content::-webkit-scrollbar{display:none;}
+.qtab-content.hidden-tab{display:none;}
 .header{padding:14px 18px 10px;background:var(--bg);flex-shrink:0;}
 .header-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
 .hbtns{display:flex;gap:10px;}
@@ -76,8 +79,6 @@ body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;tra
 .dhikr-btns{display:flex;gap:8px;align-items:center;}
 .dhikr-go{background:var(--bg3);border:none;border-radius:50%;width:34px;height:34px;color:var(--gold);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;}
 .dhikr-go:active{transform:scale(.9);}
-.tap-btn{font-size:13px!important;font-weight:700!important;font-family:'Tajawal',sans-serif!important;min-width:34px;width:auto!important;padding:0 8px!important;border-radius:17px!important;background:rgba(212,168,67,.15)!important;color:var(--gold)!important;transition:all .15s;}
-.tap-btn:active{transform:scale(.9);background:rgba(212,168,67,.35)!important;}
 .ramadan-box{margin:12px 14px;background:linear-gradient(135deg,#2d1f0e,#3d2a10);border:1px solid rgba(212,168,67,.4);border-radius:13px;padding:13px;text-align:center;}
 .rb-lbl{font-size:12px;color:var(--muted);margin-bottom:7px;}
 .rb-row{display:flex;justify-content:space-around;align-items:center;}
@@ -109,21 +110,22 @@ body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;tra
 .qibla-title{font-size:17px;font-weight:700;margin-bottom:4px;}
 .qibla-deg{font-size:38px;font-weight:900;color:var(--gold);margin:6px 0;}
 .qibla-sub{font-size:13px;color:var(--muted);}
-.counter-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;gap:16px;}
-.dhikr-chips{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;}
+.counter-screen-inner{flex:1;display:flex;flex-direction:column;align-items:center;padding:16px 20px 20px;overflow:hidden;}
+.dhikr-chips{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;width:100%;margin-bottom:12px;}
 .chip{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:7px 14px;font-size:12px;cursor:pointer;font-family:'Tajawal',sans-serif;color:var(--muted);transition:all .2s;}
 .chip.on{background:var(--gold);color:#1a2235;border-color:transparent;font-weight:700;}
-.c-dhikr-txt{font-family:'Amiri',serif;font-size:22px;text-align:center;line-height:1.8;color:var(--text);max-width:85%;}
-.c-num{font-size:96px;font-weight:900;color:var(--text);line-height:1;transition:transform .08s;}
-.c-num.bump{transform:scale(1.1);}
-.c-circle{width:210px;height:210px;border-radius:50%;background:var(--bg2);border:3px solid rgba(212,168,67,.3);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .12s;box-shadow:0 0 40px rgba(212,168,67,.1);user-select:none;}
+.c-dhikr-txt{font-family:'Amiri',serif;font-size:20px;text-align:center;line-height:1.7;color:var(--text);max-width:88%;margin-bottom:6px;}
+.c-num{font-size:88px;font-weight:900;color:var(--text);line-height:1;transition:transform .08s;margin-bottom:6px;}
+.c-num.bump{transform:scale(1.12);}
+.c-circle{width:clamp(140px,38vw,210px);height:clamp(140px,38vw,210px);border-radius:50%;background:var(--bg2);border:3px solid rgba(212,168,67,.3);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .12s;box-shadow:0 0 40px rgba(212,168,67,.1);user-select:none;flex-shrink:0;margin-bottom:10px;}
 .c-circle:active{transform:scale(.93);box-shadow:0 0 60px rgba(212,168,67,.35);}
-.c-goal-row{display:flex;align-items:center;gap:10px;}
-.c-goal-bar-bg{width:170px;height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;}
+.c-circle span{font-size:clamp(28px,8vw,42px);}
+.c-goal-row{display:flex;align-items:center;gap:10px;width:85%;margin-bottom:10px;}
+.c-goal-bar-bg{flex:1;height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;}
 .c-goal-bar{height:100%;background:var(--gold);border-radius:3px;transition:width .3s;}
-.c-goal-txt{font-size:12px;color:var(--muted);}
+.c-goal-txt{font-size:12px;color:var(--muted);white-space:nowrap;}
 .c-btns{display:flex;gap:10px;}
-.cbtn{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:8px 18px;color:var(--muted);font-size:13px;cursor:pointer;font-family:'Tajawal',sans-serif;}
+.cbtn{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:9px 20px;color:var(--muted);font-size:13px;cursor:pointer;font-family:'Tajawal',sans-serif;}
 .cbtn:active{background:var(--bg3);}
 .quran-top-btns{display:flex;gap:8px;padding:12px 14px 8px;flex-shrink:0;}
 .qtab{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:8px 0;font-size:13px;font-weight:600;cursor:pointer;font-family:'Tajawal',sans-serif;color:var(--muted);flex:1;text-align:center;}
@@ -296,9 +298,17 @@ body::after{content:'';position:fixed;inset:0;background-image:radial-gradient(1
     <div class="qtab" onclick="switchQTab(this,'qAjza')">الأجزاء</div>
     <div class="qtab" onclick="switchQTab(this,'qSafhat')">الصفحات</div>
   </div>
-  <div class="scroll" id="qSuwar"><div style="height:8px"></div><div class="surah-grid" id="surahGrid"></div><div style="height:16px"></div></div>
-  <div class="scroll hidden" id="qAjza"><div class="pad" style="padding-top:12px" id="ajzaList"></div></div>
-  <div class="scroll hidden" id="qSafhat"><div class="pad" style="padding-top:12px" id="safhatGrid"></div></div>
+  <div class="qtab-content" id="qSuwar">
+    <div style="height:8px"></div>
+    <div class="surah-grid" id="surahGrid"></div>
+    <div style="height:16px"></div>
+  </div>
+  <div class="qtab-content hidden-tab" id="qAjza">
+    <div class="pad" style="padding-top:12px" id="ajzaList"></div>
+  </div>
+  <div class="qtab-content hidden-tab" id="qSafhat">
+    <div class="pad" style="padding-top:12px" id="safhatGrid"></div>
+  </div>
 </div>
 
 <!-- SURAH DETAIL -->
@@ -322,8 +332,11 @@ body::after{content:'';position:fixed;inset:0;background-image:radial-gradient(1
 
 <!-- COUNTER -->
 <div class="screen hidden" id="sCounter">
-  <div class="pg-header"><span class="pg-title">العداد</span><button class="back-btn" onclick="goBack()">✕</button></div>
-  <div class="counter-wrap">
+  <div class="pg-header">
+    <span class="pg-title">العداد</span>
+    <button class="back-btn" onclick="goBack()">✕</button>
+  </div>
+  <div class="counter-screen-inner">
     <div class="dhikr-chips">
       <div class="chip on" onclick="pickChip(this,'سُبْحَانَ اللهِ',33)">سبحان الله</div>
       <div class="chip" onclick="pickChip(this,'الْحَمْدُ لِلَّهِ',33)">الحمد لله</div>
@@ -333,7 +346,7 @@ body::after{content:'';position:fixed;inset:0;background-image:radial-gradient(1
     </div>
     <div class="c-dhikr-txt" id="cTxt">سُبْحَانَ اللهِ</div>
     <div class="c-num" id="cNum">0</div>
-    <div class="c-circle" id="cCircle" onclick="tap()"><span style="font-size:42px">🤲</span></div>
+    <div class="c-circle" id="cCircle" onclick="tap()"><span>🤲</span></div>
     <div class="c-goal-row">
       <span class="c-goal-txt" id="cGoalTxt">0 / 33</span>
       <div class="c-goal-bar-bg"><div class="c-goal-bar" id="cGoalBar" style="width:0%"></div></div>
@@ -532,7 +545,6 @@ const DB={
   ],
 };
 
-// NAV
 let hist=['sHome'];
 function goTo(id){
   const cur=hist[hist.length-1];
@@ -550,7 +562,6 @@ function goBack(){
   document.getElementById(hist[hist.length-1]).classList.remove('behind');
 }
 
-// DHIKR
 let favs=JSON.parse(localStorage.getItem('favs')||'[]');
 const tapCounts={};
 function openDhikr(title,key){
@@ -575,11 +586,7 @@ function openDhikr(title,key){
 function inlineTap(tid){
   tapCounts[tid]=(tapCounts[tid]||0)+1;
   const btn=document.getElementById(tid);
-  if(btn){
-    btn.textContent=tapCounts[tid];
-    btn.style.background='rgba(212,168,67,.35)';
-    setTimeout(()=>btn.style.background='rgba(212,168,67,.15)',150);
-  }
+  if(btn){btn.textContent=tapCounts[tid];btn.style.background='rgba(212,168,67,.35)';setTimeout(()=>btn.style.background='rgba(212,168,67,.15)',150);}
 }
 function toggleFav(key,idx,title,btn){
   const pos=favs.findIndex(f=>f.k===key&&f.i===idx);
@@ -594,7 +601,6 @@ function renderFavs(){
 }
 function delFav(i){favs.splice(i,1);localStorage.setItem('favs',JSON.stringify(favs));renderFavs();}
 
-// COUNTER
 let cCount=0,cGoal=33;
 function pickChip(el,txt,goal){
   document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));
@@ -616,7 +622,6 @@ function updateGoal(){
   document.getElementById('cGoalTxt').textContent=cCount+' / '+cGoal;
 }
 
-// QURAN
 async function openSurah(idx){
   const s=SURAHS[idx];
   document.getElementById('surahDetailTitle').textContent='سُورَةُ '+s.n;
@@ -628,10 +633,7 @@ async function openSurah(idx){
     if(data.code!==200)throw new Error();
     const ayahs=data.data.ayahs;
     const showBasmalah=idx!==0&&idx!==8;
-    let html=`<div class="surah-detail-header">
-      <div class="surah-detail-name">سُورَةُ ${s.n}</div>
-      <div class="surah-detail-meta">${s.t} · ${s.v} آية · الصفحة ${s.p}</div>
-    </div>`;
+    let html=`<div class="surah-detail-header"><div class="surah-detail-name">سُورَةُ ${s.n}</div><div class="surah-detail-meta">${s.t} · ${s.v} آية · الصفحة ${s.p}</div></div>`;
     if(showBasmalah)html+=`<div class="basmalah">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>`;
     html+=ayahs.map(a=>`<div class="ayah-item"><div class="ayah-num">${a.numberInSurah}</div><div class="ayah-txt">${a.text} ۝</div></div>`).join('');
     document.getElementById('surahDetailBody').innerHTML=html;
@@ -659,18 +661,16 @@ function buildQuran(){
 function switchQTab(el,id){
   document.querySelectorAll('.qtab').forEach(t=>t.classList.remove('on'));
   el.classList.add('on');
-  ['qSuwar','qAjza','qSafhat'].forEach(t=>document.getElementById(t).classList.toggle('hidden',t!==id));
+  ['qSuwar','qAjza','qSafhat'].forEach(t=>{
+    document.getElementById(t).classList.toggle('hidden-tab',t!==id);
+  });
 }
-
-// THEME
 let dark=true;
 function toggleTheme(){
   dark=!dark;
   document.body.classList.toggle('light',!dark);
   document.getElementById('themeBtn').textContent=dark?'🌙':'☀️';
 }
-
-// CLOCK
 function tick(){const n=new Date();document.getElementById('clockNow').textContent=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');}
 setInterval(tick,1000);tick();
 buildQuran();
