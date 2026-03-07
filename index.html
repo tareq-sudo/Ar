@@ -3,243 +3,298 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#1a2235">
+<meta name="theme-color" content="#0a1f18">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="أذكار">
 <title>أذكار</title>
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#1a2235;--bg2:#232e42;--bg3:#2a3650;--gold:#d4a843;--teal:#4ec9b0;--rose:#e07b8a;--blue:#5b9bd5;--green:#6dbf7e;--purple:#a78bfa;--orange:#fb923c;--cyan:#22d3ee;--text:#e8eaf0;--muted:#8a97b0;--dim:#5a6580;--border:rgba(255,255,255,0.07);}
-.light{--bg:#f0f4ff;--bg2:#ffffff;--bg3:#e8edf8;--text:#1a2235;--muted:#5a6580;--dim:#8a97b0;--border:rgba(0,0,0,0.08);}
+:root{
+--bg:#0a1f18;
+--bg2:#112b22;
+--bg3:#1a3d2e;
+--gold:#c9a84c;
+--gold2:#e8c96a;
+--teal:#52d48a;
+--rose:#f87171;
+--blue:#60a5fa;
+--green:#4ade80;
+--purple:#c084fc;
+--orange:#fb923c;
+--cyan:#34d399;
+--text:#e8f5ee;
+--muted:#7aaa94;
+--dim:#4a7a64;
+--border:rgba(255,255,255,0.06);
+--shadow:rgba(0,0,0,0.4);
+}
+.light{
+--bg:#f0faf4;
+--bg2:#ffffff;
+--bg3:#e0f5ea;
+--text:#0a1f18;
+--muted:#3a6b52;
+--dim:#7aaa94;
+--border:rgba(0,0,0,0.07);
+}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;overflow:hidden;}
 body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;transition:background .3s,color .3s;}
-.screen{position:fixed;inset:0;display:flex;flex-direction:column;background:var(--bg);transition:transform .35s cubic-bezier(.4,0,.2,1),opacity .35s;z-index:10;overflow:hidden;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 0%,rgba(82,212,138,.07) 0%,transparent 60%),radial-gradient(ellipse at 80% 100%,rgba(201,168,76,.06) 0%,transparent 60%);pointer-events:none;z-index:0;}
+.screen{position:fixed;inset:0;display:flex;flex-direction:column;background:var(--bg);transition:transform .38s cubic-bezier(.4,0,.2,1),opacity .38s;z-index:10;overflow:hidden;}
 .screen.hidden{transform:translateX(100%);opacity:0;pointer-events:none;}
 .screen.behind{transform:translateX(-40%);opacity:0;pointer-events:none;}
-.scroll{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:24px;}
+.scroll{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:30px;}
 .scroll::-webkit-scrollbar{display:none;}
 .qtab-content{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:20px;}
 .qtab-content::-webkit-scrollbar{display:none;}
 .qtab-content.hidden-tab{display:none;}
-.header{padding:14px 18px 10px;background:var(--bg);flex-shrink:0;}
-.header-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+/* HEADER */
+.header{padding:16px 18px 12px;background:var(--bg);flex-shrink:0;}
+.header-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
 .hbtns{display:flex;gap:8px;}
-.hbtn{width:38px;height:38px;background:var(--bg2);border:1px solid var(--border);border-radius:50%;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all .2s;flex-shrink:0;}
-.hbtn:active{background:var(--bg3);}
-.hbtn.gold{background:var(--gold);color:#1a2235;border-color:transparent;}
-.prayer-bar{background:var(--bg2);border-radius:14px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;border:1px solid var(--border);}
+.hbtn{width:40px;height:40px;background:var(--bg2);border:1px solid var(--border);border-radius:13px;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:17px;transition:all .2s;flex-shrink:0;}
+.hbtn:active{background:var(--bg3);transform:scale(.93);}
+.hbtn.gold{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#0a1f18;border-color:transparent;box-shadow:0 4px 15px rgba(201,168,76,.35);}
+/* PRAYER BAR */
+.prayer-bar{background:var(--bg2);border-radius:18px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border:1px solid var(--border);box-shadow:0 4px 20px var(--shadow);}
 .pt-side{text-align:center;}
-.pt-name{font-size:11px;color:var(--muted);}
-.pt-val{font-size:15px;font-weight:700;color:var(--text);direction:ltr;}
-.date-pill{background:linear-gradient(135deg,#2d4a6e,#1e3557);border:1px solid rgba(212,168,67,.4);border-radius:50px;padding:6px 16px;text-align:center;cursor:pointer;}
-.date-num{font-size:22px;font-weight:900;color:var(--gold);line-height:1;}
-.date-lbl{font-size:10px;color:var(--gold);opacity:.8;}
-.countdown{margin:8px 0 0;background:var(--bg2);border-radius:10px;padding:9px 14px;display:flex;justify-content:space-between;align-items:center;border:1px solid var(--border);border-right:3px solid var(--gold);}
+.pt-name{font-size:11px;color:var(--muted);margin-bottom:2px;}
+.pt-val{font-size:16px;font-weight:700;color:var(--text);direction:ltr;}
+.date-pill{background:linear-gradient(135deg,#1a3d2e,#0f2d20);border:1px solid rgba(201,168,76,.5);border-radius:50px;padding:8px 18px;text-align:center;cursor:pointer;box-shadow:0 0 20px rgba(201,168,76,.15);}
+.date-num{font-size:24px;font-weight:900;color:var(--gold);line-height:1;}
+.date-lbl{font-size:10px;color:var(--gold);opacity:.85;}
+.countdown{margin:10px 0 0;background:var(--bg2);border-radius:12px;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;border:1px solid var(--border);border-right:3px solid var(--gold);box-shadow:0 2px 10px var(--shadow);}
 .cd-text{font-size:13px;color:var(--muted);}
-.cd-time{font-size:16px;font-weight:700;color:var(--gold);direction:ltr;}
-.nav-tabs{display:flex;justify-content:space-around;padding:0 4px;border-bottom:1px solid var(--border);background:var(--bg);flex-shrink:0;}
-.ntab{font-size:12px;color:var(--muted);cursor:pointer;padding:10px 4px 8px;border-bottom:2px solid transparent;transition:all .2s;font-weight:500;white-space:nowrap;}
+.cd-time{font-size:17px;font-weight:700;color:var(--gold);direction:ltr;}
+/* NAV */
+.nav-tabs{display:flex;justify-content:space-around;padding:0 8px;border-bottom:1px solid var(--border);background:var(--bg);flex-shrink:0;}
+.ntab{font-size:12px;color:var(--muted);cursor:pointer;padding:11px 4px 9px;border-bottom:2px solid transparent;transition:all .2s;font-weight:500;white-space:nowrap;}
 .ntab.on{color:var(--gold);border-bottom-color:var(--gold);}
+/* PAGE HEADER */
 .pg-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 12px;border-bottom:1px solid var(--border);background:var(--bg);flex-shrink:0;gap:8px;}
 .pg-title{font-size:17px;font-weight:700;flex:1;}
-.back-btn{width:38px;height:38px;background:var(--bg2);border:1px solid var(--border);border-radius:50%;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
-.pad{padding:0 14px;}
-.card{background:var(--bg2);border-radius:14px;border:1px solid var(--border);padding:13px 15px;margin-bottom:8px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:space-between;}
-.card:active{transform:scale(.98);}
-.card.hl{background:linear-gradient(135deg,#1e3050,#2a3d60);border-color:rgba(212,168,67,.25);}
+.back-btn{width:38px;height:38px;background:var(--bg2);border:1px solid var(--border);border-radius:12px;color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.pad{padding:0 16px;}
+/* CARDS */
+.card{background:var(--bg2);border-radius:16px;border:1px solid var(--border);padding:14px 16px;margin-bottom:10px;cursor:pointer;transition:all .22s;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 12px var(--shadow);}
+.card:active{transform:scale(.97);}
+.card.hl{background:linear-gradient(135deg,#1a3d2e,#122b22);border-color:rgba(201,168,76,.3);box-shadow:0 4px 20px rgba(201,168,76,.1);}
 .card-title{font-size:14px;font-weight:600;display:flex;gap:8px;align-items:center;}
-.card-arrow{color:var(--dim);font-size:13px;}
-.quran-card{background:linear-gradient(135deg,#1e3050,#283d5e);border:1px solid rgba(212,168,67,.3);border-radius:14px;padding:13px 15px;margin-bottom:8px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:all .2s;}
-.quran-card:active{transform:scale(.98);}
-.q-title{font-size:14px;font-weight:600;color:var(--gold);display:flex;gap:8px;align-items:center;}
-.q-num{background:var(--gold);color:#1a2235;border-radius:7px;padding:2px 8px;font-size:13px;font-weight:700;}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;}
-.gbtn{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:13px 8px;text-align:center;cursor:pointer;font-size:13px;font-weight:600;color:var(--text);font-family:'Tajawal',sans-serif;transition:all .2s;}
-.gbtn:active{transform:scale(.97);}
-.gc{color:var(--gold)!important;}.gteal{color:var(--teal)!important;}.grose{color:var(--rose)!important;}
-.gblue{color:var(--blue)!important;}.ggreen{color:var(--green)!important;}.gpurple{color:var(--purple)!important;}
-.gorange{color:var(--orange)!important;}.gcyan{color:var(--cyan)!important;}
-.hcard{background:var(--bg2);border-radius:12px;padding:12px 14px;margin-bottom:8px;border:1px solid var(--border);border-right:3px solid var(--teal);}
-.hcard-lbl{font-size:11px;color:var(--teal);margin-bottom:4px;}
-.hcard-txt{font-family:'Amiri',serif;font-size:15px;line-height:1.9;color:var(--text);}
-.verse-card{background:linear-gradient(135deg,#1a3040,#1e2d45);border:1px solid rgba(78,201,176,.2);border-radius:12px;padding:14px;margin-bottom:8px;cursor:pointer;}
-.verse-lbl{font-size:11px;color:var(--teal);margin-bottom:4px;}
-.verse-txt{font-family:'Amiri',serif;font-size:15px;line-height:2;color:var(--text);}
-.moon-txt{text-align:center;padding:10px 0 6px;font-family:'Amiri',serif;font-size:18px;color:var(--gold);opacity:.9;}
-.dhikr-item{background:var(--bg2);border-radius:13px;padding:15px;margin-bottom:8px;border:1px solid var(--border);cursor:pointer;transition:all .2s;}
+.card-arrow{color:var(--dim);font-size:14px;}
+.quran-card{background:linear-gradient(135deg,#1a3d2e,#0f2d20);border:1px solid rgba(201,168,76,.35);border-radius:16px;padding:14px 16px;margin-bottom:10px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:all .22s;box-shadow:0 4px 20px rgba(201,168,76,.12);}
+.quran-card:active{transform:scale(.97);}
+.q-title{font-size:14px;font-weight:700;color:var(--gold);display:flex;gap:8px;align-items:center;}
+.q-num{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#0a1f18;border-radius:8px;padding:3px 10px;font-size:13px;font-weight:700;}
+/* GRID */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+.gbtn{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:15px 8px;text-align:center;cursor:pointer;font-size:13px;font-weight:600;color:var(--text);font-family:'Tajawal',sans-serif;transition:all .22s;box-shadow:0 2px 8px var(--shadow);}
+.gbtn:active{transform:scale(.95);}
+.gc{color:var(--gold)!important;}
+.gteal{color:var(--teal)!important;}
+.grose{color:var(--rose)!important;}
+.gblue{color:var(--blue)!important;}
+.ggreen{color:var(--green)!important;}
+.gpurple{color:var(--purple)!important;}
+.gorange{color:var(--orange)!important;}
+.gcyan{color:var(--cyan)!important;}
+/* HIGHLIGHT CARDS */
+.hcard{background:var(--bg2);border-radius:14px;padding:13px 15px;margin-bottom:10px;border:1px solid var(--border);border-right:3px solid var(--teal);box-shadow:0 2px 10px var(--shadow);}
+.hcard-lbl{font-size:11px;color:var(--teal);margin-bottom:5px;font-weight:600;}
+.hcard-txt{font-family:'Amiri',serif;font-size:16px;line-height:2;color:var(--text);}
+.verse-card{background:linear-gradient(135deg,#122b22,#0f2520);border:1px solid rgba(82,212,138,.2);border-radius:14px;padding:15px;margin-bottom:10px;cursor:pointer;box-shadow:0 2px 12px var(--shadow);}
+.verse-lbl{font-size:11px;color:var(--teal);margin-bottom:5px;font-weight:600;}
+.verse-txt{font-family:'Amiri',serif;font-size:16px;line-height:2.1;color:var(--text);}
+.moon-txt{text-align:center;padding:14px 0 8px;font-family:'Amiri',serif;font-size:19px;color:var(--gold);opacity:.9;}
+/* DHIKR ITEMS */
+.dhikr-item{background:var(--bg2);border-radius:15px;padding:16px;margin-bottom:10px;border:1px solid var(--border);cursor:pointer;transition:all .2s;box-shadow:0 2px 10px var(--shadow);}
 .dhikr-item:active{transform:scale(.99);}
-.dhikr-txt{font-family:'Amiri',serif;font-size:19px;line-height:2;color:var(--text);margin-bottom:10px;}
+.dhikr-txt{font-family:'Amiri',serif;font-size:20px;line-height:2.1;color:var(--text);margin-bottom:12px;}
 .dhikr-foot{display:flex;justify-content:space-between;align-items:center;}
-.dhikr-cnt{background:rgba(212,168,67,.12);color:var(--gold);border-radius:20px;padding:4px 12px;font-size:12px;font-weight:600;flex-shrink:0;}
+.dhikr-cnt{background:rgba(201,168,76,.12);color:var(--gold);border-radius:20px;padding:5px 13px;font-size:12px;font-weight:700;flex-shrink:0;border:1px solid rgba(201,168,76,.2);}
 .dhikr-btns{display:flex;gap:8px;align-items:center;}
-.dhikr-go{background:var(--bg3);border:none;border-radius:50%;width:34px;height:34px;color:var(--gold);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.dhikr-go:active{transform:scale(.9);}
-.ramadan-box{margin:12px 14px;background:linear-gradient(135deg,#2d1f0e,#3d2a10);border:1px solid rgba(212,168,67,.4);border-radius:13px;padding:13px;text-align:center;}
-.rb-lbl{font-size:12px;color:var(--muted);margin-bottom:7px;}
+.dhikr-go{background:var(--bg3);border:none;border-radius:50%;width:35px;height:35px;color:var(--gold);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.dhikr-go:active{transform:scale(.88);}
+/* RAMADAN */
+.ramadan-box{margin:12px 16px;background:linear-gradient(135deg,#2d1f0e,#3d2a10);border:1px solid rgba(201,168,76,.4);border-radius:16px;padding:14px;text-align:center;box-shadow:0 4px 20px rgba(201,168,76,.1);}
+.rb-lbl{font-size:12px;color:var(--muted);margin-bottom:8px;}
 .rb-row{display:flex;justify-content:space-around;align-items:center;}
 .rb-item{text-align:center;}
 .rb-name{font-size:11px;color:var(--muted);}
-.rb-time{font-size:21px;font-weight:700;color:var(--gold);direction:ltr;}
-.pt-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:0 14px;}
-.ptc{background:var(--bg2);border:1px solid var(--border);border-radius:13px;padding:14px;text-align:center;}
-.ptc.now{background:linear-gradient(135deg,#1e3a5f,#2a4d7a);border-color:rgba(212,168,67,.4);}
-.ptc-name{font-size:13px;color:var(--muted);margin-bottom:4px;}
-.ptc-time{font-size:23px;font-weight:700;color:var(--text);direction:ltr;}
+.rb-time{font-size:22px;font-weight:700;color:var(--gold);direction:ltr;}
+/* PRAYER TIMES */
+.pt-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px;}
+.ptc{background:var(--bg2);border:1px solid var(--border);border-radius:15px;padding:15px;text-align:center;box-shadow:0 2px 10px var(--shadow);}
+.ptc.now{background:linear-gradient(135deg,#1a3d2e,#122b22);border-color:rgba(201,168,76,.4);box-shadow:0 4px 20px rgba(201,168,76,.15);}
+.ptc-name{font-size:13px;color:var(--muted);margin-bottom:5px;}
+.ptc-time{font-size:24px;font-weight:700;color:var(--text);direction:ltr;}
 .ptc.now .ptc-time{color:var(--gold);}
 .ptc-iq{font-size:11px;color:var(--dim);margin-top:3px;direction:ltr;}
+/* QIBLA */
 .qibla-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;}
-.compass-outer{width:270px;height:270px;border-radius:50%;border:1.5px solid var(--border);position:relative;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,var(--bg3),var(--bg2));transition:transform .1s ease;}
-.compass-dir{position:absolute;font-size:12px;color:var(--muted);font-weight:600;}
-.compass-dir.n{top:10px;left:50%;transform:translateX(-50%);color:#e07b8a;}
+.compass-outer{width:280px;height:280px;border-radius:50%;border:1px solid rgba(201,168,76,.2);position:relative;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,var(--bg3),var(--bg2));box-shadow:0 0 40px rgba(82,212,138,.08),inset 0 0 30px rgba(0,0,0,.3);transition:transform .1s ease;}
+.compass-dir{position:absolute;font-size:12px;color:var(--muted);font-weight:700;}
+.compass-dir.n{top:10px;left:50%;transform:translateX(-50%);color:var(--rose);}
 .compass-dir.s{bottom:10px;left:50%;transform:translateX(-50%);}
 .compass-dir.e{right:12px;top:50%;transform:translateY(-50%);}
 .compass-dir.w{left:12px;top:50%;transform:translateY(-50%);}
 .compass-inner{width:150px;height:150px;border-radius:50%;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;position:relative;}
 .needle-wrap{width:100%;height:100%;position:absolute;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-.needle-n{width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:50px solid var(--rose);margin-bottom:2px;filter:drop-shadow(0 0 5px rgba(224,123,138,.5));}
+.needle-n{width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:50px solid var(--rose);margin-bottom:2px;filter:drop-shadow(0 0 6px rgba(248,113,113,.6));}
 .needle-s{width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:50px solid var(--dim);}
-.needle-dot{position:absolute;width:10px;height:10px;border-radius:50%;background:var(--gold);z-index:2;}
+.needle-dot{position:absolute;width:11px;height:11px;border-radius:50%;background:var(--gold);z-index:2;box-shadow:0 0 8px rgba(201,168,76,.6);}
 .qibla-arrow-wrap{position:absolute;inset:0;pointer-events:none;}
-.qibla-arrow-line{position:absolute;width:2px;height:100px;background:linear-gradient(to bottom,var(--gold),rgba(212,168,67,0));top:35px;left:50%;transform-origin:50% calc(135px - 35px);border-radius:2px;}
-.qibla-arrow-tip{position:absolute;top:32px;left:50%;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:16px solid var(--gold);transform-origin:50% calc(135px - 32px);filter:drop-shadow(0 0 5px rgba(212,168,67,.7));}
-.qibla-info{text-align:center;margin-top:22px;}
+.qibla-arrow-line{position:absolute;width:2px;height:100px;background:linear-gradient(to bottom,var(--gold),rgba(201,168,76,0));top:35px;left:50%;transform-origin:50% calc(140px - 35px);border-radius:2px;}
+.qibla-arrow-tip{position:absolute;top:32px;left:50%;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:18px solid var(--gold);transform-origin:50% calc(140px - 32px);filter:drop-shadow(0 0 6px rgba(201,168,76,.8));}
+.qibla-info{text-align:center;margin-top:24px;}
 .qibla-title{font-size:17px;font-weight:700;margin-bottom:4px;}
-.qibla-deg{font-size:38px;font-weight:900;color:var(--gold);margin:6px 0;}
+.qibla-deg{font-size:42px;font-weight:900;color:var(--gold);margin:6px 0;}
 .qibla-sub{font-size:13px;color:var(--muted);}
+/* COUNTER */
 .counter-screen-inner{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:space-evenly;padding:10px 20px 16px;overflow:hidden;}
 .dhikr-chips{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;width:100%;}
 .chip{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:7px 14px;font-size:12px;cursor:pointer;font-family:'Tajawal',sans-serif;color:var(--muted);transition:all .2s;}
-.chip.on{background:var(--gold);color:#1a2235;border-color:transparent;font-weight:700;}
-.c-dhikr-txt{font-family:'Amiri',serif;font-size:20px;text-align:center;line-height:1.7;color:var(--text);max-width:88%;}
+.chip.on{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#0a1f18;border-color:transparent;font-weight:700;box-shadow:0 3px 12px rgba(201,168,76,.4);}
+.c-dhikr-txt{font-family:'Amiri',serif;font-size:20px;text-align:center;line-height:1.8;color:var(--text);max-width:88%;}
 .c-num{font-size:88px;font-weight:900;color:var(--text);line-height:1;transition:transform .08s;}
 .c-num.bump{transform:scale(1.12);}
-.c-circle{width:clamp(140px,38vw,210px);height:clamp(140px,38vw,210px);border-radius:50%;background:var(--bg2);border:3px solid rgba(212,168,67,.3);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .12s;box-shadow:0 0 40px rgba(212,168,67,.1);user-select:none;flex-shrink:0;}
-.c-circle:active{transform:scale(.93);box-shadow:0 0 60px rgba(212,168,67,.35);}
+.c-circle{width:clamp(140px,38vw,210px);height:clamp(140px,38vw,210px);border-radius:50%;background:var(--bg2);border:2px solid rgba(201,168,76,.25);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .12s;box-shadow:0 0 40px rgba(82,212,138,.08),0 8px 30px var(--shadow);user-select:none;flex-shrink:0;}
+.c-circle:active{transform:scale(.92);box-shadow:0 0 60px rgba(201,168,76,.4);}
 .c-circle span{font-size:clamp(28px,8vw,42px);}
 .c-goal-row{display:flex;align-items:center;gap:10px;width:85%;}
 .c-goal-bar-bg{flex:1;height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;}
-.c-goal-bar{height:100%;background:var(--gold);border-radius:3px;transition:width .3s;}
+.c-goal-bar{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:3px;transition:width .3s;}
 .c-goal-txt{font-size:12px;color:var(--muted);white-space:nowrap;}
 .c-btns{display:flex;gap:10px;}
-.cbtn{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:9px 20px;color:var(--muted);font-size:13px;cursor:pointer;font-family:'Tajawal',sans-serif;}
+.cbtn{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:10px 22px;color:var(--muted);font-size:13px;cursor:pointer;font-family:'Tajawal',sans-serif;box-shadow:0 2px 8px var(--shadow);}
 .cbtn:active{background:var(--bg3);}
+/* DHIKR COUNTER */
 .dc-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:space-evenly;padding:10px 20px 16px;overflow:hidden;}
-.dc-title-lbl{font-size:13px;color:var(--teal);font-weight:600;}
-.dc-txt{font-family:'Amiri',serif;font-size:21px;text-align:center;line-height:1.9;color:var(--text);max-width:90%;}
+.dc-title-lbl{font-size:13px;color:var(--teal);font-weight:700;}
+.dc-txt{font-family:'Amiri',serif;font-size:21px;text-align:center;line-height:2;color:var(--text);max-width:90%;}
 .dc-num{font-size:88px;font-weight:900;color:var(--text);line-height:1;transition:transform .08s;}
 .dc-num.bump{transform:scale(1.12);}
-.dc-circle{width:clamp(140px,38vw,210px);height:clamp(140px,38vw,210px);border-radius:50%;background:var(--bg2);border:3px solid rgba(212,168,67,.3);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .12s;box-shadow:0 0 40px rgba(212,168,67,.1);user-select:none;flex-shrink:0;}
-.dc-circle:active{transform:scale(.93);box-shadow:0 0 60px rgba(212,168,67,.4);}
+.dc-circle{width:clamp(140px,38vw,210px);height:clamp(140px,38vw,210px);border-radius:50%;background:var(--bg2);border:2px solid rgba(201,168,76,.25);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .12s;box-shadow:0 0 40px rgba(82,212,138,.08),0 8px 30px var(--shadow);user-select:none;flex-shrink:0;}
+.dc-circle:active{transform:scale(.92);box-shadow:0 0 60px rgba(201,168,76,.4);}
 .dc-circle span{font-size:clamp(28px,8vw,42px);}
 .dc-goal-row{display:flex;align-items:center;gap:10px;width:85%;}
 .dc-goal-bar-bg{flex:1;height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;}
-.dc-goal-bar{height:100%;background:var(--gold);border-radius:3px;transition:width .3s;}
+.dc-goal-bar{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:3px;transition:width .3s;}
 .dc-goal-txt{font-size:12px;color:var(--muted);white-space:nowrap;font-weight:600;}
-.dc-cnt-lbl{font-size:12px;color:var(--gold);background:rgba(212,168,67,.12);border-radius:20px;padding:4px 14px;}
+.dc-cnt-lbl{font-size:12px;color:var(--gold);background:rgba(201,168,76,.12);border-radius:20px;padding:5px 16px;border:1px solid rgba(201,168,76,.2);}
 .dc-btns{display:flex;gap:10px;}
-.quran-top-btns{display:flex;gap:8px;padding:10px 14px 8px;flex-shrink:0;}
-.qtab{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:8px 0;font-size:13px;font-weight:600;cursor:pointer;font-family:'Tajawal',sans-serif;color:var(--muted);flex:1;text-align:center;}
-.qtab.on{background:var(--gold);color:#1a2235;border-color:transparent;}
-.khatm-prog{display:flex;align-items:center;gap:10px;padding:8px 14px;flex-shrink:0;border-bottom:1px solid var(--border);background:var(--bg2);}
+/* QURAN */
+.quran-top-btns{display:flex;gap:8px;padding:10px 16px 8px;flex-shrink:0;}
+.qtab{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:9px 0;font-size:13px;font-weight:600;cursor:pointer;font-family:'Tajawal',sans-serif;color:var(--muted);flex:1;text-align:center;}
+.qtab.on{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#0a1f18;border-color:transparent;box-shadow:0 3px 12px rgba(201,168,76,.3);}
+.khatm-prog{display:flex;align-items:center;gap:10px;padding:9px 16px;flex-shrink:0;border-bottom:1px solid var(--border);background:var(--bg2);}
 .khatm-bar-bg{flex:1;height:5px;background:var(--bg3);border-radius:3px;overflow:hidden;}
 .khatm-bar{height:100%;background:linear-gradient(90deg,var(--gold),var(--teal));border-radius:3px;transition:width .5s;}
 .khatm-txt{font-size:11px;color:var(--muted);white-space:nowrap;}
 .khatm-rst{background:none;border:none;color:var(--rose);font-size:12px;cursor:pointer;font-family:'Tajawal',sans-serif;}
-.surah-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:0 14px;}
-.surah-card{background:var(--bg2);border:1px solid var(--border);border-radius:13px;padding:12px 10px 10px;cursor:pointer;transition:all .2s;position:relative;}
-.surah-card:active{transform:scale(.97);}
-.surah-card.read-done{border-color:rgba(78,201,176,.5);background:linear-gradient(135deg,var(--bg2),rgba(78,201,176,.06));}
-.surah-num{position:absolute;top:9px;left:9px;width:24px;height:24px;background:var(--bg3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--muted);}
+.surah-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px;}
+.surah-card{background:var(--bg2);border:1px solid var(--border);border-radius:15px;padding:13px 11px 11px;cursor:pointer;transition:all .22s;position:relative;box-shadow:0 2px 8px var(--shadow);}
+.surah-card:active{transform:scale(.96);}
+.surah-card.read-done{border-color:rgba(82,212,138,.4);background:linear-gradient(135deg,var(--bg2),rgba(82,212,138,.06));}
+.surah-num{position:absolute;top:9px;left:9px;width:26px;height:26px;background:var(--bg3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--muted);}
 .surah-name{font-family:'Amiri',serif;font-size:17px;font-weight:700;text-align:right;color:var(--text);margin-bottom:3px;}
 .surah-meta{font-size:11px;color:var(--muted);text-align:right;}
 .surah-page{font-size:10px;color:var(--dim);text-align:right;}
 .surah-check{position:absolute;top:8px;right:8px;font-size:13px;display:none;}
 .surah-card.read-done .surah-check{display:block;}
-.juz-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:13px 15px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;}
-.juz-num{font-size:24px;font-weight:900;color:var(--gold);}
+.juz-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 8px var(--shadow);}
+.juz-num{font-size:26px;font-weight:900;color:var(--gold);}
 .juz-info{text-align:right;}
 .juz-name{font-size:14px;font-weight:600;}
 .juz-page{font-size:11px;color:var(--muted);}
+/* FAVS */
 .fav-empty{text-align:center;padding:60px 30px;color:var(--muted);}
-.fav-empty-icon{font-size:46px;margin-bottom:12px;}
+.fav-empty-icon{font-size:48px;margin-bottom:12px;}
 .fav-empty-txt{font-size:15px;line-height:1.7;}
-.fav-item{background:var(--bg2);border-radius:13px;padding:13px 15px;margin-bottom:8px;border:1px solid var(--border);display:flex;align-items:center;gap:12px;cursor:pointer;}
+.fav-item{background:var(--bg2);border-radius:14px;padding:14px 16px;margin-bottom:10px;border:1px solid var(--border);display:flex;align-items:center;gap:12px;cursor:pointer;box-shadow:0 2px 8px var(--shadow);}
 .fav-name{font-size:14px;font-weight:600;flex:1;}
-.fav-del{background:rgba(224,123,138,.15);border:none;border-radius:50%;width:30px;height:30px;color:var(--rose);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.surah-detail-wrap{padding:0 14px 20px;}
-.surah-detail-header{text-align:center;padding:20px 0 14px;border-bottom:1px solid var(--border);margin-bottom:14px;}
-.surah-detail-name{font-family:'Amiri',serif;font-size:30px;font-weight:700;color:var(--gold);}
+.fav-del{background:rgba(248,113,113,.12);border:none;border-radius:50%;width:32px;height:32px;color:var(--rose);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+/* SURAH DETAIL */
+.surah-detail-wrap{padding:0 16px 20px;}
+.surah-detail-header{text-align:center;padding:22px 0 16px;border-bottom:1px solid var(--border);margin-bottom:16px;}
+.surah-detail-name{font-family:'Amiri',serif;font-size:32px;font-weight:700;color:var(--gold);}
 .surah-detail-meta{font-size:12px;color:var(--muted);margin-top:5px;}
-.basmalah{font-family:'Amiri',serif;font-size:20px;text-align:center;color:var(--gold);padding:14px 0;margin-bottom:10px;border-bottom:1px solid var(--border);}
-.ayah-item{padding:12px 0;border-bottom:1px solid var(--border);display:flex;gap:12px;align-items:flex-start;}
-.ayah-num{min-width:30px;height:30px;background:var(--bg3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--gold);flex-shrink:0;margin-top:6px;}
-.ayah-txt{font-family:'Amiri',serif;font-size:21px;line-height:2.2;color:var(--text);flex:1;text-align:right;transition:font-size .2s;}
+.basmalah{font-family:'Amiri',serif;font-size:21px;text-align:center;color:var(--gold);padding:16px 0;margin-bottom:12px;border-bottom:1px solid var(--border);}
+.ayah-item{padding:14px 0;border-bottom:1px solid var(--border);display:flex;gap:12px;align-items:flex-start;}
+.ayah-num{min-width:32px;height:32px;background:var(--bg3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--gold);flex-shrink:0;margin-top:6px;border:1px solid rgba(201,168,76,.2);}
+.ayah-txt{font-family:'Amiri',serif;font-size:21px;line-height:2.3;color:var(--text);flex:1;text-align:right;transition:font-size .2s;}
 .loading-txt{text-align:center;padding:60px 20px;color:var(--muted);font-size:15px;}
 .error-txt{text-align:center;padding:40px 20px;color:var(--rose);font-size:14px;line-height:1.8;}
+/* SEARCH */
 .srch-ov{position:fixed;inset:0;background:var(--bg);z-index:50;display:flex;flex-direction:column;transform:translateY(0);transition:transform .3s;}
 .srch-ov.hidden{transform:translateY(100%);pointer-events:none;}
 .srch-hd{display:flex;gap:10px;align-items:center;padding:14px 16px;border-bottom:1px solid var(--border);flex-shrink:0;}
-.srch-inp{flex:1;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:10px 14px;color:var(--text);font-family:'Tajawal',sans-serif;font-size:15px;outline:none;direction:rtl;}
+.srch-inp{flex:1;background:var(--bg2);border:1px solid var(--border);border-radius:13px;padding:11px 15px;color:var(--text);font-family:'Tajawal',sans-serif;font-size:15px;outline:none;direction:rtl;}
 .srch-inp::placeholder{color:var(--dim);}
+.srch-inp:focus{border-color:rgba(201,168,76,.4);}
 .srch-res{flex:1;overflow-y:auto;}
 .srch-res::-webkit-scrollbar{display:none;}
-.sres{padding:13px 16px;border-bottom:1px solid var(--border);cursor:pointer;}
+.sres{padding:14px 16px;border-bottom:1px solid var(--border);cursor:pointer;}
 .sres:active{background:var(--bg2);}
 .sres-cat{font-size:10px;color:var(--gold);margin-bottom:3px;font-weight:700;}
 .sres-title{font-size:12px;color:var(--muted);margin-bottom:3px;}
-.sres-txt{font-family:'Amiri',serif;font-size:16px;line-height:1.9;color:var(--text);}
+.sres-txt{font-family:'Amiri',serif;font-size:16px;line-height:2;color:var(--text);}
 .srch-empty{text-align:center;padding:60px 20px;color:var(--muted);font-size:15px;}
-.sett-ov{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:100;display:flex;flex-direction:column;justify-content:flex-end;transition:opacity .25s;}
+/* SETTINGS */
+.sett-ov{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:100;display:flex;flex-direction:column;justify-content:flex-end;transition:opacity .25s;}
 .sett-ov.hidden{opacity:0;pointer-events:none;}
-.sett-pnl{background:var(--bg);border-radius:20px 20px 0 0;padding:14px 16px 50px;max-height:82vh;overflow-y:auto;}
+.sett-pnl{background:var(--bg);border-radius:24px 24px 0 0;padding:14px 18px 50px;max-height:82vh;overflow-y:auto;border-top:1px solid var(--border);}
 .sett-pnl::-webkit-scrollbar{display:none;}
-.sett-drag{width:40px;height:4px;background:var(--bg3);border-radius:2px;margin:0 auto 14px;}
+.sett-drag{width:40px;height:4px;background:var(--bg3);border-radius:2px;margin:0 auto 16px;}
 .sett-title{font-size:16px;font-weight:700;margin-bottom:12px;text-align:center;color:var(--gold);}
-.sett-sect{font-size:10px;color:var(--teal);font-weight:700;margin:14px 0 4px;letter-spacing:.5px;}
-.sett-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);}
+.sett-sect{font-size:10px;color:var(--teal);font-weight:700;margin:14px 0 4px;letter-spacing:.8px;}
+.sett-row{display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--border);}
 .sett-info{flex:1;}
 .sett-lbl{font-size:14px;}
 .sett-sub{font-size:11px;color:var(--muted);margin-top:2px;}
-.tog{width:48px;height:28px;background:var(--bg3);border-radius:14px;position:relative;cursor:pointer;transition:background .25s;flex-shrink:0;border:2px solid var(--border);}
-.tog.on{background:var(--gold);border-color:var(--gold);}
-.tog::after{content:'';position:absolute;width:20px;height:20px;background:#fff;border-radius:50%;top:2px;right:2px;transition:transform .25s;box-shadow:0 1px 4px rgba(0,0,0,.3);}
-.tog.on::after{transform:translateX(-20px);}
-.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:10px;}
+.tog{width:50px;height:28px;background:var(--bg3);border-radius:14px;position:relative;cursor:pointer;transition:background .25s;flex-shrink:0;border:2px solid var(--border);}
+.tog.on{background:linear-gradient(90deg,var(--gold),var(--gold2));border-color:var(--gold);}
+.tog::after{content:'';position:absolute;width:20px;height:20px;background:#fff;border-radius:50%;top:2px;right:2px;transition:transform .25s;box-shadow:0 1px 4px rgba(0,0,0,.4);}
+.tog.on::after{transform:translateX(-22px);}
+/* STATS */
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:18px;margin-bottom:12px;box-shadow:0 2px 10px var(--shadow);}
 .stat-lbl{font-size:12px;color:var(--muted);margin-bottom:6px;}
-.stat-val{font-size:42px;font-weight:900;color:var(--gold);line-height:1;}
+.stat-val{font-size:44px;font-weight:900;color:var(--gold);line-height:1;}
 .stat-sub{font-size:11px;color:var(--dim);margin-top:4px;}
 .stat-bar-bg{height:8px;background:var(--bg3);border-radius:4px;overflow:hidden;margin-top:10px;}
 .stat-bar{height:100%;background:linear-gradient(90deg,var(--gold),var(--teal));border-radius:4px;transition:width .7s;}
-.stat-g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
-.stat-mini{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;}
-.stat-mini-val{font-size:30px;font-weight:900;color:var(--teal);}
+.stat-g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.stat-mini{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:16px;text-align:center;box-shadow:0 2px 8px var(--shadow);}
+.stat-mini-val{font-size:32px;font-weight:900;color:var(--teal);}
 .stat-mini-lbl{font-size:11px;color:var(--muted);margin-top:3px;}
 .stat-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);}
 .stat-row-lbl{font-size:13px;color:var(--muted);}
 .stat-row-val{font-size:15px;font-weight:700;color:var(--gold);}
-.notif-banner{background:linear-gradient(135deg,#1a2a1a,#1e3520);border:1px solid rgba(78,191,100,.3);border-radius:12px;padding:11px 14px;margin-bottom:10px;display:flex;align-items:center;gap:10px;}
+/* BANNERS */
+.notif-banner{background:linear-gradient(135deg,#122b22,#0f2520);border:1px solid rgba(82,212,138,.25);border-radius:14px;padding:12px 14px;margin-bottom:12px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 12px var(--shadow);}
 .notif-banner-txt{font-size:13px;flex:1;line-height:1.5;}
-.notif-banner-btn{background:var(--green);color:#1a2235;border:none;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Tajawal',sans-serif;white-space:nowrap;flex-shrink:0;}
-.install-banner-btn{background:var(--gold);color:#1a2235;border:none;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Tajawal',sans-serif;}
+.notif-banner-btn{background:linear-gradient(135deg,var(--teal),var(--cyan));color:#0a1f18;border:none;border-radius:10px;padding:9px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Tajawal',sans-serif;white-space:nowrap;flex-shrink:0;}
+.install-banner-btn{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#0a1f18;border:none;border-radius:10px;padding:9px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Tajawal',sans-serif;}
+/* CONFETTI */
 #cfWrap{position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden;}
 .cp{position:absolute;border-radius:2px;animation:cfFall 2s ease-in both;}
 @keyframes cfFall{0%{opacity:1;transform:translateY(-30px) rotate(0deg);}100%{opacity:0;transform:translateY(115vh) rotate(720deg);}}
+/* FONT CONTROLS */
 .font-ctrl{display:flex;gap:6px;align-items:center;}
-.font-btn{background:var(--bg2);border:1px solid var(--border);border-radius:8px;width:32px;height:32px;color:var(--text);cursor:pointer;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.mark-btn{background:rgba(78,201,176,.15);border:1px solid rgba(78,201,176,.3);border-radius:8px;height:32px;padding:0 10px;color:var(--teal);cursor:pointer;font-size:12px;font-weight:600;font-family:'Tajawal',sans-serif;white-space:nowrap;flex-shrink:0;}
-.mark-btn.done{background:rgba(78,201,176,.3);}
+.font-btn{background:var(--bg2);border:1px solid var(--border);border-radius:9px;width:33px;height:33px;color:var(--text);cursor:pointer;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.mark-btn{background:rgba(82,212,138,.12);border:1px solid rgba(82,212,138,.3);border-radius:9px;height:33px;padding:0 11px;color:var(--teal);cursor:pointer;font-size:12px;font-weight:600;font-family:'Tajawal',sans-serif;white-space:nowrap;flex-shrink:0;}
+.mark-btn.done{background:rgba(82,212,138,.28);}
 /* AUDIO BAR */
-.audio-bar{display:flex;align-items:center;gap:10px;padding:10px 14px;background:linear-gradient(135deg,#1a2a1a,#1e3520);border-bottom:1px solid rgba(78,191,100,.2);flex-shrink:0;}
-.audio-btn{width:38px;height:38px;border-radius:50%;background:var(--gold);border:none;color:#1a2235;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:700;}
-.audio-btn:active{transform:scale(.92);}
+.audio-bar{display:flex;align-items:center;gap:10px;padding:10px 16px;background:linear-gradient(135deg,#122b22,#0f2520);border-bottom:1px solid rgba(82,212,138,.15);flex-shrink:0;}
+.audio-btn{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;color:#0a1f18;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:700;box-shadow:0 3px 12px rgba(201,168,76,.4);}
+.audio-btn:active{transform:scale(.9);}
 .audio-progress{flex:1;height:5px;background:var(--bg3);border-radius:3px;cursor:pointer;position:relative;overflow:hidden;}
 .audio-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--teal));border-radius:3px;width:0%;transition:width .5s;}
 .audio-time{font-size:11px;color:var(--muted);direction:ltr;white-space:nowrap;}
-.audio-reader{font-size:11px;color:var(--green);white-space:nowrap;font-weight:600;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
-.fu{animation:fadeUp .3s ease both;}
+.audio-reader{font-size:11px;color:var(--teal);white-space:nowrap;font-weight:700;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+.fu{animation:fadeUp .32s ease both;}
 </style>
 </head>
 <body>
@@ -359,10 +414,10 @@ body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;tra
 
 <!-- SALAH -->
 <div class="screen hidden" id="sSalah">
-  <div class="pg-header"><span class="pg-title">مواقيت الصلاة</span><button class="back-btn" onclick="goBack()">✕</button></div>
+  <div class="pg-header"><span class="pg-title">🕌 مواقيت الصلاة</span><button class="back-btn" onclick="goBack()">✕</button></div>
   <div class="scroll">
-    <div style="padding:10px 14px 4px;text-align:center;font-size:12px;color:var(--muted)" id="salahLocation">📍 جاري تحديد الموقع...</div>
-    <div class="ramadan-box"><div class="rb-lbl">🌙 رمضان المبارك</div><div class="rb-row"><div class="rb-item"><div class="rb-name">الإمساك</div><div class="rb-time" id="suhoorTime">--:--</div></div><div style="font-size:24px">🌙</div><div class="rb-item"><div class="rb-name">الإفطار</div><div class="rb-time" id="iftarTime">--:--</div></div></div></div>
+    <div style="padding:10px 16px 4px;text-align:center;font-size:12px;color:var(--muted)" id="salahLocation">📍 جاري تحديد الموقع...</div>
+    <div class="ramadan-box"><div class="rb-lbl">🌙 رمضان المبارك</div><div class="rb-row"><div class="rb-item"><div class="rb-name">الإمساك</div><div class="rb-time" id="suhoorTime">--:--</div></div><div style="font-size:26px">🌙</div><div class="rb-item"><div class="rb-name">الإفطار</div><div class="rb-time" id="iftarTime">--:--</div></div></div></div>
     <div class="pt-grid" id="ptGrid"><div class="ptc"><div class="ptc-name">⏳</div><div class="ptc-time" style="font-size:14px">جاري التحميل</div></div></div>
     <div style="height:16px"></div>
   </div>
@@ -370,7 +425,7 @@ body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;tra
 
 <!-- QIBLA -->
 <div class="screen hidden" id="sQibla">
-  <div class="pg-header"><span class="pg-title">اتجاه القبلة</span><button class="back-btn" onclick="goBack()">✕</button></div>
+  <div class="pg-header"><span class="pg-title">🧭 اتجاه القبلة</span><button class="back-btn" onclick="goBack()">✕</button></div>
   <div class="qibla-wrap">
     <div class="compass-outer" id="compassOuter">
       <div class="compass-dir n">شمال</div><div class="compass-dir s">جنوب</div><div class="compass-dir e">شرق</div><div class="compass-dir w">غرب</div>
@@ -385,14 +440,14 @@ body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;tra
       <div class="qibla-deg" id="qiblaDeg">---°</div>
       <div class="qibla-sub" id="qiblaSub">جاري تحديد الموقع...</div>
       <div style="font-size:12px;color:var(--dim);margin-top:10px" id="qiblaDist"></div>
-      <div style="font-size:11px;color:var(--dim);margin-top:5px">🔴 الإبرة الحمراء للشمال · 🟡 السهم الذهبي للقبلة</div>
+      <div style="font-size:11px;color:var(--dim);margin-top:6px">🔴 الإبرة الحمراء للشمال · 🟡 السهم الذهبي للقبلة</div>
     </div>
   </div>
 </div>
 
 <!-- QURAN -->
 <div class="screen hidden" id="sQuran">
-  <div class="pg-header"><span class="pg-title">المصحف الكريم</span><button class="back-btn" onclick="goBack()">✕</button></div>
+  <div class="pg-header"><span class="pg-title">📖 المصحف الكريم</span><button class="back-btn" onclick="goBack()">✕</button></div>
   <div class="khatm-prog">
     <span class="khatm-txt" id="khatmTxt">ختم القرآن: 0 / 114</span>
     <div class="khatm-bar-bg"><div class="khatm-bar" id="khatmBar" style="width:0%"></div></div>
@@ -408,7 +463,7 @@ body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;tra
   <div class="qtab-content hidden-tab" id="qSafhat"><div class="pad" style="padding-top:12px" id="safhatGrid"></div></div>
 </div>
 
-<!-- SURAH DETAIL - مع شريط ماهر المعيقلي -->
+<!-- SURAH DETAIL -->
 <div class="screen hidden" id="sSurahDetail">
   <div class="pg-header">
     <span class="pg-title" id="surahDetailTitle">السورة</span>
@@ -432,14 +487,14 @@ body{background:var(--bg);color:var(--text);font-family:'Tajawal',sans-serif;tra
 
 <!-- FAVORITES -->
 <div class="screen hidden" id="sFavs">
-  <div class="pg-header"><span class="pg-title">المفضلة ⭐</span><button class="back-btn" onclick="goBack()">✕</button></div>
+  <div class="pg-header"><span class="pg-title">⭐ المفضلة</span><button class="back-btn" onclick="goBack()">✕</button></div>
   <div class="scroll"><div class="pad" id="favList" style="padding-top:12px"></div></div>
 </div>
 
 <!-- COUNTER -->
 <div class="screen hidden" id="sCounter">
   <div class="pg-header">
-    <span class="pg-title">العداد</span>
+    <span class="pg-title">📿 العداد</span>
     <div style="display:flex;gap:8px">
       <button class="back-btn" style="font-size:15px" onclick="goTo('sStats')">📊</button>
       <button class="back-btn" onclick="goBack()">✕</button>
@@ -555,7 +610,7 @@ const DB={
     {t:'آية الكرسي',txt:'اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ...',c:'١ مرة'},
   ],
   istighfar:[
-    {t:'سيد الاستغفار',txt:'اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ، أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ، وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي.',c:'١ مرة'},
+    {t:'سيد الاستغفار',txt:'اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ.',c:'١ مرة'},
     {t:'الاستغفار',txt:'أَسْتَغْفِرُ اللَّهَ الَّذِي لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ وَأَتُوبُ إِلَيْهِ.',c:'٣ مرات'},
     {t:'استغفار النبي ﷺ',txt:'أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ.',c:'١٠٠ مرة'},
   ],
@@ -618,14 +673,13 @@ function playTap(){if(localStorage.getItem('s_sound')!=='1')return;try{const c=g
 function playGoal(){if(localStorage.getItem('s_goalSound')==='0')return;try{const c=getACtx();[[523,.0],[659,.12],[784,.24],[1047,.36]].forEach(([f,t])=>{const o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=f;g.gain.setValueAtTime(0,c.currentTime+t);g.gain.linearRampToValueAtTime(0.18,c.currentTime+t+0.04);g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+t+0.25);o.start(c.currentTime+t);o.stop(c.currentTime+t+0.25);});}catch(e){}}
 
 /* CONFETTI */
-function spawnConfetti(){const w=document.getElementById('cfWrap');const cl=['#d4a843','#4ec9b0','#e07b8a','#a78bfa','#6dbf7e','#fb923c'];for(let i=0;i<45;i++){const el=document.createElement('div');el.className='cp';el.style.cssText=`left:${Math.random()*100}%;width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;background:${cl[Math.floor(Math.random()*cl.length)]};border-radius:${Math.random()>.5?'50%':'2px'};animation-delay:${Math.random()*.6}s;animation-duration:${1.5+Math.random()}s`;w.appendChild(el);}setTimeout(()=>w.innerHTML='',2800);}
+function spawnConfetti(){const w=document.getElementById('cfWrap');const cl=['#c9a84c','#52d48a','#f87171','#c084fc','#4ade80','#fb923c'];for(let i=0;i<50;i++){const el=document.createElement('div');el.className='cp';el.style.cssText=`left:${Math.random()*100}%;width:${6+Math.random()*9}px;height:${6+Math.random()*9}px;background:${cl[Math.floor(Math.random()*cl.length)]};border-radius:${Math.random()>.5?'50%':'3px'};animation-delay:${Math.random()*.7}s;animation-duration:${1.5+Math.random()}s`;w.appendChild(el);}setTimeout(()=>w.innerHTML='',3000);}
 
-/* AUDIO - ماهر المعيقلي */
+/* AUDIO */
 let _audio=null;
-function loadSurahAudio(surahNum){
+function loadSurahAudio(n){
   stopAudio();
-  _audio=new Audio(`https://server8.mp3quran.net/maher/${String(surahNum).padStart(3,'0')}.mp3`);
-
+  _audio=new Audio(`https://server8.mp3quran.net/maher/${String(n).padStart(3,'0')}.mp3`);
   _audio.ontimeupdate=()=>{
     if(!_audio.duration)return;
     const pct=(_audio.currentTime/_audio.duration*100);
@@ -633,36 +687,12 @@ function loadSurahAudio(surahNum){
     const m=Math.floor(_audio.currentTime/60),s=Math.floor(_audio.currentTime%60);
     document.getElementById('audioTime').textContent=`${m}:${String(s).padStart(2,'0')}`;
   };
-  _audio.onended=()=>{
-    const btn=document.getElementById('audioPlayBtn');
-    if(btn)btn.textContent='▶';
-    document.getElementById('audioFill').style.width='0%';
-    document.getElementById('audioTime').textContent='0:00';
-  };
+  _audio.onended=()=>{const b=document.getElementById('audioPlayBtn');if(b)b.textContent='▶';document.getElementById('audioFill').style.width='0%';};
   _audio.onerror=()=>{const t=document.getElementById('audioTime');if(t)t.textContent='—';};
 }
-function toggleAudio(){
-  if(!_audio)return;
-  if(_audio.paused){
-    _audio.play().catch(()=>{});
-    document.getElementById('audioPlayBtn').textContent='⏸';
-  }else{
-    _audio.pause();
-    document.getElementById('audioPlayBtn').textContent='▶';
-  }
-}
-function stopAudio(){
-  if(_audio){_audio.pause();_audio=null;}
-  const btn=document.getElementById('audioPlayBtn');
-  if(btn)btn.textContent='▶';
-  const fill=document.getElementById('audioFill');
-  if(fill)fill.style.width='0%';
-}
-function seekAudio(e){
-  if(!_audio||!_audio.duration)return;
-  const rect=e.currentTarget.getBoundingClientRect();
-  _audio.currentTime=((e.clientX-rect.left)/rect.width)*_audio.duration;
-}
+function toggleAudio(){if(!_audio)return;if(_audio.paused){_audio.play().catch(()=>{});document.getElementById('audioPlayBtn').textContent='⏸';}else{_audio.pause();document.getElementById('audioPlayBtn').textContent='▶';}}
+function stopAudio(){if(_audio){_audio.pause();_audio=null;}const b=document.getElementById('audioPlayBtn');if(b)b.textContent='▶';const f=document.getElementById('audioFill');if(f)f.style.width='0%';}
+function seekAudio(e){if(!_audio||!_audio.duration)return;const r=e.currentTarget.getBoundingClientRect();_audio.currentTime=((e.clientX-r.left)/r.width)*_audio.duration;}
 
 /* NAV */
 let hist=['sHome'];
@@ -680,7 +710,7 @@ function updatePrayerBar(){if(!prayerTimes.fajr)return;const now=new Date(),nowM
 function renderSalahScreen(){if(!prayerTimes.fajr)return;const now=new Date(),nowMin=now.getHours()*60+now.getMinutes();const days=['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];const months=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];document.getElementById('salahLocation').textContent=`📍 ${userCity} · ${days[now.getDay()]} ${now.getDate()} ${months[now.getMonth()]}`;document.getElementById('suhoorTime').textContent=formatTime(prayerTimes.imsak||prayerTimes.fajr);document.getElementById('iftarTime').textContent=formatTime(prayerTimes.maghrib);const iq={fajr:25,dhuhr:20,asr:20,maghrib:5,isha:20};let html='';PRAYER_ORDER.forEach(k=>{if(k==='sunrise'){html+=`<div class="ptc"><div class="ptc-name">الشروق</div><div class="ptc-time">${formatTime(prayerTimes.sunrise)}</div></div>`;return;}const pm=timeToMin(prayerTimes[k]),idx=PRAYER_ORDER.indexOf(k),nextK=PRAYER_ORDER[idx+1];const isNow=nextK?nowMin>=pm&&nowMin<timeToMin(prayerTimes[nextK]):nowMin>=pm;const iqMin=pm+(iq[k]||0),iqH=Math.floor(iqMin/60)%24,iqM=iqMin%60;html+=`<div class="ptc${isNow?' now':''}"><div class="ptc-name">${PRAYER_NAMES[k]}</div><div class="ptc-time">${formatTime(prayerTimes[k])}</div>${iq[k]?`<div class="ptc-iq">إقامة: ${iqH}:${String(iqM).padStart(2,'0')}</div>`:''}</div>`;});document.getElementById('ptGrid').innerHTML=html;}
 function refreshPrayer(){document.getElementById('countdownLabel').textContent='⏳ جاري تحديد الموقع...';if(navigator.geolocation){navigator.geolocation.getCurrentPosition(pos=>{userLat=pos.coords.latitude;userLng=pos.coords.longitude;localStorage.setItem('lat',userLat);localStorage.setItem('lng',userLng);loadPrayerTimes(userLat,userLng);calcQibla(userLat,userLng);},()=>{const slat=localStorage.getItem('lat'),slng=localStorage.getItem('lng');if(slat&&slng){loadPrayerTimes(+slat,+slng);calcQibla(+slat,+slng);}else document.getElementById('countdownLabel').textContent='⚠️ لم يُسمح بالموقع';});}}
 
-/* NOTIFICATIONS */
+/* NOTIF */
 function isDND(){if(localStorage.getItem('s_dnd')!=='1')return false;const h=new Date().getHours();return h>=22||h<5;}
 async function reqNotif(){if(!('Notification'in window)){alert('المتصفح لا يدعم الإشعارات');return;}const perm=await Notification.requestPermission();if(perm==='granted'){localStorage.setItem('s_notif','1');document.getElementById('togNotif').classList.add('on');document.getElementById('notifBannerWrap').innerHTML='';scheduleAdhanNotifs();}}
 function toggleNotif(el){if(el.classList.contains('on')){el.classList.remove('on');localStorage.setItem('s_notif','0');}else{reqNotif();}}
@@ -701,8 +731,8 @@ let tapCounts=JSON.parse(localStorage.getItem('tapCounts')||'{}');
 function saveTapCounts(){localStorage.setItem('tapCounts',JSON.stringify(tapCounts));}
 function arToNum(str){const map={'٠':0,'١':1,'٢':2,'٣':3,'٤':4,'٥':5,'٦':6,'٧':7,'٨':8,'٩':9};return parseInt(str.replace(/[٠-٩]/g,d=>map[d]))||0;}
 function parseGoal(c){return c?arToNum(c):0;}
-function openDhikr(title,key){document.getElementById('dTitle').textContent=title;const data=DB[key]||DB.morning;document.getElementById('dBody').innerHTML=data.map((item,i)=>{const saved=favs.some(f=>f.k===key&&f.i===i);const tid=`tc_${key}_${i}`,cnt=tapCounts[tid]||0,goal=parseGoal(item.c),pct=goal>0?Math.min(cnt/goal*100,100):0;const st=item.t.replace(/'/g,"\\'"),sx=item.txt.replace(/'/g,"\\'");return`<div class="dhikr-item fu" style="animation-delay:${i*.06}s" onclick="openDhikrCounter('${st}','${sx}','${item.c}','${tid}')"><div class="dhikr-txt">${item.txt}</div>${goal>0?`<div style="height:3px;background:var(--bg3);border-radius:2px;margin-bottom:8px;overflow:hidden"><div style="width:${pct}%;height:100%;background:var(--gold);border-radius:2px"></div></div>`:''}<div class="dhikr-foot"><span class="dhikr-cnt">${item.c}</span><div class="dhikr-btns"><button class="dhikr-go" style="width:auto;padding:0 10px;border-radius:17px;background:rgba(212,168,67,.15);font-size:13px;font-weight:700;font-family:Tajawal,sans-serif" id="${tid}" onclick="event.stopPropagation();inlineTap('${tid}','${item.c}')">${cnt}</button><button class="dhikr-go" onclick="event.stopPropagation();toggleFav('${key}',${i},'${item.t}',this)">${saved?'⭐':'☆'}</button></div></div></div>`;}).join('');goTo('sDetail');}
-function inlineTap(tid,c){tapCounts[tid]=(tapCounts[tid]||0)+1;saveTapCounts();playTap();const btn=document.getElementById(tid);if(btn){btn.textContent=tapCounts[tid];btn.style.background='rgba(212,168,67,.35)';setTimeout(()=>btn.style.background='rgba(212,168,67,.15)',150);}const goal=parseGoal(c);if(goal>0&&tapCounts[tid]===goal){playGoal();spawnConfetti();}}
+function openDhikr(title,key){document.getElementById('dTitle').textContent=title;const data=DB[key]||DB.morning;document.getElementById('dBody').innerHTML=data.map((item,i)=>{const saved=favs.some(f=>f.k===key&&f.i===i);const tid=`tc_${key}_${i}`,cnt=tapCounts[tid]||0,goal=parseGoal(item.c),pct=goal>0?Math.min(cnt/goal*100,100):0;const st=item.t.replace(/'/g,"\\'"),sx=item.txt.replace(/'/g,"\\'");return`<div class="dhikr-item fu" style="animation-delay:${i*.06}s" onclick="openDhikrCounter('${st}','${sx}','${item.c}','${tid}')"><div class="dhikr-txt">${item.txt}</div>${goal>0?`<div style="height:3px;background:var(--bg3);border-radius:2px;margin-bottom:8px;overflow:hidden"><div style="width:${pct}%;height:100%;background:linear-gradient(90deg,var(--gold),var(--teal));border-radius:2px"></div></div>`:''}<div class="dhikr-foot"><span class="dhikr-cnt">${item.c}</span><div class="dhikr-btns"><button class="dhikr-go" style="width:auto;padding:0 12px;border-radius:17px;background:rgba(201,168,76,.15);font-size:13px;font-weight:700;font-family:Tajawal,sans-serif;border:1px solid rgba(201,168,76,.2)" id="${tid}" onclick="event.stopPropagation();inlineTap('${tid}','${item.c}')">${cnt}</button><button class="dhikr-go" onclick="event.stopPropagation();toggleFav('${key}',${i},'${item.t}',this)">${saved?'⭐':'☆'}</button></div></div></div>`;}).join('');goTo('sDetail');}
+function inlineTap(tid,c){tapCounts[tid]=(tapCounts[tid]||0)+1;saveTapCounts();playTap();const btn=document.getElementById(tid);if(btn){btn.textContent=tapCounts[tid];btn.style.background='rgba(201,168,76,.4)';setTimeout(()=>btn.style.background='rgba(201,168,76,.15)',150);}const goal=parseGoal(c);if(goal>0&&tapCounts[tid]===goal){playGoal();spawnConfetti();}}
 function toggleFav(key,idx,title,btn){const pos=favs.findIndex(f=>f.k===key&&f.i===idx);if(pos===-1){favs.push({k:key,i:idx,title});btn.textContent='⭐';}else{favs.splice(pos,1);btn.textContent='☆';}localStorage.setItem('favs',JSON.stringify(favs));}
 function renderFavs(){const el=document.getElementById('favList');if(!favs.length){el.innerHTML='<div class="fav-empty"><div class="fav-empty-icon">⭐</div><div class="fav-empty-txt">لا توجد مفضلة بعد<br>اضغط ☆ في أي ذكر لحفظه</div></div>';return;}el.innerHTML=favs.map((f,i)=>`<div class="fav-item" onclick="openDhikr('${CAT_NAMES[f.k]||f.title}','${f.k}')"><span style="font-size:20px">📌</span><span class="fav-name">${f.title}</span><button class="fav-del" onclick="event.stopPropagation();delFav(${i})">✕</button></div>`).join('');}
 function delFav(i){favs.splice(i,1);localStorage.setItem('favs',JSON.stringify(favs));renderFavs();}
@@ -710,7 +740,7 @@ function delFav(i){favs.splice(i,1);localStorage.setItem('favs',JSON.stringify(f
 /* DHIKR COUNTER */
 let dcCount=0,dcGoal=0,dcTid='';
 function openDhikrCounter(title,txt,c,tid){dcTid=tid||'';dcCount=dcTid&&tapCounts[dcTid]?tapCounts[dcTid]:0;dcGoal=parseGoal(c);document.getElementById('dcTitle').textContent=title;document.getElementById('dcTxt').textContent=txt;document.getElementById('dcCntLbl').textContent=c||'بلا حد';document.getElementById('dcNum').textContent=dcCount;dcUpdateGoal();goTo('sDhikrCounter');}
-function dcTap(){dcCount++;if(dcTid){tapCounts[dcTid]=dcCount;saveTapCounts();}const el=document.getElementById('dcNum');el.textContent=dcCount;el.classList.add('bump');setTimeout(()=>el.classList.remove('bump'),80);dcUpdateGoal();playTap();if(dcGoal>0&&dcCount===dcGoal){document.getElementById('dcCircle').style.boxShadow='0 0 80px rgba(212,168,67,.9)';setTimeout(()=>document.getElementById('dcCircle').style.boxShadow='',1200);playGoal();spawnConfetti();}}
+function dcTap(){dcCount++;if(dcTid){tapCounts[dcTid]=dcCount;saveTapCounts();}const el=document.getElementById('dcNum');el.textContent=dcCount;el.classList.add('bump');setTimeout(()=>el.classList.remove('bump'),80);dcUpdateGoal();playTap();if(dcGoal>0&&dcCount===dcGoal){document.getElementById('dcCircle').style.boxShadow='0 0 80px rgba(201,168,76,.9)';setTimeout(()=>document.getElementById('dcCircle').style.boxShadow='',1200);playGoal();spawnConfetti();}}
 function dcReset(){dcCount=0;if(dcTid){tapCounts[dcTid]=0;saveTapCounts();}document.getElementById('dcNum').textContent='0';dcUpdateGoal();}
 function dcUndo(){if(dcCount>0){dcCount--;if(dcTid){tapCounts[dcTid]=dcCount;saveTapCounts();}document.getElementById('dcNum').textContent=dcCount;dcUpdateGoal();}}
 function dcUpdateGoal(){document.getElementById('dcGoalBar').style.width=(dcGoal>0?Math.min(dcCount/dcGoal*100,100):0)+'%';document.getElementById('dcGoalTxt').textContent=dcGoal>0?dcCount+' / '+dcGoal:dcCount+' / ∞';}
@@ -719,16 +749,16 @@ function dcUpdateGoal(){document.getElementById('dcGoalBar').style.width=(dcGoal
 let cCount=0,cGoal=33,cKey='c_sub';
 function loadCounter(){cCount=+localStorage.getItem('mc_'+cKey)||0;document.getElementById('cNum').textContent=cCount;updateGoal();}
 function pickChip(el,txt,goal,key){document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));el.classList.add('on');cGoal=goal;cKey=key;document.getElementById('cTxt').textContent=txt;cCount=+localStorage.getItem('mc_'+key)||0;document.getElementById('cNum').textContent=cCount;updateGoal();}
-function tap(){cCount++;localStorage.setItem('mc_'+cKey,cCount);const el=document.getElementById('cNum');el.textContent=cCount;el.classList.add('bump');setTimeout(()=>el.classList.remove('bump'),80);updateGoal();playTap();if(cCount===cGoal){document.getElementById('cCircle').style.boxShadow='0 0 70px rgba(212,168,67,.8)';setTimeout(()=>document.getElementById('cCircle').style.boxShadow='',1000);playGoal();spawnConfetti();}}
+function tap(){cCount++;localStorage.setItem('mc_'+cKey,cCount);const el=document.getElementById('cNum');el.textContent=cCount;el.classList.add('bump');setTimeout(()=>el.classList.remove('bump'),80);updateGoal();playTap();if(cCount===cGoal){document.getElementById('cCircle').style.boxShadow='0 0 70px rgba(201,168,76,.8)';setTimeout(()=>document.getElementById('cCircle').style.boxShadow='',1000);playGoal();spawnConfetti();}}
 function resetC(){cCount=0;localStorage.setItem('mc_'+cKey,0);document.getElementById('cNum').textContent='0';updateGoal();}
 function undoC(){if(cCount>0){cCount--;localStorage.setItem('mc_'+cKey,cCount);document.getElementById('cNum').textContent=cCount;updateGoal();}}
 function updateGoal(){document.getElementById('cGoalBar').style.width=Math.min(cCount/cGoal*100,100)+'%';document.getElementById('cGoalTxt').textContent=cCount+' / '+cGoal;}
 
 /* STATS */
-function renderStats(){const total=Object.values(tapCounts).reduce((a,b)=>a+(b||0),0);const mainKeys=['c_sub','c_ham','c_akb','c_laa','c_sal'];const mainNames={c_sub:'سبحان الله',c_ham:'الحمد لله',c_akb:'الله أكبر',c_laa:'لا إله إلا الله',c_sal:'الصلاة على النبي'};const mainTotal=mainKeys.reduce((a,k)=>a+(+localStorage.getItem('mc_'+k)||0),0);const readCount=SURAHS.filter((_,i)=>localStorage.getItem('khatm_'+i)==='1').length;const todayKey='stat_day_'+new Date().toDateString();const todayTaps=+localStorage.getItem(todayKey)||0;let html=`<div class="stat-g2"><div class="stat-mini"><div class="stat-mini-val">${total.toLocaleString('ar-SA')}</div><div class="stat-mini-lbl">إجمالي التسبيحات</div></div><div class="stat-mini"><div class="stat-mini-val">${readCount}</div><div class="stat-mini-lbl">سور مقروءة</div></div></div><div class="stat-card"><div class="stat-lbl">اليوم</div><div class="stat-val">${todayTaps.toLocaleString('ar-SA')}</div><div class="stat-bar-bg"><div class="stat-bar" style="width:${Math.min(todayTaps/100*100,100)}%"></div></div></div><div class="stat-card"><div class="stat-lbl">العداد الرئيسي</div>`;mainKeys.forEach(k=>{const v=+localStorage.getItem('mc_'+k)||0;if(v)html+=`<div class="stat-row"><span class="stat-row-lbl">${mainNames[k]}</span><span class="stat-row-val">${v.toLocaleString('ar-SA')}</span></div>`;});html+=`<div class="stat-row" style="border:none"><span class="stat-row-lbl">المجموع</span><span class="stat-row-val">${mainTotal.toLocaleString('ar-SA')}</span></div></div><div class="stat-card"><div class="stat-lbl">ختم القرآن</div><div class="stat-val">${readCount} / 114</div><div class="stat-bar-bg"><div class="stat-bar" style="width:${Math.round(readCount/114*100)}%"></div></div></div><div style="text-align:center;padding:14px 0"><button onclick="resetAllStats()" style="background:rgba(224,123,138,.15);border:1px solid rgba(224,123,138,.3);border-radius:10px;padding:10px 24px;color:var(--rose);font-size:13px;cursor:pointer;font-family:Tajawal,sans-serif">↺ إعادة تعيين الإحصائيات</button></div>`;document.getElementById('statsBody').innerHTML=html;}
+function renderStats(){const total=Object.values(tapCounts).reduce((a,b)=>a+(b||0),0);const mainKeys=['c_sub','c_ham','c_akb','c_laa','c_sal'];const mainNames={c_sub:'سبحان الله',c_ham:'الحمد لله',c_akb:'الله أكبر',c_laa:'لا إله إلا الله',c_sal:'الصلاة على النبي'};const mainTotal=mainKeys.reduce((a,k)=>a+(+localStorage.getItem('mc_'+k)||0),0);const readCount=SURAHS.filter((_,i)=>localStorage.getItem('khatm_'+i)==='1').length;const todayKey='stat_day_'+new Date().toDateString();const todayTaps=+localStorage.getItem(todayKey)||0;let html=`<div class="stat-g2"><div class="stat-mini"><div class="stat-mini-val">${total.toLocaleString('ar-SA')}</div><div class="stat-mini-lbl">إجمالي التسبيحات</div></div><div class="stat-mini"><div class="stat-mini-val">${readCount}</div><div class="stat-mini-lbl">سور مقروءة</div></div></div><div class="stat-card"><div class="stat-lbl">اليوم</div><div class="stat-val">${todayTaps.toLocaleString('ar-SA')}</div><div class="stat-bar-bg"><div class="stat-bar" style="width:${Math.min(todayTaps/100*100,100)}%"></div></div></div><div class="stat-card"><div class="stat-lbl">العداد الرئيسي</div>`;mainKeys.forEach(k=>{const v=+localStorage.getItem('mc_'+k)||0;if(v)html+=`<div class="stat-row"><span class="stat-row-lbl">${mainNames[k]}</span><span class="stat-row-val">${v.toLocaleString('ar-SA')}</span></div>`;});html+=`<div class="stat-row" style="border:none"><span class="stat-row-lbl">المجموع</span><span class="stat-row-val">${mainTotal.toLocaleString('ar-SA')}</span></div></div><div class="stat-card"><div class="stat-lbl">ختم القرآن</div><div class="stat-val">${readCount} / 114</div><div class="stat-bar-bg"><div class="stat-bar" style="width:${Math.round(readCount/114*100)}%"></div></div></div><div style="text-align:center;padding:14px 0"><button onclick="resetAllStats()" style="background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.3);border-radius:12px;padding:11px 26px;color:var(--rose);font-size:13px;cursor:pointer;font-family:Tajawal,sans-serif">↺ إعادة تعيين الإحصائيات</button></div>`;document.getElementById('statsBody').innerHTML=html;}
 function resetAllStats(){if(!confirm('هل تريد حذف جميع الإحصائيات؟'))return;Object.keys(tapCounts).forEach(k=>delete tapCounts[k]);saveTapCounts();['c_sub','c_ham','c_akb','c_laa','c_sal'].forEach(k=>localStorage.removeItem('mc_'+k));renderStats();}
 
-/* QURAN KHATM */
+/* KHATM */
 function updateKhatmUI(){const done=SURAHS.filter((_,i)=>localStorage.getItem('khatm_'+i)==='1').length;document.getElementById('khatmTxt').textContent=`ختم القرآن: ${done} / 114`;document.getElementById('khatmBar').style.width=(done/114*100)+'%';}
 function resetKhatm(){if(!confirm('إعادة تعيين تقدم الختم؟'))return;SURAHS.forEach((_,i)=>localStorage.removeItem('khatm_'+i));updateKhatmUI();buildQuran();}
 let _currentSurahIdx=null;
@@ -758,7 +788,7 @@ async function openSurah(idx){
     document.getElementById('surahDetailBody').innerHTML=html;
   }catch{document.getElementById('surahDetailBody').innerHTML='<div class="error-txt">❌ تعذر تحميل الآيات<br>تحقق من الاتصال</div>';}
 }
-function buildQuran(){document.getElementById('surahGrid').innerHTML=SURAHS.map((s,i)=>{const done=localStorage.getItem('khatm_'+i)==='1';return`<div class="surah-card${done?' read-done':''}" onclick="openSurah(${i})"><div class="surah-num">${i+1}</div><div class="surah-check">✅</div><div class="surah-name">سُورَةُ ${s.n}</div><div class="surah-meta">${s.t}، ${s.v} آية</div><div class="surah-page">ص ${s.p}</div></div>`;}).join('');document.getElementById('ajzaList').innerHTML=AJZA.map(j=>`<div class="juz-card"><div class="juz-num">${j.num}</div><div class="juz-info"><div class="juz-name">${j.name}</div><div class="juz-page">${j.start} · ص${j.page}</div></div></div>`).join('');let h='<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:7px">';for(let i=1;i<=604;i++)h+=`<div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:9px 4px;text-align:center;font-size:12px;font-weight:600;color:var(--muted)">${i}</div>`;document.getElementById('safhatGrid').innerHTML=h+'</div>';}
+function buildQuran(){document.getElementById('surahGrid').innerHTML=SURAHS.map((s,i)=>{const done=localStorage.getItem('khatm_'+i)==='1';return`<div class="surah-card${done?' read-done':''}" onclick="openSurah(${i})"><div class="surah-num">${i+1}</div><div class="surah-check">✅</div><div class="surah-name">سُورَةُ ${s.n}</div><div class="surah-meta">${s.t}، ${s.v} آية</div><div class="surah-page">ص ${s.p}</div></div>`;}).join('');document.getElementById('ajzaList').innerHTML=AJZA.map(j=>`<div class="juz-card"><div class="juz-num">${j.num}</div><div class="juz-info"><div class="juz-name">${j.name}</div><div class="juz-page">${j.start} · ص${j.page}</div></div></div>`).join('');let h='<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:7px">';for(let i=1;i<=604;i++)h+=`<div style="background:var(--bg2);border:1px solid var(--border);border-radius:9px;padding:9px 4px;text-align:center;font-size:12px;font-weight:600;color:var(--muted)">${i}</div>`;document.getElementById('safhatGrid').innerHTML=h+'</div>';}
 function switchQTab(el,id){document.querySelectorAll('.qtab').forEach(t=>t.classList.remove('on'));el.classList.add('on');['qSuwar','qAjza','qSafhat'].forEach(t=>document.getElementById(t).classList.toggle('hidden-tab',t!==id));}
 
 /* SEARCH */
