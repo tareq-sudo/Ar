@@ -1166,15 +1166,24 @@ function renderFavs() {
     el.innerHTML = '<div class="fav-empty"><div class="fav-empty-icon">⭐</div><div class="fav-empty-txt">لا توجد مفضلة بعد<br>اضغط على 🤍 في أي ذكر لإضافته</div></div>';
     return;
   }
-  el.innerHTML = f.map((x,i) =>
-    `<div class="fav-item" onclick="openDhikr('${CAT_NAMES[x.cat]||x.cat}','${x.cat}')">
-      <div class="fav-icon">⭐</div>
-      <div class="fav-name">${x.name}</div>
-      <button class="fav-del" onclick="event.stopPropagation();removeFav(${i})">🗑</button>
-    </div>`
-  ).join('');
+  el.innerHTML = f.map((x, i) => {
+    const dhikr = DB[x.cat] && DB[x.cat][x.idx] ? DB[x.cat][x.idx] : null;
+    const txt = dhikr ? dhikr.txt : '';
+    const count = dhikr ? dhikr.c : '';
+    const safeText = txt.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+    const safeName = (dhikr ? dhikr.t : x.name).replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+    const countNum = count.replace(/[^\d]/g,'') || '33';
+    return `<div class="dhikr-card" onclick="startDc('${safeText}','${safeName}',${x.idx},'${countNum}')">
+      <div class="dhikr-card-txt">${txt}</div>
+      <div class="dhikr-card-foot">
+        <div class="dhikr-cnt-badge">${count}</div>
+        <div class="dhikr-actions">
+          <button class="dhikr-fav-btn" onclick="event.stopPropagation();removeFav(${i})">🗑</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
 }
-function removeFav(i) { const f=getFavs(); f.splice(i,1); saveFavs(f); renderFavs(); }
 
 /* ══ DHIKR DETAIL — ✅ إصلاح مشكلة الضغط على الكارد ══ */
 let _curCat = '';
