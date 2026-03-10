@@ -677,12 +677,9 @@ function navTo(id) {
 /* ✅ إصلاح مشكلة الرجوع */
 function goBack() {
   if (_stack.length === 0) {
-    /* لو السجل فارغ، ارجع للشاشة الجذر النشطة */
-    document.querySelectorAll('.screen').forEach(s => {
-      s.classList.add('hidden');
-      s.classList.remove('behind');
-    });
-    showScreen(_activeRoot);
+    if (_activeRoot !== 'sHome') {
+      bnavGo('sHome', document.getElementById('bn_sHome'));
+    }
     return;
   }
   const cur = _stack.pop();
@@ -690,6 +687,7 @@ function goBack() {
   const prev = _stack.length ? _stack[_stack.length - 1] : _activeRoot;
   showScreen(prev);
 }
+
 
 function bnavGo(id, el) {
   stopAudio();
