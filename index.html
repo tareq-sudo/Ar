@@ -671,7 +671,8 @@ function navTo(id) {
   if (cur === id) return;
   behindScreen(cur);
   showScreen(id);
-  _stack.push(id);
+  _stack.push(id);if (id === 'sFavs') renderFavs();
+
 }
 
 /* ✅ إصلاح مشكلة الرجوع */
